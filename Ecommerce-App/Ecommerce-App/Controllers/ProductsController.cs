@@ -14,7 +14,13 @@ namespace Ecommerce_App.Controllers
             return View();
         }
 
-        public IActionResult Details()
+        public IActionResult Products()
+        {
+            return View();
+        }
+
+
+        public IActionResult All()
         {
             Product product = new Product()
             {
