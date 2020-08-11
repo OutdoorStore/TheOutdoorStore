@@ -31,11 +31,11 @@ namespace Ecommerce_App.Controllers
 
         public IActionResult GetSingleProduct()
         {
-            Product product = new Product()
+            Cereal cereal = new Cereal()
             {
                 Name = "test"
             };
-            return View("Products", product);
+            return View("Products", cereal);
         }
     }
 }

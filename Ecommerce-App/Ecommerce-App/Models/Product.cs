@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce_App.Models
 {
-    public class Product
+    public abstract class Product
     {
         public string Name { get; set; }
         

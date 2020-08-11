@@ -11,7 +11,7 @@ namespace Ecommerce_App.Controllers
     {
         public IActionResult Index()
         {
-            Product product = new Product()
+            Cereal cereal = new Cereal()
             {
                 Name = "test"
                 //mfr
@@ -30,7 +30,7 @@ namespace Ecommerce_App.Controllers
                 //cups
                 //rating
             };
-            return View(product);
+            return View(cereal);
         }
     }
 }
