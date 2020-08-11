@@ -9,4 +9,9 @@
     <Folder Include="Models\Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="bootstrap" Version="4.5.2" />
+    <PackageReference Include="bootstrap.sass" Version="4.5.2" />
+  </ItemGroup>
+
 </Project>
