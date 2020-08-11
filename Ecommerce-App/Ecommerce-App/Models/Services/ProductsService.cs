@@ -10,7 +10,8 @@ namespace Ecommerce_App.Models.Services
 {
     public class ProductsService : IProductsService
     {
-        public Collection<Cereal> GetData()
+
+        public Collection<Cereal> GetAllProducts()
         {
             Collection<Cereal> cerealData = new Collection<Cereal>();
             string path = Environment.CurrentDirectory;
@@ -46,6 +47,26 @@ namespace Ecommerce_App.Models.Services
             }
 
             return cerealData;
+        }
+
+        public Task<Cereal> GetSingleProduct(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Cereal> UpdateProduct(int id, Cereal cereal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Cereal> CreateProduct(Cereal cereal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteProduct(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

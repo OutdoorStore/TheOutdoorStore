@@ -26,7 +26,7 @@ namespace Ecommerce_App.Controllers
          
         public IActionResult GetAllProducts()
         {
-            return View("Products", _productsService.GetData());
+            return View("Products", _productsService.GetAllProducts());
         }
 
 
