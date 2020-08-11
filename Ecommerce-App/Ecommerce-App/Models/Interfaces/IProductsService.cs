@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ecommerce_App.Models.Interfaces
 {
-    public interface IProducts
+    public interface IProductsService
     {
-        public Collection<Cereal> GatherData(string path);
+        public Collection<Cereal> GetData();
 
     }
 }

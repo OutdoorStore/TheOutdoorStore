@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Ecommerce_App.Models.ViewModels.CerealVM>
+﻿@model IEnumerable<Ecommerce_App.Models.Cereal>
 
 <a href="/">Home</a>
 
@@ -22,10 +22,11 @@
         <tr>Rating</tr>
     </thead>
     <tbody>
-        @foreach (var cereal in IEnumerable<Ecommerce_App.Models.ViewModels.CerealVM>)
+        @foreach (var cereal in Model)
         {
-            <tr>@</tr>
-          
+            <tr>@cereal.Name</tr>
+
         }
+
     </tbody>
 </table>
