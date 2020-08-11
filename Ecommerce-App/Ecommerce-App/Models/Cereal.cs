@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Ecommerce_App.Models
 {
-    public class Cereal 
+    public class Cereal : Product
     {
-        public string Name { get; set; }
         public char Mfr { get; set; }
         public char Type { get; set; }
         public int Calories { get; set; }
