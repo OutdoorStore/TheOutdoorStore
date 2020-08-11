@@ -23,25 +23,23 @@ namespace Ecommerce_App.Models.Services
             {
                 string[] temp = myFile[i].Split(",");
 
-                Cereal cereal = new Cereal
-                {
-                    Name = temp[0],
-                    Mfr = char.Parse(temp[1]),
-                    Type = char.Parse(temp[2]),
-                    Calories = Int32.Parse(temp[3]),
-                    Protein = Int32.Parse(temp[4]),
-                    Fat = Int32.Parse(temp[5]),
-                    Sodium = Int32.Parse(temp[6]),
-                    Fiber = Int32.Parse(temp[7]),
-                    Carbo = Int32.Parse(temp[8]),
-                    Sugars = Int32.Parse(temp[9]),
-                    Potass = Int32.Parse(temp[10]),
-                    Vitamins = Int32.Parse(temp[11]),
-                    Shelf = Int32.Parse(temp[12]),
-                    Weight = Int32.Parse(temp[13]),
-                    Cups = decimal.Parse(temp[14]),
-                    Rating = decimal.Parse(temp[15]),
-                };
+                Cereal cereal = new Cereal();
+                cereal.Name = temp[0];
+                cereal.Mfr = char.Parse(temp[1]);
+                cereal.Type = char.Parse(temp[2]);
+                cereal.Calories = Int32.Parse(temp[3]);
+                cereal.Protein = Int32.Parse(temp[4]);
+                cereal.Fat = Int32.Parse(temp[5]);
+                cereal.Sodium = Int32.Parse(temp[6]);
+                cereal.Fiber = decimal.Parse(temp[7]);
+                cereal.Carbo = decimal.Parse(temp[8]);
+                cereal.Sugars = Int32.Parse(temp[9]);
+                cereal.Potass = Int32.Parse(temp[10]);
+                cereal.Vitamins = Int32.Parse(temp[11]);
+                cereal.Shelf = Int32.Parse(temp[12]);
+                cereal.Weight = decimal.Parse(temp[13]);
+                cereal.Cups = decimal.Parse(temp[14]);
+                cereal.Rating = decimal.Parse(temp[15]);
 
                 cerealData.Add(cereal);
             }

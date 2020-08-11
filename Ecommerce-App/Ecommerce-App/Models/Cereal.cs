@@ -16,13 +16,13 @@ namespace Ecommerce_App.Models
         public int Protein { get; set; }
         public int Fat { get; set; }
         public int Sodium { get; set; }
-        public int Fiber { get; set; }
-        public int Carbo { get; set; }
+        public decimal Fiber { get; set; }
+        public decimal Carbo { get; set; }
         public int Sugars { get; set; }
         public int Potass { get; set; }
         public int Vitamins { get; set; }
         public int Shelf { get; set; }
-        public int Weight { get; set; }
+        public decimal Weight { get; set; }
         public decimal Cups { get; set; }
         public decimal Rating { get; set; }
 
