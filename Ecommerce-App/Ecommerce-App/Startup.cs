@@ -52,6 +52,7 @@ namespace Ecommerce_App
                     .AddEntityFrameworkStores<UserDbContext>()
                     .AddDefaultTokenProviders();
 
+            // MAPPING - register the Dependency Injection Services:
             services.AddTransient<IProductsService, ProductsService>();
         }
 
