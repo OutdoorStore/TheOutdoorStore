@@ -22,7 +22,8 @@ namespace Ecommerce_App.Controllers
         {
             return View();
         }
-
+        
+         
         public IActionResult GetAllProducts()
         {
             return View("Products", _productsService.GetData());
@@ -37,5 +38,6 @@ namespace Ecommerce_App.Controllers
             };
             return View("Products", cereal);
         }
+
     }
 }
