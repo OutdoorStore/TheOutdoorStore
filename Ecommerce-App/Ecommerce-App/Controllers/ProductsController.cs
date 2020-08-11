@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ecommerce_App.Models;
+using Ecommerce_App.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce_App.Controllers
@@ -16,7 +17,7 @@ namespace Ecommerce_App.Controllers
 
         public IActionResult Products()
         {
-            return View();
+            return View("Products", CerealVM.GetData());
         }
 
 

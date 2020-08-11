@@ -1,4 +1,31 @@
-﻿@model Ecommerce_App.Models.Product
+﻿@model IEnumerable<Ecommerce_App.Models.ViewModels.CerealVM>
 
-<h2>@Model.Name</h2>
 <a href="/">Home</a>
+
+<table>
+    <thead>
+        <tr>Name</tr>
+        <tr>Manufacturer of Cereal</tr>
+        <tr>Type</tr>
+        <tr>Calories Per Serving</tr>
+        <tr>Grams of Protein</tr>
+        <tr>Grams of Fat</tr>
+        <tr>Milligrams Sodium</tr>
+        <tr>Grams of Dietary Fiber</tr>
+        <tr>Grams of Complex Carbohydrates</tr>
+        <tr>Grams of Sugars</tr>
+        <tr>Milligrams of Potassium</tr>
+        <tr>Vitamins</tr>
+        <tr>Shelf</tr>
+        <tr>Weight in Oz of One Serving</tr>
+        <tr>Number of Cups in One Serving</tr>
+        <tr>Rating</tr>
+    </thead>
+    <tbody>
+        @foreach (var cereal in IEnumerable<Ecommerce_App.Models.ViewModels.CerealVM>)
+        {
+            <tr>@</tr>
+          
+        }
+    </tbody>
+</table>
