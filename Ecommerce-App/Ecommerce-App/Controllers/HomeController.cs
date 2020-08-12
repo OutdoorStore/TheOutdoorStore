@@ -30,7 +30,7 @@ namespace Ecommerce_App.Controllers
                 //cups
                 //rating
             };
-            return View(cereal);
+            return View();
         }
     }
 }
