@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Ecommerce_App.Models
@@ -22,17 +23,17 @@ namespace Ecommerce_App.Models
             }
         };
 
-        public static void SeedData(IServiceProvider serviceProvider, UserManager<Customer> users, IConfiguration _config)
+        public static async Task SeedData(IServiceProvider serviceProvider, UserManager<Customer> users, IConfiguration _config)
         {
             using (var dbContext = new UserDbContext(serviceProvider.GetRequiredService<DbContextOptions<UserDbContext>>()))
             {
                 dbContext.Database.EnsureCreated();
                 AddRoles(dbContext);
-                SeedUsers(users, _config);
+                await SeedUsers(users, _config);
             }
         }
 
-        private static void SeedUsers(UserManager<Customer> userManager, IConfiguration _config)
+        private static async Task SeedUsers(UserManager<Customer> userManager, IConfiguration _config)
         {
             if (userManager.FindByEmailAsync(_config["AdminEmail"]).Result == null)
             {
@@ -47,6 +48,8 @@ namespace Ecommerce_App.Models
                 if (result.Succeeded)
                 {
                     userManager.AddToRoleAsync(user, ApplicationRoles.Admin).Wait();
+                    Claim claim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
+                    await userManager.AddClaimAsync(user, claim);
                 }
             }
         }

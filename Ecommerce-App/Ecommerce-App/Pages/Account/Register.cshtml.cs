@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Ecommerce_App.Models;
 using Microsoft.AspNetCore.Identity;
@@ -12,9 +13,12 @@ namespace Ecommerce_App.Pages.Account
     public class RegisterModel : PageModel
     {
         private UserManager<Customer> _userManager;
-        public RegisterModel(UserManager<Customer> userManager)
+        private SignInManager<Customer> _signInManager;
+
+        public RegisterModel(UserManager<Customer> userManager, SignInManager<Customer> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         [BindProperty]
         public RegisterViewModel Input { get; set; }
@@ -25,22 +29,28 @@ namespace Ecommerce_App.Pages.Account
 
         public async Task<IActionResult> OnPost()
         {
-            if (Input.Password == Input.ConfirmPassword)
+            if (ModelState.IsValid)
             {
-                Customer customer = new Customer()
+                if (Input.Password == Input.ConfirmPassword)
                 {
-                    FirstName = Input.FirstName,
-                    LastName = Input.LastName,
-                    Email = Input.Email,
-                    UserName = Input.Email
-                };
-                var result = await _userManager.CreateAsync(customer, Input.Password);
-                if (result.Succeeded)
-                {
-                    return RedirectToPage("Home");
+                    Customer customer = new Customer()
+                    {
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        Email = Input.Email,
+                        UserName = Input.Email
+                    };
+                    var result = await _userManager.CreateAsync(customer, Input.Password);
+                    if (result.Succeeded)
+                    {
+                        Claim claim = new Claim("FullName", $"{Input.FirstName} {Input.LastName}");
+                        await _userManager.AddClaimAsync(customer, claim);
+                        await _signInManager.SignInAsync(customer, isPersistent: false);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
-            return RedirectToPage("Index");
+            return Page();
         }
 
         public class RegisterViewModel
