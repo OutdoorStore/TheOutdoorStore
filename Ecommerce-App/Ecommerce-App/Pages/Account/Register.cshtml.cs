@@ -39,11 +39,6 @@ namespace Ecommerce_App.Pages.Account
                 {
                     return RedirectToPage("Home");
                 }
-                else
-                {
-                    //return Redirect("Shared/Error/?message=\"We\'ve encountered an error and can\'t register you at the moment :(\"");
-                    return Redirect("../Shared/Error");
-                }
             }
             return RedirectToPage("Index");
         }
