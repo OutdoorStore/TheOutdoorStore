@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce_App.Models.Interfaces
 {
-    interface IImage
+    public interface IImage
     {
         Task UploadImage();
     }
