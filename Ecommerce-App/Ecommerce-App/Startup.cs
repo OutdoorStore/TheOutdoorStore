@@ -34,7 +34,7 @@ namespace Ecommerce_App
 
             // Registering our DbContext
 
-            //Products DB:
+            // Products DB:
             services.AddDbContext<StoreDbContext>(options =>
             {
                 // Install-Package Microsoft.EntityFrameworkCore.SqlServer
@@ -48,9 +48,12 @@ namespace Ecommerce_App
                 options.UseSqlServer(Configuration.GetConnectionString("UserConnection"));
             });
 
+            // Uses Asp.Net Identity Framework
             services.AddIdentity<Customer, IdentityRole>()
                     .AddEntityFrameworkStores<UserDbContext>()
                     .AddDefaultTokenProviders();
+            // Policies for Authorizaton
+            services.AddAuthorization(options => options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin)));
 
             // MAPPING - register the Dependency Injection Services:
             services.AddTransient<IProductsService, ProductsService>();
@@ -66,6 +69,7 @@ namespace Ecommerce_App
 
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
