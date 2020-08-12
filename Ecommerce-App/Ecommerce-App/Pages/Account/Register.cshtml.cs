@@ -16,16 +16,36 @@ namespace Ecommerce_App.Pages.Account
         {
             _userManager = userManager;
         }
+        [BindProperty]
         public RegisterViewModel Input { get; set; }
 
         public void OnGet()
         {
-
         }
 
-        public void OnPost()
+        public async Task<IActionResult> OnPost()
         {
-
+            if (Input.Password == Input.ConfirmPassword)
+            {
+                Customer customer = new Customer()
+                {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Email = Input.Email,
+                    UserName = Input.Email
+                };
+                var result = await _userManager.CreateAsync(customer, Input.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToPage("Home");
+                }
+                else
+                {
+                    //return Redirect("Shared/Error/?message=\"We\'ve encountered an error and can\'t register you at the moment :(\"");
+                    return Redirect("../Shared/Error");
+                }
+            }
+            return RedirectToPage("Index");
         }
 
         public class RegisterViewModel
