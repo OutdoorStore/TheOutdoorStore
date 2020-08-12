@@ -54,6 +54,8 @@ namespace Ecommerce_App
 
             // MAPPING - register the Dependency Injection Services:
             services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<IImage, Blob>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
