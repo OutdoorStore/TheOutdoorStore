@@ -10,6 +10,15 @@ namespace Ecommerce_App.Models.Services
 {
     public class ProductsService : IProductsService
     {
+        public Task<Product> CreateProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteProduct(int id)
+        {
+            throw new NotImplementedException();
+        }
 
         public Collection<Cereal> GetAllProducts()
         {
@@ -49,22 +58,17 @@ namespace Ecommerce_App.Models.Services
             return cerealData;
         }
 
-        public Task<Cereal> GetSingleProduct(int id)
+        public Task<Product> GetSingleProduct(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Cereal> UpdateProduct(int id, Cereal cereal)
+        public Task<Product> UpdateProduct(int id, Product product)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Cereal> CreateProduct(Cereal cereal)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteProduct(int id)
+        Collection<Product> IProductsService.GetAllProducts()
         {
             throw new NotImplementedException();
         }
