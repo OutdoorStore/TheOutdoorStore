@@ -23,7 +23,7 @@ namespace Ecommerce_App.Models
             }
         };
 
-        public static async Task SeedData(IServiceProvider serviceProvider, UserManager<Customer> users, IConfiguration _config)
+        public static async void SeedData(IServiceProvider serviceProvider, UserManager<Customer> users, IConfiguration _config)
         {
             using (var dbContext = new UserDbContext(serviceProvider.GetRequiredService<DbContextOptions<UserDbContext>>()))
             {
