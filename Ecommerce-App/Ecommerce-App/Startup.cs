@@ -54,7 +54,7 @@ namespace Ecommerce_App
 
             // MAPPING - register the Dependency Injection Services:
             services.AddTransient<IProductsService, ProductsService>();
-            services.AddTransient<IImage, Blob>();
+            services.AddScoped<IImage, Blob>();
 
         }
 
