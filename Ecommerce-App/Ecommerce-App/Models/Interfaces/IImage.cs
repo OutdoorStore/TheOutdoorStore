@@ -7,6 +7,6 @@ namespace Ecommerce_App.Models.Interfaces
 {
     public interface IImage
     {
-        Task UploadImage();
+        Task UploadImage(string containerName, string fileName, string filePath);
     }
 }
