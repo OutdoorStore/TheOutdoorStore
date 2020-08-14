@@ -12,8 +12,6 @@ namespace Ecommerce_App.Models.Services
 {
     public class Blob : IImage
     {
-        // All of our logic to manage the uploading of blob. 
-
         public CloudStorageAccount CloudStorageAccount { get; set; }
 
         public CloudBlobClient CloudBlobClient { get; set; }

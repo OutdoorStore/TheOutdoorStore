@@ -53,7 +53,7 @@ namespace Ecommerce_App
                     .AddDefaultTokenProviders();
 
             // MAPPING - register the Dependency Injection Services:
-            services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<IProductsService, InventoryManagement>();
             services.AddScoped<IImage, Blob>();
 
         }

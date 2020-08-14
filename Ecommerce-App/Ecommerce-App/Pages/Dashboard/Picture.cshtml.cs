@@ -36,7 +36,7 @@ namespace Ecommerce_App.Pages.Dashboard
 
         public void OnGet(int id)
         {
-            // TODO
+            // TODO:
             // use _product service to get the product by id.
             // set the product property to our service result
         }
@@ -50,7 +50,6 @@ namespace Ecommerce_App.Pages.Dashboard
             string ext = Path.GetExtension(Input.File.FileName);
             string fileName = Input.File.FileName;
             string contentType = Input.File.ContentType;
-            // Setting the file name to a GUID
 
             if (Input.File != null)
             {
@@ -65,10 +64,6 @@ namespace Ecommerce_App.Pages.Dashboard
             }
 
             Blob blob = new Blob(_configuration);
-
-            //string fileName = Guid.NewGuid().ToString();
-
-            //await blob.UploadImage("images", Input.File.FileName, localPath);
 
             var resultBlob = await blob.GetBlob(Input.File.FileName, "images");
 
