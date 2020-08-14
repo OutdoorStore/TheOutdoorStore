@@ -1,9 +1,19 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @using Ecommerce_App.Models;
-@inject SignInManager<Customer> SignInManager
+@inject SignInManager<Customer> SignInManager;
+@inject UserManager<Customer> UserManager;
+
 
 <nav class="navbar navbar-light navbar-expand">
-    <a asp-controller="Home" asp-action="Index" class="navbar-brand">The Outdoor Company</a>
+    <a asp-controller="Home" asp-action="Index" class="navbar-brand">The Outdoor Store</a>
+    <ul class="navbar-nav">
+        <li class="navbar-item">
+            <a class="nav-link">Products</a>
+        </li>
+        <li class="navbar-item">
+            <a class="nav-link">About Us</a>
+        </li>
+    </ul>
     <ul class="navbar-nav ml-auto">
         @if (SignInManager.IsSignedIn(User))
         {
