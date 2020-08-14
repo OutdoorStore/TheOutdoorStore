@@ -52,6 +52,7 @@ namespace Ecommerce_App
             services.AddIdentity<Customer, IdentityRole>()
                     .AddEntityFrameworkStores<UserDbContext>()
                     .AddDefaultTokenProviders();
+
             // Policies for Authorizaton
             services.AddAuthorization(options => options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin)));
 

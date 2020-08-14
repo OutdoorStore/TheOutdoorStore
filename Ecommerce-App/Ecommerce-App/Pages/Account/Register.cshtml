@@ -1,11 +1,11 @@
 ﻿@page
 @model Ecommerce_App.Pages.Account.RegisterModel
 @{
-    ViewBag.Title = "Register";
-    Layout = "../Shared/_Layout";
+    ViewData["Title"] = "Register";
+    Layout = "_Layout";
 }
 
-<h1>Register</h1>
+<h2>Register</h2>
 <form method="post">
     <div class="form-group row">
         <label asp-for="@Model.Input.FirstName" for="firstName" class="col-3 col-form-label">First Name</label>

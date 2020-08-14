@@ -2,19 +2,31 @@
 @model Ecommerce_App.Pages.Account.LoginModel
 @{
     ViewData["Title"] = "Login";
+    Layout = "_Layout";
 }
 
-<h1>Login</h1>
+<h2>Login</h2>
 
 <form method="post">
-
     <div asp-validation-summary="All"></div>
-    <label asp-for="@Model.Input.Email"></label>
-    <input asp-for="@Model.Input.Email" /> <br /><br />
 
-    <label asp-for="@Model.Input.Password"></label>
-    <input asp-for="@Model.Input.Password" /> <br /><br />
+    <div class="form-group row">
+        <label asp-for="@Model.Input.Email" for="email" class="col-3 col-form-label" required></label>
+        <div class="col-9">
+            <input asp-for="@Model.Input.Email" class="form-control" id="email" />
+        </div>
+    </div>
 
-    <button type="submit">LOGIN</button>
+    <div class="form-group row">
+        <label asp-for="@Model.Input.Password" for="password" class="col-3 col-form-label"></label>
+        <div class="col-9">
+            <input asp-for="@Model.Input.Password" type="password" class="form-control" id="password" required />
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-3 offset-3">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </div>
 </form>
