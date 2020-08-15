@@ -31,14 +31,17 @@ namespace Ecommerce_App.Pages.Dashboard
 
         [BindProperty]
         public ImageViewModel Input { get; set; }
-
+      
+        [BindProperty]
         public Product Product { get; set; }
 
-        public void OnGet(int id)
+        public async Task<IActionResult> OnGet(int id)
         {
-            // TODO:
             // use _product service to get the product by id.
-            // set the product property to our service result
+            // set the product property to our service result:
+            Product = await _productService.GetSingleProduct(id);
+            
+            return Page();
         }
 
         public async Task<IActionResult> OnPost()
@@ -69,8 +72,11 @@ namespace Ecommerce_App.Pages.Dashboard
 
             string imageUri = resultBlob.Uri.ToString();
 
-            // TODO save to DB: set product.Image tp image Uri
+            // save to DB: set product.Image to image Uri
             // and update the product in the DB
+            Product = await _productService.GetSingleProduct(Product.Id);
+            Product.Image = imageUri;
+            await _productService.UpdateProduct(Product.Id, Product);
 
             return RedirectToAction("Index", "Home");
         }
