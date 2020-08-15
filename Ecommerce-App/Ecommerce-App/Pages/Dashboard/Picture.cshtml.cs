@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.Auth.AccessControlPolicy;
 using Azure.Storage.Blobs;
 using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Ecommerce_App.Models.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,6 +18,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Ecommerce_App.Pages.Dashboard
 {
+    [Authorize(Policy = "AdminOnly")]
     public class PictureModel : PageModel
     {
         private IImage _image;
