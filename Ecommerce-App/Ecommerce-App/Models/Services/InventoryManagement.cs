@@ -1,4 +1,6 @@
-﻿using Ecommerce_App.Models.Interfaces;
+﻿using Ecommerce_App.Data;
+using Ecommerce_App.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,29 +11,70 @@ namespace Ecommerce_App.Models.Services
 {
     public class InventoryManagement : IProductsService
     {
-        public Task<Product> CreateProduct(Product product)
+        private StoreDbContext _storeDbContext;
+
+        public InventoryManagement(StoreDbContext storeDbContext)
         {
-            throw new NotImplementedException();
+            _storeDbContext = storeDbContext;
+        }
+        public async Task<Product> CreateProduct(Product product)
+        {
+            _storeDbContext.Entry(product).State = EntityState.Added;
+            await _storeDbContext.SaveChangesAsync();
+
+            return product;
         }
 
-        public Task DeleteProduct(int id)
+        public async Task DeleteProduct(int id)
         {
-            throw new NotImplementedException();
+            Product product = await _storeDbContext.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return;
+            }
+            else
+            {
+                _storeDbContext.Entry(product).State = EntityState.Deleted;
+                await _storeDbContext.SaveChangesAsync();
+            }
         }
 
-        public Collection<Product> GetAllProducts()
+        public async Task<Product> GetSingleProduct(int id)
         {
-            throw new NotImplementedException();
+            Product product = await _storeDbContext.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return null;
+            }
+            else
+            {
+                return product;
+            }
         }
 
-        public Task<Product> GetSingleProduct(int id)
+        public async Task<Product> UpdateProduct(int id, Product product)
         {
-            throw new NotImplementedException();
+            if (product == null)
+            {
+                return null;
+            }
+            else
+            {
+                _storeDbContext.Entry(product).State = EntityState.Modified;
+
+                await _storeDbContext.SaveChangesAsync();
+
+                return product;
+            }
         }
 
-        public Task<Product> UpdateProduct(int id, Product product)
+        public async Task<List<Product>> GetAllProducts()
         {
-            throw new NotImplementedException();
+            var products = await _storeDbContext.Products.ToListAsync();
+
+            return products;
         }
     }
 }

@@ -12,8 +12,6 @@ namespace Ecommerce_App.Models.Services
 {
     public class Blob : IImage
     {
-        // All of our logic to manage the uploading of blob. 
-
         public CloudStorageAccount CloudStorageAccount { get; set; }
 
         public CloudBlobClient CloudBlobClient { get; set; }
@@ -31,7 +29,10 @@ namespace Ecommerce_App.Models.Services
         {
             CloudBlobContainer container = CloudBlobClient.GetContainerReference(containerName);
             await container.CreateIfNotExistsAsync();
-            await container.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
+            await container.SetPermissionsAsync(new BlobContainerPermissions 
+            { 
+                PublicAccess = BlobContainerPublicAccessType.Blob 
+            });
 
             return container;
         }
@@ -45,13 +46,15 @@ namespace Ecommerce_App.Models.Services
             return blob;
         }
 
-        public async Task UploadImage(string containerName, string fileName, string filePath)
+        public async Task UploadImage(string containerName, string fileName, byte[] image, string contentType)
         {
             var container = await GetContainer(containerName);
 
             var blobFile =  container.GetBlockBlobReference(fileName);
 
-            await blobFile.UploadFromFileAsync(filePath);
+            blobFile.Properties.ContentType = contentType;
+            
+            await blobFile.UploadFromByteArrayAsync(image, 0, image.Length);
         }
     }
 }

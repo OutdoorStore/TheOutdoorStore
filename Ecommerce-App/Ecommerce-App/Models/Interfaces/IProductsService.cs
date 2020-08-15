@@ -8,13 +8,13 @@ namespace Ecommerce_App.Models.Interfaces
 {
     public interface IProductsService
     {
-        
+
         /// <summary>
         /// Returns a collection of all the products in the 
         /// database.
         /// </summary>
         /// <returns>A collection of all products</returns>
-        Collection<Product> GetAllProducts();
+        Task<List<Product>> GetAllProducts();
 
         /// <summary>
         /// Returns a specific product from the database table,

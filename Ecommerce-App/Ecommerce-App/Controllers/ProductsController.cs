@@ -6,12 +6,10 @@ using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Ecommerce_App.Models.Services;
 using Ecommerce_App.Models.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce_App.Controllers
 {
-    [Authorize(Policy = "AdminOnly")]
     public class ProductsController : Controller
     {
         private readonly IProductsService _productsService;
@@ -24,21 +22,19 @@ namespace Ecommerce_App.Controllers
         {
             return View();
         }
-
-        [AllowAnonymous]
-        public IActionResult GetAllProducts()
+        
+         
+        public async Task<ActionResult> GetAllProducts()
         {
-            return View("Products", _productsService.GetAllProducts());
+            return View("Products", await _productsService.GetAllProducts());
         }
 
-        [AllowAnonymous]
-        public IActionResult GetSingleProduct()
+
+        public async Task<ActionResult<Product>> GetSingleProduct(int id)
         {
-            Cereal cereal = new Cereal()
-            {
-                Name = "test"
-            };
-            return View("Products", cereal);
+            Product product = await _productsService.GetSingleProduct(id);
+
+            return View("Products", product);
         }
 
     }
