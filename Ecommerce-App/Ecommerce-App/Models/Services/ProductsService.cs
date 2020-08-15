@@ -1,4 +1,6 @@
-﻿using Ecommerce_App.Models.Interfaces;
+﻿using Ecommerce_App.Data;
+using Ecommerce_App.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,67 +12,113 @@ namespace Ecommerce_App.Models.Services
 {
     public class ProductsService : IProductsService
     {
-        public Task<Product> CreateProduct(Product product)
+        private StoreDbContext _storeDbContext;
+
+        public ProductsService(StoreDbContext storeDbContext)
         {
-            throw new NotImplementedException();
+            _storeDbContext = storeDbContext;
+        }
+        public async Task<Product> CreateProduct(Product product)
+        {
+            _storeDbContext.Entry(product).State = EntityState.Added;
+            await _storeDbContext.SaveChangesAsync();
+
+            return product;
         }
 
-        public Task DeleteProduct(int id)
+        public async Task DeleteProduct(int id)
         {
-            throw new NotImplementedException();
-        }
+            Product product = await _storeDbContext.Products.FindAsync(id);
 
-        public Collection<Cereal> GetAllProducts()
-        {
-            Collection<Cereal> cerealData = new Collection<Cereal>();
-            string path = Environment.CurrentDirectory;
-            string newPath = Path.GetFullPath(Path.Combine(path, @"wwwroot\cereal.csv"));
-            string[] myFile = File.ReadAllLines(newPath);
-
-            for (int i = 1; i < myFile.Length; i++)
+            if(product == null)
             {
-                string[] temp = myFile[i].Split(",");
+                return;
+            }
+            else
+            {
+                _storeDbContext.Entry(product).State = EntityState.Deleted;
+                await _storeDbContext.SaveChangesAsync();
+            }
+        }
 
-                Cereal cereal = new Cereal 
-                {
-                    Name = temp[0],
-                    Mfr = char.Parse(temp[1]),
-                    Type = char.Parse(temp[2]),
-                    Calories = Int32.Parse(temp[3]),
-                    Protein = Int32.Parse(temp[4]),
-                    Fat = Int32.Parse(temp[5]),
-                    Sodium = Int32.Parse(temp[6]),
-                    Fiber = decimal.Parse(temp[7]),
-                    Carbo = decimal.Parse(temp[8]),
-                    Sugars = Int32.Parse(temp[9]),
-                    Potass = Int32.Parse(temp[10]),
-                    Vitamins = Int32.Parse(temp[11]),
-                    Shelf = Int32.Parse(temp[12]),
-                    Weight = decimal.Parse(temp[13]),
-                    Cups = decimal.Parse(temp[14]),
-                    Rating = decimal.Parse(temp[15])
-                };
+        //public Collection<Cereal> GetAllProducts()
+        //{
+        //    Collection<Cereal> cerealData = new Collection<Cereal>();
+        //    string path = Environment.CurrentDirectory;
+        //    string newPath = Path.GetFullPath(Path.Combine(path, @"wwwroot\cereal.csv"));
+        //    string[] myFile = File.ReadAllLines(newPath);
+
+        //    for (int i = 1; i < myFile.Length; i++)
+        //    {
+        //        string[] temp = myFile[i].Split(",");
+
+        //        Cereal cereal = new Cereal 
+        //        {
+        //            Name = temp[0],
+        //            Mfr = char.Parse(temp[1]),
+        //            Type = char.Parse(temp[2]),
+        //            Calories = Int32.Parse(temp[3]),
+        //            Protein = Int32.Parse(temp[4]),
+        //            Fat = Int32.Parse(temp[5]),
+        //            Sodium = Int32.Parse(temp[6]),
+        //            Fiber = decimal.Parse(temp[7]),
+        //            Carbo = decimal.Parse(temp[8]),
+        //            Sugars = Int32.Parse(temp[9]),
+        //            Potass = Int32.Parse(temp[10]),
+        //            Vitamins = Int32.Parse(temp[11]),
+        //            Shelf = Int32.Parse(temp[12]),
+        //            Weight = decimal.Parse(temp[13]),
+        //            Cups = decimal.Parse(temp[14]),
+        //            Rating = decimal.Parse(temp[15])
+        //        };
                 
 
-                cerealData.Add(cereal);
+        //        cerealData.Add(cereal);
+        //    }
+
+        //    return cerealData;
+        //}
+
+        public async Task<Product> GetSingleProduct(int id)
+        {
+            Product product = await _storeDbContext.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return null;
             }
-
-            return cerealData;
+            else
+            {
+                return product;
+            }
         }
 
-        public Task<Product> GetSingleProduct(int id)
+        public async Task<Product> UpdateProduct(int id, Product product)
         {
-            throw new NotImplementedException();
+            if(product == null)
+            {
+                return null;
+            }
+            else
+            {
+                _storeDbContext.Entry(product).State = EntityState.Modified;
+
+                await _storeDbContext.SaveChangesAsync();
+
+                return product;
+            }
         }
 
-        public Task<Product> UpdateProduct(int id, Product product)
+        public async Task<List<Product>> GetAllProducts()
         {
-            throw new NotImplementedException();
-        }
+            var products = await _storeDbContext.Products.ToListAsync();
 
-        Collection<Product> IProductsService.GetAllProducts()
-        {
-            throw new NotImplementedException();
+            List<Product> allProducts = new List<Product>();
+            foreach (var item in products)
+            {
+                allProducts.Add(item);
+            };
+            return allProducts;
         }
     }
 }

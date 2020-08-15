@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Ecommerce_App.Models.Cereal>
+﻿@model List<Ecommerce_App.Models.Product>
 
 <a href="/">Home</a>
 
@@ -12,43 +12,19 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Manufacturer of Cereal</th>
-            <th>Type</th>
-            <th>Calories Per Serving</th>
-            <th>Grams of Protein</th>
-            <th>Grams of Fat</th>
-            <th>Milligrams Sodium</th>
-            <th>Grams of Dietary Fiber</th>
-            <th>Grams of Complex Carbohydrates</th>
-            <th>Grams of Sugars</th>
-            <th>Milligrams of Potassium</th>
-            <th>Vitamins</th>
-            <th>Shelf</th>
-            <th>Weight in Oz of One Serving</th>
-            <th>Number of Cups in One Serving</th>
-            <th>Rating</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var cereal in Model)
+        @foreach (var product in Model)
         {
         <tr>
-            <td>@cereal.Name</td>
-            <td>@cereal.Mfr</td>
-            <td>@cereal.Type</td>
-            <td>@cereal.Calories</td>
-            <td>@cereal.Protein</td>
-            <td>@cereal.Fat</td>
-            <td>@cereal.Sodium</td>
-            <td>@cereal.Fiber</td>
-            <td>@cereal.Carbo</td>
-            <td>@cereal.Sugars</td>
-            <td>@cereal.Potass</td>
-            <td>@cereal.Vitamins</td>
-            <td>@cereal.Shelf</td>
-            <td>@cereal.Weight</td>
-            <td>@cereal.Cups</td>
-            <td>@cereal.Rating</td>
+            <td>@product.Name</td>
+            <td>@product.Description</td>
+            <td>@product.Price</td>
+            <img src="@product.Image" />
         </tr>
         }
     </tbody>

@@ -24,19 +24,17 @@ namespace Ecommerce_App.Controllers
         }
         
          
-        public IActionResult GetAllProducts()
+        public async Task<ActionResult> GetAllProducts()
         {
-            return View("Products", _productsService.GetAllProducts());
+            return View("Products", await _productsService.GetAllProducts());
         }
 
 
-        public IActionResult GetSingleProduct()
+        public async Task<ActionResult<Product>> GetSingleProduct(int id)
         {
-            Cereal cereal = new Cereal()
-            {
-                Name = "test"
-            };
-            return View("Products", cereal);
+            Product product = await _productsService.GetSingleProduct(id);
+
+            return View("Products", product);
         }
 
     }
