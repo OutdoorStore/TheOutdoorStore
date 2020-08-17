@@ -14,12 +14,15 @@ namespace Ecommerce_App.Pages.Account
     {
         private UserManager<Customer> _userManager;
         private SignInManager<Customer> _signInManager;
+        private IEmailSender _emailSenderService;
 
-        public RegisterModel(UserManager<Customer> userManager, SignInManager<Customer> signInManager)
+        public RegisterModel(UserManager<Customer> userManager, SignInManager<Customer> signInManager, IEmailSender emailSenderService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSenderService = emailSenderService;
         }
+
         [BindProperty]
         public RegisterViewModel Input { get; set; }
 
