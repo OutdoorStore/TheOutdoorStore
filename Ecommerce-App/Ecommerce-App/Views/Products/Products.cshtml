@@ -21,7 +21,7 @@
         @foreach (var product in Model)
         {
             <tr>
-                <td>@product.Name</td>
+                <td><form asp-controller="Products" asp-action="GetSingleProduct" method="post"><input type="hidden" name="id" value="@product.Id" /><button type="submit">@product.Name</button></form></td>
                 <td>@product.Description</td>
                 <td>@product.Price</td>
                 <td><img src="@product.Image" /></td>
