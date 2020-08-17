@@ -1,12 +1,12 @@
-﻿@model List<Ecommerce_App.Models.Product>
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Products";
+}
+@model List<Ecommerce_App.Models.Product>
 
-<a href="/">Home</a>
 
-@*TODO add form*@
-@*<form method="post>">
-    <input type="text" asp-for="Model."/>
-    <button type="submit">Search</button>
-</form>*@
+@*TODO add search and filter functionality*@
+
 
 <table>
     <thead>
@@ -20,12 +20,12 @@
     <tbody>
         @foreach (var product in Model)
         {
-        <tr>
-            <td>@product.Name</td>
-            <td>@product.Description</td>
-            <td>@product.Price</td>
-            <img src="@product.Image" />
-        </tr>
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td><img src="@product.Image" /></td>
+            </tr>
         }
     </tbody>
 </table>

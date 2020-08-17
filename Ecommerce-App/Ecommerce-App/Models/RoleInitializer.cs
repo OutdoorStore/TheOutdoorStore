@@ -48,8 +48,13 @@ namespace Ecommerce_App.Models
                 if (result.Succeeded)
                 {
                     userManager.AddToRoleAsync(user, ApplicationRoles.Admin).Wait();
-                    Claim claim = new Claim("FullName", $"{user.FirstName} {user.LastName}");
-                    await userManager.AddClaimAsync(user, claim);
+                    List<Claim> claims = new List<Claim>()
+                        {
+                            new Claim("FirstName", user.FirstName),
+                            new Claim("LastName", user.LastName),
+                            new Claim(ClaimTypes.Role, ApplicationRoles.Admin)
+                        };
+                    await userManager.AddClaimsAsync(user, claims);
                 }
             }
         }
@@ -58,7 +63,7 @@ namespace Ecommerce_App.Models
         {
             if (context.Roles.Any()) return;
 
-            foreach(var role in Roles)
+            foreach (var role in Roles)
             {
                 context.Roles.Add(role);
                 context.SaveChanges();
