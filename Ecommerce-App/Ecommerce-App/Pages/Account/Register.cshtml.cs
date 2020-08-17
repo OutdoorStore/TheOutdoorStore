@@ -7,6 +7,9 @@ using Ecommerce_App.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Ecommerce_App.Pages.Account
 {
@@ -48,7 +51,16 @@ namespace Ecommerce_App.Pages.Account
                     {
                         Claim claim = new Claim("FullName", $"{Input.FirstName} {Input.LastName}");
                         await _userManager.AddClaimAsync(customer, claim);
+
+                        //sign in the user 
                         await _signInManager.SignInAsync(customer, isPersistent: false);
+
+                        // Send registration confirmation to new user
+                        string subject = "Welcome to The Outdoor Store!";
+                        string htmlMessage = $"<h1>Thank you {customer.FirstName} for joining us at The Outdoor Store.</h1>";
+
+                        await _emailSenderService.SendEmailAsync(customer.Email, subject, htmlMessage);
+
                         return RedirectToAction("Index", "Home");
                     }
                 }
