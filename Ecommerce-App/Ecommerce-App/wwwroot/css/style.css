@@ -1,0 +1,35 @@
+/*Nav Bar*/
+#all nav {
+    background-color: #F0E9EF;
+}
+#all #companyName {
+    font-family: 'Comfortaa', cursive;
+    margin-left: .7rem;
+}
+#all .navbar-nav {
+    font-family: 'Quicksand', sans-serif;
+}
+#all #logo {
+    max-height: 50px;
+}
+#all nav button {
+    border: none;
+    background: none;
+    color: rgba(0,0,0,.5);
+    padding: 0 0 0 0;
+}
+
+/*Index Page*/
+#all #heroImageContainer {
+    max-width: 100%;
+    position: relative;
+}
+
+#all #heroImageContainer img {
+    max-width: 100%;
+}
+#all #quote {
+    position: absolute;
+    font-size: large;
+    margin: 5rem 0 0 10rem;
+}

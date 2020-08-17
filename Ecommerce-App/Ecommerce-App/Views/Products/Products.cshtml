@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Products";
+}
+@model List<Ecommerce_App.Models.Product>
+
+
+@*TODO add search and filter functionality*@
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td><img src="@product.Image" /></td>
+            </tr>
+        }
+    </tbody>
+</table>

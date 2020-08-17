@@ -1,20 +1,48 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Ecommerce App
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+*Authors: Na'ama Bar-ilan, Peyton Cysewski*
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+----
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Description
+This program is an ECommerce mock website built out over several weeks, adding new features each day. The process of making it will serve as a learning opportunity to understand the ins and outs of an online product retail service.
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+### ECommerce Products
+Our fictional ECommerce store is called 'The Outdoor Store' and it sells a variety of outdoor gear. Right now we are specializing in outdoor climbing bags at a wide range of styles and prices.
+
+
+---
+
+### Getting Started
+Clone this repository to your local machine.
+
+```
+$ git clone https://barilannaama@dev.azure.com/barilannaama/ECOM/_git/ECOM
+```
+
+### To run the program from Visual Studio:
+Select ```File``` -> ```Open``` -> ```Project/Solution```
+
+Next navigate to the location you cloned the Repository.
+
+Double click on the ```Ecommerce-App``` directory.
+
+Then select and open ```Ecommerce-App.sln```
+
+---
+
+### Technical Details
+
+#### Athentication
+Users are authenticated by the submission of their email and password located in a form on the Login page.
+
+#### Authorization
+- Anonymous Users: All anonymous users can view the Home, Products, About Us, Login, and Register pages.
+- Signed-in Users: Once a user is registered and subsequently logs in, they receive a personalized greeting and an option to log out. Their greeting is created using claims for their first and last name upon registration.
+- Admins: They have the same accessiblity as a signed-in user and they can also access and view the Dashboard page and upload or update a new image for an existing product. Their role as an admin is added to their claim upon creation/seeding of the database.
+
+---
+
+### Change Log
+1.1: *Sprint 1* - 16 August 2020
+1.0: *Initial Release, Lab 26* - 8 August 2020
