@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 
 namespace Ecommerce_App
 {
@@ -59,6 +61,7 @@ namespace Ecommerce_App
             // MAPPING - register the Dependency Injection Services:
             services.AddTransient<IProductsService, InventoryManagement>();
             services.AddScoped<IImage, Blob>();
+            services.AddTransient<IEmailSender, EmailSenderService>();
 
         }
 
