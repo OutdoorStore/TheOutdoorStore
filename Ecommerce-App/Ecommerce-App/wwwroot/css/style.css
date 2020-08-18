@@ -1,3 +1,8 @@
+/*Body*/
+#all main {
+    padding-top: 66px;
+}
+
 /*Nav Bar*/
 #all nav {
     background-color: #F0E9EF;
@@ -32,4 +37,17 @@
     position: absolute;
     font-size: large;
     margin: 5rem 0 0 10rem;
+}
+
+/*Products Page*/
+#all #productCard:hover {
+    cursor: pointer;
+}
+
+/*Individual Product Page*/
+#all #imageContainer {
+    display: inline-block;
+}
+#all #textContainer {
+    display: inline-block;
 }
