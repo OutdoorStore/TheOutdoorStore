@@ -13,6 +13,11 @@ namespace Ecommerce_App.Models
         public decimal Price { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+
+        // Navigation property
+
+        public List<CartItem> CartItems { get; set; }
+
     }
 
 }
