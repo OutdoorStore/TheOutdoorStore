@@ -1,4 +1,11 @@
 ﻿@model Ecommerce_App.Models.Product
+
+@using Microsoft.AspNetCore.Identity;
+@using Ecommerce_App.Models;
+
+@inject SignInManager<Customer> SignInManager;
+@inject UserManager<Customer> UserManager;
+
 @{
     Layout = "_Layout";
     ViewData["Title"] = Model.Name;
@@ -14,9 +21,9 @@
 </div>
 
 
-@*Add to cart*@
-@*TODO: Bring in CartId, ProductId, 
- asp-controller="CartItem" asp-action="CreateCartItem"*@
+@*ADD to cart*@
+@*TODO: Bring in CartId, ProductId,
+    asp-controller="CartItem" asp-action="CreateCartItem"*@
 
 <form method="post">
     <div class="row">
