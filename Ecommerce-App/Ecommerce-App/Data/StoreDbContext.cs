@@ -115,5 +115,6 @@ namespace Ecommerce_App.Data
 
         // db sets
         public DbSet<Product> Products { get; set; }
+        public DbSet<Cart> Cart { get; set; }
     }
 }

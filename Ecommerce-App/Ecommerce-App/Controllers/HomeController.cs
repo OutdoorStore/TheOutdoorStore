@@ -11,25 +11,6 @@ namespace Ecommerce_App.Controllers
     {
         public IActionResult Index()
         {
-            Cereal cereal = new Cereal()
-            {
-                Name = "test"
-                //mfr
-                //type
-                //calories
-                //protein
-                //fat
-                //sodium
-                //fiber
-                //carbo
-                //sugars
-                //otass
-                //vitamins
-                //shelf
-                //weight
-                //cups
-                //rating
-            };
             return View();
         }
     }
