@@ -12,3 +12,16 @@
         <div id="desc">@Model.Description</div>
     </div>
 </div>
+
+
+@*Add to cart*@
+@*TODO: Bring in CartId, ProductId, 
+ asp-controller="CartItem" asp-action="CreateCartItem"*@
+
+<form method="post">
+    <div class="row">
+        <div class="col-3 offset-3">
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </div>
+    </div>
+</form>
