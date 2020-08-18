@@ -34,7 +34,7 @@ namespace Ecommerce_App.Controllers
         {
             Product product = await _productsService.GetSingleProduct(id);
 
-            return View("Products", product);
+            return View("Product", product);
         }
 
     }
