@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Ecommerce_App.Models.Services;
-using Ecommerce_App.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce_App.Controllers

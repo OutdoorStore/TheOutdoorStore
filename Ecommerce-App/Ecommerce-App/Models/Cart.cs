@@ -10,5 +10,9 @@ namespace Ecommerce_App.Models
         public int Id { get; set; }
 
         public int UserId { get; set; }
+
+        // Nav Prop
+
+        public List<CartItem> CartItems { get; set; }
     }
 }
