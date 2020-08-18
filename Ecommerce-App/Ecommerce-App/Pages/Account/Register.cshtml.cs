@@ -52,10 +52,17 @@ namespace Ecommerce_App.Pages.Account
                         Claim claim = new Claim("FullName", $"{Input.FirstName} {Input.LastName}");
                         await _userManager.AddClaimAsync(customer, claim);
 
+                        Claim claimFirstName = new Claim("FirstName", $"{Input.FirstName}");
+                        await _userManager.AddClaimAsync(customer, claimFirstName);
+
+                        Claim claimSecondName = new Claim("LastName", $"{Input.LastName}");
+                        await _userManager.AddClaimAsync(customer, claimSecondName);
+
+
                         //sign in the user 
                         await _signInManager.SignInAsync(customer, isPersistent: false);
 
-                        // Send registration confirmation to new user
+                        // Send registration confirmation email to the new user
                         string subject = "Welcome to The Outdoor Store!";
                         string htmlMessage = $"<h1>Thank you {customer.FirstName} for joining us at The Outdoor Store.</h1>";
 

@@ -23,7 +23,7 @@ namespace Ecommerce_App.Models.Services
 
             SendGridMessage message = new SendGridMessage();
 
-            message.SetFrom("admin@theoutdoorstore.com", "TheOutdoorStore");
+            message.SetFrom("admin@theoutdoorstore.com", "The Outdoor Store");
             message.AddTo(email);
             message.SetSubject(subject);
             message.AddContent(MimeType.Html, htmlMessage);
