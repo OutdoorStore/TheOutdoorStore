@@ -7,5 +7,6 @@ namespace Ecommerce_App.Models.Interfaces
 {
     public interface ICartItem
     {
+        Task<CartItem> Create(int productId, int cartId);
     }
 }

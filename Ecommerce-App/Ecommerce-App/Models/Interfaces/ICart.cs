@@ -8,7 +8,7 @@ namespace Ecommerce_App.Models.Interfaces
     public interface ICart
     {
         //Create
-        Task<Cart> Create(Cart cart);
+        Task<Cart> Create(string userId);
 
         // Get All
         Task<List<Cart>> GetCarts();
@@ -17,7 +17,7 @@ namespace Ecommerce_App.Models.Interfaces
         Task<Cart> GetCart(int id);
 
         // Get Cart by user ID
-        List<Cart> GetCartsForUser(string userId)
+        List<Cart> GetCartsForUser(string userId);
 
         //Update
         Task<Cart> Update(Cart cart);

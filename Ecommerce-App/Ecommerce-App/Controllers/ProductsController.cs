@@ -7,6 +7,7 @@ using Ecommerce_App.Models.Interfaces;
 using Ecommerce_App.Models.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ecommerce_App.Controllers
 {
@@ -16,13 +17,15 @@ namespace Ecommerce_App.Controllers
         private readonly UserManager<Customer> _userManager;
         private readonly SignInManager<Customer> _signInManager;
         private readonly ICart _cart;
+        private readonly ICartItem _cartItem;
 
-        public ProductsController(IProductsService productsService, UserManager<Customer> userManager, SignInManager<Customer> signInManager, ICart cart)
+        public ProductsController(IProductsService productsService, UserManager<Customer> userManager, SignInManager<Customer> signInManager, ICart cart, ICartItem cartItem)
         {
             _productsService = productsService;
             _userManager = userManager;
             _signInManager = signInManager;
             _cart = cart;
+            _cartItem = cartItem;
         }
         public IActionResult Index()
         {
@@ -43,7 +46,7 @@ namespace Ecommerce_App.Controllers
             return View("Product", product);
         }
 
-        public async Task<ActionResult> AddProductToCart(int id)
+        public async Task<ActionResult> AddProductToCart(int productId)
         {
             if(_signInManager.IsSignedIn(User))
             {
@@ -53,16 +56,14 @@ namespace Ecommerce_App.Controllers
 
                 if (allUserCarts.Count == 0)
                 {
-                    Cart cart = new Cart()
-                    {
-                        UserId = user.Id
-                    };
-
-                    await _cart.Create(cart);
-
+                    Cart cart = await _cart.Create(user.Id);
+                    allUserCarts.Add(cart);
                 }
 
-                // add the product to the cart
+                var cartItem = _cartItem.Create(productId, allUserCarts[0].Id);
+
+                return RedirectToAction("Index", "Home");
+                
             }
             else
             {

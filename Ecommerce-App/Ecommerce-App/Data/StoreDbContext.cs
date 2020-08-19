@@ -19,7 +19,7 @@ namespace Ecommerce_App.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<CartItem>().HasKey(x => new { x.CartId, x.ProductId });
+            builder.Entity<CartItem>().HasKey(x => new { x.Id, x.CartId, x.ProductId });
 
             // Seeding Products Data:
             builder.Entity<Product>().HasData(
