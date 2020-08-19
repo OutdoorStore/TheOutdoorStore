@@ -40,7 +40,6 @@ namespace Ecommerce_App.Pages.Account
                 {
                     return RedirectToAction("Index", "Home");
                 }
-
             }
 
             ModelState.AddModelError("", "Invalid Username or Password");

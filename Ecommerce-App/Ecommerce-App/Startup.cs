@@ -62,6 +62,8 @@ namespace Ecommerce_App
             services.AddTransient<IProductsService, InventoryManagement>();
             services.AddScoped<IImage, Blob>();
             services.AddTransient<IEmailSender, EmailSenderService>();
+            services.AddScoped<ICart, CartService>();
+            services.AddScoped<ICartItem, CartItemService>();
 
         }
 

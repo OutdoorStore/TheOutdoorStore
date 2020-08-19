@@ -19,8 +19,13 @@ namespace Ecommerce_App.Models.Services
             _userContext = userContext;
         }
 
-        public async Task<Cart> Create(Cart cart)
+        public async Task<Cart> Create(string userId)
         {
+            Cart cart = new Cart()
+            {
+                UserId = userId
+            };
+
             _storeContext.Entry(cart).State = EntityState.Added;
             await _storeContext.SaveChangesAsync();
 

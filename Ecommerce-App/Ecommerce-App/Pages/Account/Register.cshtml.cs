@@ -31,8 +31,9 @@ namespace Ecommerce_App.Pages.Account
 
         public void OnGet()
         {
+            var user = _userManager.GetUserAsync(User);
         }
-
+        
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
