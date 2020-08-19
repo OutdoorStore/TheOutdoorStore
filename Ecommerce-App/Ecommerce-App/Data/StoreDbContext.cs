@@ -15,14 +15,14 @@ namespace Ecommerce_App.Data
 
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
 
-            builder.Entity<CartItem>().HasKey(x => new { x.Id, x.CartId, x.ProductId });
+            modelBuilder.Entity<CartItem>().HasKey(x => new { x.CartId, x.ProductId });
 
             // Seeding Products Data:
-            builder.Entity<Product>().HasData(
+            modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
                     Id = 1,

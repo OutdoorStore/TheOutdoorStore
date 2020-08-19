@@ -8,7 +8,7 @@ namespace Ecommerce_App.Models
     public class CartItem
     {
         // TODO: delete later...this will prevent CartItems with duplicate products associated to the same Cart. Hence the Quantity property.
-        public int Id { get; set; }
+        public int Id { get; set; } // we are keeping this in right now, but literally serves no purpose at the moment.
         public int CartId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }

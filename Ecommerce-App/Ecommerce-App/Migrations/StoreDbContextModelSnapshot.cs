@@ -35,21 +35,19 @@ namespace Ecommerce_App.Migrations
 
             modelBuilder.Entity("Ecommerce_App.Models.CartItem", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("CartId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("Id", "CartId", "ProductId");
-
-                    b.HasIndex("CartId");
+                    b.HasKey("CartId", "ProductId");
 
                     b.HasIndex("ProductId");
 

@@ -34,5 +34,15 @@ namespace Ecommerce_App.Models.Services
 
             return cartItem;
         }
+
+        public async Task<CartItem> Update(int cartId, int productId, int quantity)
+        {
+            CartItem cartItem = _storeContext.CartItems.Find(cartId, productId);
+            cartItem.Quantity += quantity;
+            _storeContext.Entry(cartItem).State = EntityState.Modified;
+            await _storeContext.SaveChangesAsync();
+
+            return cartItem;
+        }
     }
 }
