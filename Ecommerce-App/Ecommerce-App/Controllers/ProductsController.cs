@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ecommerce_App.Data;
 using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Ecommerce_App.Models.Services;
@@ -18,21 +19,23 @@ namespace Ecommerce_App.Controllers
         private readonly SignInManager<Customer> _signInManager;
         private readonly ICart _cart;
         private readonly ICartItem _cartItem;
+        private StoreDbContext _storeDbContext;
 
-        public ProductsController(IProductsService productsService, UserManager<Customer> userManager, SignInManager<Customer> signInManager, ICart cart, ICartItem cartItem)
+        public ProductsController(IProductsService productsService, UserManager<Customer> userManager, SignInManager<Customer> signInManager, ICart cart, ICartItem cartItem, StoreDbContext storeDbContext)
         {
             _productsService = productsService;
             _userManager = userManager;
             _signInManager = signInManager;
             _cart = cart;
             _cartItem = cartItem;
+            _storeDbContext = storeDbContext;
         }
         public IActionResult Index()
         {
             return View();
         }
-        
-         
+
+
         public async Task<ActionResult> GetAllProducts()
         {
             return View("Products", await _productsService.GetAllProducts());
@@ -48,7 +51,7 @@ namespace Ecommerce_App.Controllers
 
         public async Task<ActionResult> AddProductToCart(int productId)
         {
-            if(_signInManager.IsSignedIn(User))
+            if (_signInManager.IsSignedIn(User))
             {
                 var user = await _userManager.GetUserAsync(User);
 
@@ -56,14 +59,25 @@ namespace Ecommerce_App.Controllers
 
                 if (allUserCarts.Count == 0)
                 {
-                    Cart cart = await _cart.Create(user.Id);
-                    allUserCarts.Add(cart);
+                    Cart newCart = await _cart.Create(user.Id);
+                    allUserCarts.Add(newCart);
                 }
 
-                var cartItem = _cartItem.Create(productId, allUserCarts[0].Id);
+                var cart = _storeDbContext.Carts.FirstOrDefault(x => x.UserId == user.Id);
+
+                if (_storeDbContext.CartItems.Find(cart.Id, productId) != null)
+                {
+                    // 1 is hardcoded until a quantity input is added to the view and passed into this route.
+                    int increase= 1;
+                    await _cartItem.Update(cart.Id, productId, increase);
+                }
+                else
+                {
+                    await _cartItem.Create(productId, allUserCarts[0].Id);
+                }
 
                 return RedirectToAction("Index", "Home");
-                
+
             }
             else
             {
