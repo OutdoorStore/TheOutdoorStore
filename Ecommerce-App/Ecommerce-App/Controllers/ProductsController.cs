@@ -49,6 +49,7 @@ namespace Ecommerce_App.Controllers
             return View("Product", product);
         }
 
+
         public async Task<ActionResult> AddProductToCart(int productId)
         {
             if (_signInManager.IsSignedIn(User))

@@ -32,10 +32,14 @@ namespace Ecommerce_App.Models.Services
             return cart;
         }
 
+        // TODO: update this method to include all of the cart items and products
+        // then inject it into the cartcomponent view so there's no DB in the view
         public List<Cart> GetCartsForUser(string userId)
         {
             List<Cart> result = _storeContext.Carts.Where(c => c.UserId == userId)
                                                    .ToList();
+
+
 
             return result;
         }
@@ -45,9 +49,14 @@ namespace Ecommerce_App.Models.Services
             throw new NotImplementedException();
         }
 
-        public Task<Cart> GetCart(int id)
+        public async Task<Cart> GetSingleCartForUser(string userId)
         {
-            throw new NotImplementedException();
+            var customerCart = await _storeContext.Carts.Where(c => c.UserId == userId)
+                                                       .Include(c => c.CartItems)
+                                                       .ThenInclude(ci => ci.Product)
+                                                       .FirstOrDefaultAsync();
+
+            return customerCart;
         }
 
         public Task<List<Cart>> GetCarts()
