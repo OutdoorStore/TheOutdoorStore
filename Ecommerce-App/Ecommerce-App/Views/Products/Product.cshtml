@@ -5,6 +5,7 @@
 
 @inject SignInManager<Customer> SignInManager;
 @inject UserManager<Customer> UserManager;
+@inject Ecommerce_App.Data.StoreDbContext _storeDbContext;
 
 @{
     Layout = "_Layout";
@@ -22,14 +23,23 @@
 
 
 @*ADD to cart*@
-@*TODO: Bring in CartId, ProductId,
-    asp-controller="CartItem" asp-action="CreateCartItem"*@
-
 <form asp-controller="Products" asp-action="AddProductToCart" method="post">
     <div class="row">
         <div class="col-3 offset-3">
-            <input type="hidden" name="productId" value="@Model.Id"/>
+            <input type="hidden" name="productId" value="@Model.Id" />
             <button type="submit" class="btn btn-primary">Add to Cart</button>
         </div>
     </div>
 </form>
+
+@*View Component*@
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var customer = await UserManager.GetUserAsync(User);
+    var cart = _storeDbContext.Carts.FirstOrDefault(x => x.UserId == customer.Id);
+
+    @if (_storeDbContext.CartItems.Where(c => c.CartId == cart.Id) != null)
+    await Component.InvokeAsync("CartComp");
+}
+

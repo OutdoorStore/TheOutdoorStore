@@ -1,0 +1,14 @@
+﻿@model List<Ecommerce_App.Models.ViewModels.CartCompVM>
+
+<h1>Your Cart</h1>
+
+@foreach (var item in Model)
+{
+    <h2>@item.ProductName</h2>
+    <h3>@item.Quantity</h3>
+    <h3>@item.Price</h3>
+
+    <h3>Total: @(item.Quantity*item.Price)</h3>
+
+    <hr />
+}
