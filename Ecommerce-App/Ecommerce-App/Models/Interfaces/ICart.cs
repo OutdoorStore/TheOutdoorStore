@@ -14,7 +14,7 @@ namespace Ecommerce_App.Models.Interfaces
         Task<List<Cart>> GetCarts();
 
         // Get Single Cart
-        Task<Cart> GetCart(int id);
+        Task<Cart> GetSingleCartForUser(string userId);
 
         // Get Cart by user ID
         List<Cart> GetCartsForUser(string userId);

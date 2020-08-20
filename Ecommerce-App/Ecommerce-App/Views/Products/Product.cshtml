@@ -37,9 +37,14 @@
 @if (SignInManager.IsSignedIn(User))
 {
     var customer = await UserManager.GetUserAsync(User);
-    var cart = _storeDbContext.Carts.FirstOrDefault(x => x.UserId == customer.Id);
+    var userId = customer.Id;
 
-    @if (_storeDbContext.CartItems.Where(c => c.CartId == cart.Id) != null)
-    await Component.InvokeAsync("CartComp");
+    <div>
+        @await Component.InvokeAsync("CartComp", userId);
+    </div>
 }
+
+    
+
+
 

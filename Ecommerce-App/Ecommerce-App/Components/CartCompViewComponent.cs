@@ -7,47 +7,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Ecommerce_App.Models;
-using Ecommerce_App.Models.ViewModels;
+using Ecommerce_App.Models.Interfaces;
+using Ecommerce_App.Models.Services;
 
 namespace Ecommerce_App.Components
 {
     [ViewComponent]
     public class CartCompViewComponent : ViewComponent
     {
-        private StoreDbContext _storeContext;
-        private readonly UserManager<Customer> _userManager;
-        private readonly SignInManager<Customer> _signInManager;
+        private ICart _cart;
 
-        public CartCompViewComponent(StoreDbContext storeContext, UserManager<Customer> userManager, SignInManager<Customer> signInManager)
+        public CartCompViewComponent(ICart cart)
         {
-            _storeContext = storeContext;
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _cart = cart;
         }
 
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string userId)
         {
-            List<CartCompVM> cartCompVMs = new List<CartCompVM>();
+            Cart customerCart = await _cart.GetSingleCartForUser(userId);
 
-            var cartItems = await _storeContext.CartItems.OrderByDescending(c => c.Id).ToListAsync();
-
-            foreach (var item in cartItems)
-            {
-                Product product = _storeContext.Products.Find(item.ProductId);
-
-                CartCompVM VM = new CartCompVM
-                {
-                    ProductName = product.Name,
-                    Quantity = item.Quantity,
-                    Price = product.Price
-                };
-
-                cartCompVMs.Add(VM);
-
-            }
-
-            return View(cartCompVMs);
+            return View(customerCart);
         }
 
     }
