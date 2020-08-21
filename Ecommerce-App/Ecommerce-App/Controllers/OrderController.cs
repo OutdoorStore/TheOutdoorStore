@@ -14,12 +14,13 @@ namespace Ecommerce_App.Controllers
     public class OrderController : Controller
     {
         private SignInManager<Customer> _signInManager;
+        private UserManager<Customer> _userManager;
         private IPayment _payment;
-        private customerAddressType Address { get; set; }
 
-        public OrderController(SignInManager<Customer> signInManager, IPayment payment)
+        public OrderController(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IPayment payment)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             _payment = payment;
         }
 
@@ -37,9 +38,9 @@ namespace Ecommerce_App.Controllers
             // Run() payment transaction
             // if OK response, proceed with Order creation and save
             // else redirect to same page w/ error message
-            var user = await _signInManager.GetUser
-            string response =_payment.Run(firstName, lastName, BillingAddress, BillingCity, BillingState, BillingZip, PaymentMethod);
-
+            var user = await _userManager.GetUserAsync(User);
+            string response =_payment.Run(firstName, lastName, BillingAddress, BillingCity, BillingState, BillingZip, PaymentMethod, user.Id);
+            return 
         }
 
     }

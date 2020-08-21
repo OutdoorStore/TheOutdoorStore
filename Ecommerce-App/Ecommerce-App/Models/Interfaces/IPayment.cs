@@ -14,7 +14,8 @@ namespace Ecommerce_App.Models.Interfaces
             string BillingCity,
             string BillingState,
             string BillingZip,
-            string PaymentMethod
+            string PaymentMethod,
+            string userId
             );
     }
 }
