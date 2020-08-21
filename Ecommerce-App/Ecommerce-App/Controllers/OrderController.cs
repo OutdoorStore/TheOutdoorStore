@@ -40,7 +40,7 @@ namespace Ecommerce_App.Controllers
             // else redirect to same page w/ error message
             var user = await _userManager.GetUserAsync(User);
             string response =_payment.Run(firstName, lastName, BillingAddress, BillingCity, BillingState, BillingZip, PaymentMethod, user.Id);
-            return 
+            return View(); 
         }
 
     }
