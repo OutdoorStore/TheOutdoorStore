@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AspNetCore;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ecommerce_App.Pages.Shop
