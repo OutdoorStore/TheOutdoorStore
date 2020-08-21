@@ -24,7 +24,6 @@
     padding: 0 0 0 0;
 }
 #all #cartIcon {
-    background-color: rebeccapurple !important;
     max-height: 40px;
     padding: 0px 8px;
 }
@@ -34,7 +33,6 @@
     max-width: 100%;
     position: relative;
 }
-
 #all #heroImageContainer img {
     max-width: 100%;
 }

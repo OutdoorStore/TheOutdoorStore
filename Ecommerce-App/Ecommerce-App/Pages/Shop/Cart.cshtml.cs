@@ -9,7 +9,8 @@ namespace Ecommerce_App.Pages.Shop
 {
     public class CartModel : PageModel
     {
-
+        public Cart Cart { get; set; }
+        public decimal Total { get; set; }
         private SignInManager<Customer> _signInManager;
         private UserManager<Customer> _userManager;
         private ICart _cart;
@@ -25,12 +26,16 @@ namespace Ecommerce_App.Pages.Shop
             if (_signInManager.IsSignedIn(User))
             {
                 Customer user = await _userManager.GetUserAsync(User);
-                Cart customerCart = await _cart.GetSingleCartForUser(user.Id);
+                Cart = await _cart.GetSingleCartForUser(user.Id);
+                foreach (var item in Cart.CartItems)
+                {
+                    Total += item.Quantity * item.Product.Price;
+                }
                 return Page();
             }
             else
             {
-                return RedirectToPage("Login");
+                return RedirectToPage("/Account/Login");
             }
         }
     }
