@@ -19,7 +19,16 @@ namespace Ecommerce_App.Models.Services
         {
             _config = configuration;
         }
-        public string Run()
+        public string Run
+            (
+                string firstName,
+                string lastName,
+                string BillingAddress,
+                string BillingCity,
+                string BillingState,
+                string BillingZip,
+                string PaymentMethod
+            )
         {
             // declares the type of environment
             ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
@@ -32,7 +41,7 @@ namespace Ecommerce_App.Models.Services
                 Item = _config["AuthorizeTransactionKey"]
             };
 
-            // hardcoded credit card
+            // hardcoded credit card -> make enum
             var creditCard = new creditCardType
             {
                 cardNumber = "4111111111111111",
@@ -40,12 +49,18 @@ namespace Ecommerce_App.Models.Services
                 cardCode = "555"
             };
 
-            customerAddressType billingAddress = GetsBillingAddress(3);
+            customerAddressType billingAddress = GetBillingAddress(
+                                                        firstName,
+                                                        lastName,
+                                                        BillingAddress,
+                                                        BillingCity,
+                                                        BillingState,
+                                                        BillingZip);
 
             //declare that thuse is going to use an existing Credit Cart to pay
             var paymentType = new paymentType { Item = creditCard };
 
-            // // make the transactionRequest
+            // make the transactionRequest
 
             var transRequest = new transactionRequestType
             {
@@ -66,18 +81,37 @@ namespace Ecommerce_App.Models.Services
             return "";
         }
 
-        private customerAddressType GetsBillingAddress(int orderId)
+        //private customerAddressType GetsBillingAddress(int orderId)
+        //{
+        //    // you can pull this data from teh db the individual data from the order/cart itself
+        //    customerAddressType address = new customerAddressType
+        //    {
+        //        firstName = "Josie",
+        //        lastName = "Kitty",
+        //        address = "123 Cat Nip Lane",
+        //        city = "Seattle",
+        //        zip = "98004"
+        //    };
+
+        //    return address;
+        //}
+
+        private customerAddressType GetBillingAddress(
+           string firstName,
+           string lastName,
+           string BillingAddress,
+           string BillingCity,
+           string BillingState,
+           string BillingZip)
         {
-            // you can pull this data from teh db the individual data from the order/cart itself
             customerAddressType address = new customerAddressType
             {
-                firstName = "Josie",
-                lastName = "Kitty",
-                address = "123 Cat Nip Lane",
-                city = "Seattle",
-                zip = "98004"
+                firstName = firstName,
+                lastName = lastName,
+                address = BillingAddress,
+                city = BillingState,
+                zip = BillingZip
             };
-
             return address;
         }
 
