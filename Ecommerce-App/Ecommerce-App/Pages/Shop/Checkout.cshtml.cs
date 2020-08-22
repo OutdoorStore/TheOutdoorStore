@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ecommerce_App.Data;
 using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -16,14 +17,18 @@ namespace Ecommerce_App.Pages.Shop
         private SignInManager<Customer> _signInManager;
         private UserManager<Customer> _userManager;
         private IPayment _payment;
+        private IOrder _order;
+        private ICart _cart;
         [BindProperty]
-        public CheckoutViewModel Input { get; set; }
+        public Order Input { get; set; }
 
-        public CheckoutModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IPayment payment)
+        public CheckoutModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IPayment payment, IOrder order, ICart cart)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _payment = payment;
+            _order = order;
+            _cart = cart;
         }
         public void OnGet()
         {
@@ -41,9 +46,15 @@ namespace Ecommerce_App.Pages.Shop
             if (response == "Successful.")
             {
                 // save the order
+                var cart = _cart.GetActiveCartForUser(user.Id);
+                Input.Date = DateTime.Now;
+                Input.UserId = user.Id;
+                Input.CartId = cart.Id;
+                await _order.FinalizeOrder(Input);
 
+                // close cart
+                await _cart.CloseCart(user.Id);
                 // email receipt to user
-                // 
                 // go to receipt page
             }
             else
@@ -52,17 +63,6 @@ namespace Ecommerce_App.Pages.Shop
             }
             // TODO: Redirect to a Receipt Page
             return RedirectToAction("Index", "Home");
-        }
-
-        public class CheckoutViewModel
-        {
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-            public string BillingAddress { get; set; }
-            public string BillingCity { get; set; }
-            public string BillingState { get; set; }
-            public string BillingZip { get; set; }
-            public string PaymentMethod { get; set; }
         }
     }
 }

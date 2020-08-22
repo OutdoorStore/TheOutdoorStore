@@ -34,24 +34,24 @@ namespace Ecommerce_App.Models.Services
 
         // TODO: update this method to include all of the cart items and products
         // then inject it into the cartcomponent view so there's no DB in the view
-        public List<Cart> GetCartsForUser(string userId)
-        {
-            List<Cart> result = _storeContext.Carts.Where(c => c.UserId == userId)
-                                                   .ToList();
+        //public List<Cart> GetCartsForUser(string userId)
+        //{
+        //    List<Cart> result = _storeContext.Carts.Where(c => c.UserId == userId)
+        //                                           .ToList();
 
 
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public Task Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Cart> GetSingleCartForUser(string userId)
+        public async Task<Cart> GetActiveCartForUser(string userId)
         {
-            var customerCart = await _storeContext.Carts.Where(c => c.UserId == userId)
+            var customerCart = await _storeContext.Carts.Where(c => c.UserId == userId && c.Active == true)
                                                        .Include(c => c.CartItems)
                                                        .ThenInclude(ci => ci.Product)
                                                        .FirstOrDefaultAsync();
@@ -64,9 +64,13 @@ namespace Ecommerce_App.Models.Services
             throw new NotImplementedException();
         }
 
-        public Task<Cart> CloseCart(Cart cart)
+        public async Task<Cart> CloseCart(string userId)
         {
-
+            Cart cart = await GetActiveCartForUser(userId);
+            cart.Active = false;
+            _storeContext.Entry(cart).State = EntityState.Modified;
+            await _storeContext.SaveChangesAsync();
+            return cart;
         }
     }
 }

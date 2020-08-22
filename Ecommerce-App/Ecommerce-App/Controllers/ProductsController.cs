@@ -56,15 +56,12 @@ namespace Ecommerce_App.Controllers
             {
                 var user = await _userManager.GetUserAsync(User);
 
-                List<Cart> allUserCarts = _cart.GetCartsForUser(user.Id);
+                Cart cart = await _cart.GetActiveCartForUser(user.Id);
 
-                if (allUserCarts.Count == 0)
+                if (cart == null)
                 {
-                    Cart newCart = await _cart.Create(user.Id);
-                    allUserCarts.Add(newCart);
+                    cart = await _cart.Create(user.Id);
                 }
-
-                var cart = _storeDbContext.Carts.FirstOrDefault(x => x.UserId == user.Id);
 
                 if (_storeDbContext.CartItems.Find(cart.Id, productId) != null)
                 {
@@ -74,7 +71,7 @@ namespace Ecommerce_App.Controllers
                 }
                 else
                 {
-                    await _cartItem.Create(productId, allUserCarts[0].Id);
+                    await _cartItem.Create(productId, cart.Id);
                 }
 
                 return RedirectToAction("Index", "Home");

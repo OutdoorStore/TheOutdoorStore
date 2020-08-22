@@ -25,7 +25,7 @@ namespace Ecommerce_App.Components
 
         public async Task<IViewComponentResult> InvokeAsync(string userId)
         {
-            Cart customerCart = await _cart.GetSingleCartForUser(userId);
+            Cart customerCart = await _cart.GetActiveCartForUser(userId);
 
             return View(customerCart);
         }

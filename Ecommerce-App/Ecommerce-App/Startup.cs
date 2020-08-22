@@ -65,6 +65,7 @@ namespace Ecommerce_App
             services.AddScoped<ICart, CartService>();
             services.AddScoped<ICartItem, CartItemService>();
             services.AddTransient<IPayment, PaymentService>();
+            services.AddScoped<IOrder, OrderService>();
 
         }
 

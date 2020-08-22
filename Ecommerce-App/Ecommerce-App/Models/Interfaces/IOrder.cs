@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce_App.Models.Interfaces
 {
-    interface IOrder
+    public interface IOrder
     {
         Task<Order> FinalizeOrder(Order order);
         Task<Order> GetOrder(string userId);

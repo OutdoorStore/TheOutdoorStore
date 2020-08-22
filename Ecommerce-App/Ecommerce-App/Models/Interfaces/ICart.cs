@@ -14,13 +14,10 @@ namespace Ecommerce_App.Models.Interfaces
         Task<List<Cart>> GetCarts();
 
         // Get Single Cart
-        Task<Cart> GetSingleCartForUser(string userId);
-
-        // Get Cart by user ID
-        List<Cart> GetCartsForUser(string userId);
+        Task<Cart> GetActiveCartForUser(string userId);
 
         //Update
-        Task<Cart> CloseCart(Cart cart);
+        Task<Cart> CloseCart(string userId);
 
         // Delete
         Task Delete(int id);
