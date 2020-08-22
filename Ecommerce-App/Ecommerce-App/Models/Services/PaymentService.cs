@@ -78,8 +78,7 @@ namespace Ecommerce_App.Models.Services
             controller.Execute();
 
             var response = controller.GetApiResponse();
-            //response.messages.message
-            return "";
+            return response.messages.message[0].text;
         }
 
         private customerAddressType GetBillingAddress(
@@ -95,7 +94,8 @@ namespace Ecommerce_App.Models.Services
                 firstName = firstName,
                 lastName = lastName,
                 address = BillingAddress,
-                city = BillingState,
+                city = BillingCity,
+                state = BillingState,
                 zip = BillingZip
             };
             return address;

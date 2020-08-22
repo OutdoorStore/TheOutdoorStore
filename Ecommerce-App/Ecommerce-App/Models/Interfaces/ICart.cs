@@ -20,7 +20,7 @@ namespace Ecommerce_App.Models.Interfaces
         List<Cart> GetCartsForUser(string userId);
 
         //Update
-        Task<Cart> Update(Cart cart);
+        Task<Cart> CloseCart(Cart cart);
 
         // Delete
         Task Delete(int id);

@@ -23,6 +23,7 @@ namespace Ecommerce_App.Models
         //public string ShippingState { get; set; }
         //public string ShippingZip { get; set; }
 
-        public List<CartItem> CartItems { get; set; }        
+        //public List<CartItem> CartItems { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
     }
 }

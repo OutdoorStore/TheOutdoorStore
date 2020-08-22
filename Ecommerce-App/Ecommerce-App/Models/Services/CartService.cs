@@ -64,9 +64,9 @@ namespace Ecommerce_App.Models.Services
             throw new NotImplementedException();
         }
 
-        public Task<Cart> Update(Cart cart)
+        public Task<Cart> CloseCart(Cart cart)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

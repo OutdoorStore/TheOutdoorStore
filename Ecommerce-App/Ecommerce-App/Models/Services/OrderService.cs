@@ -16,7 +16,7 @@ namespace Ecommerce_App.Models.Services
         {
             _storeContext = storeContext;
         }
-        public async Task<Order> Create(Order order)
+        public async Task<Order> FinalizeOrder(Order order)
         {
             _storeContext.Entry(order).State = EntityState.Added;
             await _storeContext.SaveChangesAsync();
