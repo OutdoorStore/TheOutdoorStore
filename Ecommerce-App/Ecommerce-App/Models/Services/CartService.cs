@@ -12,11 +12,13 @@ namespace Ecommerce_App.Models.Services
     {
         private StoreDbContext _storeContext;
         private UserDbContext _userContext;
+        private ICartItem _cartItem;
 
-        public CartService(StoreDbContext storeContext, UserDbContext userContext)
+        public CartService(StoreDbContext storeContext, UserDbContext userContext, ICartItem cartItem)
         {
             _storeContext = storeContext;
             _userContext = userContext;
+            _cartItem = cartItem;
         }
 
         public async Task<Cart> Create(string userId)
@@ -59,9 +61,16 @@ namespace Ecommerce_App.Models.Services
             return customerCart;
         }
 
-        public Task<List<Cart>> GetCarts()
+        public async Task<decimal> GetCartTotal(string userId)
         {
-            throw new NotImplementedException();
+            decimal total = 0;
+            Cart cart = _storeContext.Carts.FirstOrDefault(c => c.UserId == userId && c.Active == true);
+            List<CartItem> cartItems = _storeContext.CartItems.Where(ci => ci.CartId == cart.Id).ToList();
+            foreach (var item in cartItems)
+            {
+                total += await _cartItem.GetCartItemTotal(item);
+            }
+            return total;
         }
 
         public async Task<Cart> CloseCart(string userId)

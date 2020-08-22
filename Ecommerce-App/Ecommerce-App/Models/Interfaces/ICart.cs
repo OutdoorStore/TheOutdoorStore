@@ -11,7 +11,7 @@ namespace Ecommerce_App.Models.Interfaces
         Task<Cart> Create(string userId);
 
         // Get All
-        Task<List<Cart>> GetCarts();
+        Task<decimal> GetCartTotal(string userId);
 
         // Get Single Cart
         Task<Cart> GetActiveCartForUser(string userId);
