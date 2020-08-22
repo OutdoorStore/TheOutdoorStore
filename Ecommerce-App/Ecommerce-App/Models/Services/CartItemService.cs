@@ -20,7 +20,8 @@ namespace Ecommerce_App.Models.Services
             _userContext = userContext;
         }
 
-        public async Task<CartItem> Create(int productId, int cartId) // quantity can be added later, hardcoded for now
+        // quantity can be added later, hardcoded for now
+        public async Task<CartItem> Create(int productId, int cartId) 
         {
             CartItem cartItem = new CartItem()
             {
@@ -43,6 +44,22 @@ namespace Ecommerce_App.Models.Services
             await _storeContext.SaveChangesAsync();
 
             return cartItem;
+        }
+
+        public async Task<decimal> GetCartItemTotal(Product product, CartItem cartItem)
+        {
+            // product price * product quantity
+            decimal productPrice =  await _storeContext.Products.Where(p => p.Id == product.Id)
+                                                          .Select(p => p.Price)
+                                                          .FirstOrDefaultAsync();
+
+            int productQuantity = await _storeContext.CartItems.Where(ci => ci.Id == cartItem.Id)
+                                                         .Select(ci => ci.Quantity)
+                                                         .FirstOrDefaultAsync();
+
+            decimal totalCartItemPrice = productPrice * productQuantity;
+
+            return totalCartItemPrice;
         }
     }
 }
