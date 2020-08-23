@@ -25,7 +25,7 @@ namespace Ecommerce_App.Models.Services
             _storeContext = storeContext;
             _cart = cart;
         }
-        public async Task<string> Run
+        public string Run
             (
                 string firstName,
                 string lastName,
@@ -68,7 +68,7 @@ namespace Ecommerce_App.Models.Services
             var transRequest = new transactionRequestType
             {
                 transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),
-                amount = await _cart.GetCartTotal(userId),
+                amount = _cart.GetCartTotal(userId),
                 payment = paymentType,
                 billTo = billingAddress
             };

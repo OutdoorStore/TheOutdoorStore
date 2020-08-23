@@ -33,7 +33,7 @@ namespace Ecommerce_App.Pages.Shop
                     return RedirectToAction("GetAllProducts", "Products");
                 }
 
-                Total = await _cart.GetCartTotal(user.Id);
+                Total = _cart.GetCartTotal(user.Id);
 
                 return Page();
             }

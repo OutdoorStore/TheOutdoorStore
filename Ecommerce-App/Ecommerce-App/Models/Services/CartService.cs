@@ -61,14 +61,14 @@ namespace Ecommerce_App.Models.Services
             return customerCart;
         }
 
-        public async Task<decimal> GetCartTotal(string userId)
+        public decimal GetCartTotal(string userId)
         {
             decimal total = 0;
             Cart cart = _storeContext.Carts.FirstOrDefault(c => c.UserId == userId && c.Active == true);
             List<CartItem> cartItems = _storeContext.CartItems.Where(ci => ci.CartId == cart.Id).ToList();
             foreach (var item in cartItems)
             {
-                total += await _cartItem.GetCartItemTotal(item);
+                total += _cartItem.GetCartItemTotal(item);
             }
             return total;
         }

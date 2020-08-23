@@ -46,20 +46,20 @@ namespace Ecommerce_App.Models.Services
             return cartItem;
         }
 
-        public async Task<decimal> GetCartItemTotal(CartItem cartItem)
+        public decimal GetCartItemTotal(CartItem cartItem)
         {
             // get product 
             int productId = cartItem.ProductId;
 
 
             // product price * product quantity
-            decimal productPrice =  await _storeContext.Products.Where(p => p.Id == productId)
+            decimal productPrice =  _storeContext.Products.Where(p => p.Id == productId)
                                                           .Select(p => p.Price)
-                                                          .FirstOrDefaultAsync();
+                                                          .FirstOrDefault();
 
-            int productQuantity = await _storeContext.CartItems.Where(ci => ci.ProductId == productId && ci.CartId == cartItem.CartId)
+            int productQuantity = _storeContext.CartItems.Where(ci => ci.ProductId == productId && ci.CartId == cartItem.CartId)
                                                          .Select(ci => ci.Quantity)
-                                                         .FirstOrDefaultAsync();
+                                                         .FirstOrDefault();
 
             decimal totalCartItemPrice = productPrice * productQuantity;
 
