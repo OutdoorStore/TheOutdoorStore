@@ -50,7 +50,7 @@ namespace Ecommerce_App.Controllers
         }
 
 
-        public async Task<ActionResult> AddProductToCart(int productId)
+        public async Task<ActionResult> AddProductToCart(int productId, int quantity)
         {
             if (_signInManager.IsSignedIn(User))
             {
@@ -71,7 +71,7 @@ namespace Ecommerce_App.Controllers
                 }
                 else
                 {
-                    await _cartItem.Create(productId, cart.Id);
+                    await _cartItem.Create(productId, cart.Id, quantity);
                 }
 
                 return RedirectToAction("Index", "Home");

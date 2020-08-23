@@ -12,22 +12,20 @@ namespace Ecommerce_App.Models.Services
     public class CartItemService : ICartItem
     {
         private StoreDbContext _storeContext;
-        private UserDbContext _userContext;
 
-        public CartItemService(StoreDbContext storeContext, UserDbContext userContext)
+        public CartItemService(StoreDbContext storeContext)
         {
             _storeContext = storeContext;
-            _userContext = userContext;
         }
 
         // quantity can be added later, hardcoded for now
-        public async Task<CartItem> Create(int productId, int cartId) 
+        public async Task<CartItem> Create(int productId, int cartId, int quantity) 
         {
             CartItem cartItem = new CartItem()
             {
                 ProductId = productId,
                 CartId = cartId,
-                Quantity = 1
+                Quantity = quantity
             };
 
             _storeContext.Entry(cartItem).State = EntityState.Added;
@@ -39,7 +37,7 @@ namespace Ecommerce_App.Models.Services
         public async Task<CartItem> Update(int cartId, int productId, int quantity)
         {
             CartItem cartItem = _storeContext.CartItems.Find(cartId, productId);
-            cartItem.Quantity += quantity;
+            cartItem.Quantity = quantity;
             _storeContext.Entry(cartItem).State = EntityState.Modified;
             await _storeContext.SaveChangesAsync();
 
@@ -64,6 +62,20 @@ namespace Ecommerce_App.Models.Services
             decimal totalCartItemPrice = productPrice * productQuantity;
 
             return totalCartItemPrice;
+        }
+
+        /// <summary>
+        /// Removes a cartItem from a cart in its entirety.
+        /// </summary>
+        /// <param name="cartId">Target Cart.</param>
+        /// <param name="productId">Target Product.</param>
+        /// <returns>Completed Action.</returns>
+        public async Task Delete(int cartId, int productId)
+        {
+            CartItem cartItem = await _storeContext.CartItems.Where(ci => ci.CartId == cartId && ci.ProductId == productId)
+                                                       .FirstOrDefaultAsync();
+            _storeContext.Entry(cartItem).State = EntityState.Deleted;
+            await _storeContext.SaveChangesAsync();
         }
     }
 }
