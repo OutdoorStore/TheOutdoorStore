@@ -1,6 +1,6 @@
 # Ecommerce App
 
-*Authors: Na'ama Bar-ilan, Peyton Cysewski*
+*Authors: Na'ama Bar-Ilan, Peyton Cysewski*
 
 ----
 
@@ -9,7 +9,6 @@ This program is an ECommerce mock website built out over several weeks, adding n
 
 ### ECommerce Products
 Our fictional ECommerce store is called 'The Outdoor Store' and it sells a variety of outdoor gear. Right now we are specializing in outdoor climbing bags at a wide range of styles and prices.
-
 
 ---
 
@@ -39,7 +38,13 @@ Users are authenticated by the submission of their email and password located in
 #### Authorization
 - Anonymous Users: All anonymous users can view the Home, Products, About Us, Login, and Register pages.
 - Signed-in Users: Once a user is registered and subsequently logs in, they receive a personalized greeting and an option to log out. Their greeting is created using claims for their first and last name upon registration.
-- Admins: They have the same accessiblity as a signed-in user and they can also access and view the Dashboard page and upload or update a new image for an existing product. Their role as an admin is added to their claim upon creation/seeding of the database.
+- Admins: They have the same accessibility as a signed-in user and they can also access and view the Dashboard page and upload or update a new image for an existing product. Their role as an admin is added to their claim upon creation/seeding of the database.
+	- Admin Access Instructions:
+		- Go to the App's Login Page
+		- Enter the test Admin permission: email: admin@gmail.com, PW: @Admin123!
+		- The admin-only "Dashboard" tab should now be visible in the left section of the Nav bar. 
+
+
 
 ---
 

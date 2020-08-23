@@ -11,9 +11,9 @@
         <li class="navbar-item">
             <a asp-controller="Products" asp-action="GetAllProducts" class="nav-link">Products</a>
         </li>
-        <li class="navbar-item">
+        @*<li class="navbar-item">
             <a class="nav-link">About Us</a>
-        </li>
+        </li>*@
         @if (User.IsInRole(ApplicationRoles.Admin))
         {
             <li class="navbar-item">
