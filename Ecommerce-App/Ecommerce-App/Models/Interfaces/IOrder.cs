@@ -14,5 +14,12 @@ namespace Ecommerce_App.Models.Interfaces
         /// <param name="order">The order object to be finalized</param>
         /// <returns>The created order object</returns>
         Task<Order> FinalizeOrder(Order order);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<Order> GetMostRecentOrder(string userId);
     }
 }

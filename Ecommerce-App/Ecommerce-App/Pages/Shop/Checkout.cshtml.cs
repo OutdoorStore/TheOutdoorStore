@@ -46,14 +46,16 @@ namespace Ecommerce_App.Pages.Shop
             if (response == "Successful.")
             {
                 // save the order
-                var cart = _cart.GetActiveCartForUser(user.Id);
+                Cart cart = await _cart.GetActiveCartForUser(user.Id);
                 Input.Date = DateTime.Now;
                 Input.UserId = user.Id;
                 Input.CartId = cart.Id;
+                Input.CartItems = cart.CartItems;
                 await _order.FinalizeOrder(Input);
 
                 // close cart
                 await _cart.CloseCart(user.Id);
+
                 // email receipt to user
                 // go to receipt page
             }
@@ -61,8 +63,8 @@ namespace Ecommerce_App.Pages.Shop
             {
                 // reload page with error message
             }
-            // TODO: Redirect to a Receipt Page
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToPage("/Shop/Receipt");
         }
     }
 }

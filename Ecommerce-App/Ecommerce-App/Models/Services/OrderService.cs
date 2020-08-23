@@ -29,5 +29,18 @@ namespace Ecommerce_App.Models.Services
             await _storeContext.SaveChangesAsync();
             return order;
         }
+
+        
+        public async Task<Order> GetMostRecentOrder(string userId)
+        {
+           
+            Order order =  await _storeContext.Orders.Where(u => u.UserId == userId)
+                                               .OrderByDescending(o => o.Date)
+                                               .Include(o => o.CartItems)
+                                               .ThenInclude(ci => ci.Product)
+                                               .FirstOrDefaultAsync();
+
+            return order;
+        }
     }
 }
