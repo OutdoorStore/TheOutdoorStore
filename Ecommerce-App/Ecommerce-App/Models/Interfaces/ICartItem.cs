@@ -13,6 +13,7 @@ namespace Ecommerce_App.Models.Interfaces
         /// </summary>
         /// <param name="productId">The product the user selected</param>
         /// <param name="cartId">The user's active cart Id</param>
+        /// <param name="quantity">The new quantity amount that will be set.</param>
         /// <returns>The newly created CartItem object</returns>
         Task<CartItem> Create(int productId, int cartId, int quantity);
 
