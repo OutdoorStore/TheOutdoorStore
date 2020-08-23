@@ -67,7 +67,7 @@ namespace Ecommerce_App.Controllers
                 {
                     // 1 is hardcoded until a quantity input is added to the view and passed into this route.
                     int increase= 1;
-                    await _cartItem.Update(cart.Id, productId, increase);
+                    await _cartItem.UpdateCartItemQuantity(cart.Id, productId, increase);
                 }
                 else
                 {

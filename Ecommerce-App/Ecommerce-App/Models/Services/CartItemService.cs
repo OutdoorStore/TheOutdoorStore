@@ -20,7 +20,15 @@ namespace Ecommerce_App.Models.Services
             _userContext = userContext;
         }
 
-        // quantity can be added later, hardcoded for now
+        // TODO: add the option to select a quantity other than 1
+
+        /// <summary>
+        /// Creates a new CartItem in the database, 
+        /// based on the productId and cartId composite keys
+        /// </summary>
+        /// <param name="productId">The product the user selected</param>
+        /// <param name="cartId">The user's active cart Id</param>
+        /// <returns>The newly created CartItem object</returns>
         public async Task<CartItem> Create(int productId, int cartId) 
         {
             CartItem cartItem = new CartItem()
@@ -36,7 +44,14 @@ namespace Ecommerce_App.Models.Services
             return cartItem;
         }
 
-        public async Task<CartItem> Update(int cartId, int productId, int quantity)
+        /// <summary>
+        /// Updates a product's quantity in a specific CartItem entry in the DB
+        /// </summary>
+        /// <param name="cartId">The active cart Id of the signed in user</param>
+        /// <param name="productId">The unique product the user is updating</param>
+        /// <param name="quantity">The selected product quantity</param>
+        /// <returns>The updated cartItem object</returns>
+        public async Task<CartItem> UpdateCartItemQuantity(int cartId, int productId, int quantity)
         {
             CartItem cartItem = _storeContext.CartItems.Find(cartId, productId);
             cartItem.Quantity += quantity;
@@ -46,6 +61,11 @@ namespace Ecommerce_App.Models.Services
             return cartItem;
         }
 
+        /// <summary>
+        /// Calculates the total price of all the products in the cartItem 
+        /// </summary>
+        /// <param name="cartItem">A unique cartItem</param>
+        /// <returns>The total price for all of the products in the cartItem</returns>
         public decimal GetCartItemTotal(CartItem cartItem)
         {
             // get product 

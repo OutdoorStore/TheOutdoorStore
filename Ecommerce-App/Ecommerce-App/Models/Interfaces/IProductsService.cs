@@ -10,10 +10,10 @@ namespace Ecommerce_App.Models.Interfaces
     {
 
         /// <summary>
-        /// Returns a collection of all the products in the 
+        /// Returns a list of all the products in the 
         /// database.
         /// </summary>
-        /// <returns>A collection of all products</returns>
+        /// <returns>A list of all products</returns>
         Task<List<Product>> GetAllProducts();
 
         /// <summary>

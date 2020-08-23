@@ -25,6 +25,21 @@ namespace Ecommerce_App.Models.Services
             _storeContext = storeContext;
             _cart = cart;
         }
+
+        /// <summary>
+        /// Runs the payment process, by sending all of the 
+        /// transaction information to AuthorizeNet, 
+        /// getting the API response and returning the response message
+        /// </summary>
+        /// <param name="firstName">The first name of the credit card holder</param>
+        /// <param name="lastName">The last name of the credit card holder</param>
+        /// <param name="BillingAddress">The address of the credit card holder</param>
+        /// <param name="BillingCity">The city of the credit card holder</param>
+        /// <param name="BillingState">The state of the credit card holder</param>
+        /// <param name="BillingZip">The zip code of the credit card holder</param>
+        /// <param name="PaymentMethod">The type of credit card</param>
+        /// <param name="userId">The Id of the signed in user</param>
+        /// <returns>The API response message received from AuthorizeNet after the transaction execution</returns>
         public string Run
             (
                 string firstName,
@@ -83,6 +98,17 @@ namespace Ecommerce_App.Models.Services
             return response.messages.message[0].text;
         }
 
+        /// <summary>
+        /// Creates a customerAddressType object called address 
+        /// from the customer billing information
+        /// </summary>
+        /// <param name="firstName">The first name of the credit card holder</param>
+        /// <param name="lastName">The last name of the credit card holder</param>
+        /// <param name="BillingAddress">The address of the credit card holder</param>
+        /// <param name="BillingCity">The city of the credit card holder</param>
+        /// <param name="BillingState">The state of the credit card holder</param>
+        /// <param name="BillingZip">The zip code of the credit card holder</param>
+        /// <returns>The unique address object</returns>
         private customerAddressType GetBillingAddress(
            string firstName,
            string lastName,
@@ -103,6 +129,13 @@ namespace Ecommerce_App.Models.Services
             return address;
         }
 
+        /// <summary>
+        /// Takes in the user's credit card provider selection
+        /// and matches it to that provider's Id, 
+        /// to create a new creditCartType object called card
+        /// </summary>
+        /// <param name="cardProvider">A specific type of credit card provider</param>
+        /// <returns>A unique card object</returns>
         private creditCardType GetCreditCard(string cardProvider)
         {
             creditCardType card = new creditCardType()
