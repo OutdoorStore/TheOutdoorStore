@@ -50,7 +50,7 @@ namespace Ecommerce_App.Controllers
         }
 
 
-        public async Task<ActionResult> AddProductToCart(int productId)
+        public async Task<ActionResult> AddProductToCart(int productId, int quantity)
         {
             if (_signInManager.IsSignedIn(User))
             {
@@ -65,13 +65,11 @@ namespace Ecommerce_App.Controllers
 
                 if (_storeDbContext.CartItems.Find(cart.Id, productId) != null)
                 {
-                    // 1 is hardcoded until a quantity input is added to the view and passed into this route.
-                    int increase= 1;
-                    await _cartItem.UpdateCartItemQuantity(cart.Id, productId, increase);
+                    await _cartItem.Update(cart.Id, productId, quantity);
                 }
                 else
                 {
-                    await _cartItem.Create(productId, cart.Id);
+                    await _cartItem.Create(productId, cart.Id, quantity);
                 }
 
                 return RedirectToAction("Index", "Home");
@@ -83,5 +81,16 @@ namespace Ecommerce_App.Controllers
             }
         }
 
+        public async Task<ActionResult> RemoveItemFromCart(int cartId, int productId)
+        {
+            await _cartItem.Delete(cartId, productId);
+            return RedirectToPage("/Shop/Cart");
+        }
+
+        public async Task<ActionResult> UpdateItemInCart(int cartId, int productId, int quantity)
+        {
+            await _cartItem.Update(cartId, productId, quantity);
+            return RedirectToPage("/Shop/Cart");
+        }
     }
 }
