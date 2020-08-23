@@ -100,10 +100,10 @@ namespace Ecommerce_App.Models.Services
 
 
         /// <summary>
-        /// Returns a collection of all the products in the 
+        /// Returns a list of all the products in the 
         /// database.
         /// </summary>
-        /// <returns>A collection of all products</returns>
+        /// <returns>A list of all products</returns>
         public async Task<List<Product>> GetAllProducts()
         {
             var products = await _storeDbContext.Products.ToListAsync();
