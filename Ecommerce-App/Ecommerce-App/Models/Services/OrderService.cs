@@ -30,7 +30,12 @@ namespace Ecommerce_App.Models.Services
             return order;
         }
 
-        
+        /// <summary>
+        /// Gets the user's most recent order, by filtering the orders table
+        /// by userId and then selecting the most recent order
+        /// </summary>
+        /// <param name="userId">The signed in user</param>
+        /// <returns>The most recent order and all of its related cartItems and products</returns>
         public async Task<Order> GetMostRecentOrder(string userId)
         {
            
