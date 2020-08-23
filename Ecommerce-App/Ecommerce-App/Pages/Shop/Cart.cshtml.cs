@@ -28,7 +28,7 @@ namespace Ecommerce_App.Pages.Shop
             {
                 Customer user = await _userManager.GetUserAsync(User);
                 Cart = await _cart.GetActiveCartForUser(user.Id);
-                if (Cart == null)
+                if (Cart == null || Cart.CartItems.Count == 0) // order of OR statement matters here
                 {
                     return RedirectToAction("GetAllProducts", "Products");
                 }
