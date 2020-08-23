@@ -7,7 +7,7 @@ namespace Ecommerce_App.Models.Interfaces
 {
     public interface IPayment
     {
-        string Run(
+        Task<string> Run(
             string firstName,
             string lastName,
             string BillingAddress,

@@ -27,7 +27,19 @@ namespace Ecommerce_App.Components
         {
             Cart customerCart = await _cart.GetActiveCartForUser(userId);
 
-            return View(customerCart);
+            CartCompVM VM = new CartCompVM
+            {
+                Cart = customerCart,
+                Total = await _cart.GetCartTotal(userId)
+            };
+
+            return View(VM);
+        }
+
+        public class CartCompVM
+        {
+            public Cart Cart { get; set; }
+            public decimal Total { get; set; }
         }
 
     }

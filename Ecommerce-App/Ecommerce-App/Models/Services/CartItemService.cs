@@ -57,7 +57,7 @@ namespace Ecommerce_App.Models.Services
                                                           .Select(p => p.Price)
                                                           .FirstOrDefaultAsync();
 
-            int productQuantity = await _storeContext.CartItems.Where(ci => ci.Id == cartItem.Id)
+            int productQuantity = await _storeContext.CartItems.Where(ci => ci.ProductId == productId && ci.CartId == cartItem.CartId)
                                                          .Select(ci => ci.Quantity)
                                                          .FirstOrDefaultAsync();
 

@@ -42,7 +42,7 @@ namespace Ecommerce_App.Pages.Shop
             // if OK response, proceed with Order creation and save
             // else redirect to same page w/ error message
             var user = await _userManager.GetUserAsync(User);
-            string response = _payment.Run(Input.FirstName, Input.LastName, Input.BillingAddress, Input.BillingCity, Input.BillingState, Input.BillingZip, Input.PaymentMethod, user.Id);
+            string response = await _payment.Run(Input.FirstName, Input.LastName, Input.BillingAddress, Input.BillingCity, Input.BillingState, Input.BillingZip, Input.PaymentMethod, user.Id);
             if (response == "Successful.")
             {
                 // save the order

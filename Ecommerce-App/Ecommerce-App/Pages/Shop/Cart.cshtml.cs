@@ -32,10 +32,9 @@ namespace Ecommerce_App.Pages.Shop
                 {
                     return RedirectToAction("GetAllProducts", "Products");
                 }
-                foreach (var item in Cart.CartItems)
-                {
-                    Total += item.Quantity * item.Product.Price;
-                }
+
+                Total = await _cart.GetCartTotal(user.Id);
+
                 return Page();
             }
             else

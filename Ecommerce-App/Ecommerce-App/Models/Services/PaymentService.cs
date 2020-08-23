@@ -17,13 +17,15 @@ namespace Ecommerce_App.Models.Services
     {
         private IConfiguration _config;
         private StoreDbContext _storeContext;
+        private ICart _cart;
 
-        public PaymentService(IConfiguration configuration, StoreDbContext storeContext)
+        public PaymentService(IConfiguration configuration, StoreDbContext storeContext, ICart cart)
         {
             _config = configuration;
             _storeContext = storeContext;
+            _cart = cart;
         }
-        public string Run
+        public async Task<string> Run
             (
                 string firstName,
                 string lastName,
@@ -66,7 +68,7 @@ namespace Ecommerce_App.Models.Services
             var transRequest = new transactionRequestType
             {
                 transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),
-                amount = GetAmount(userId),
+                amount = await _cart.GetCartTotal(userId),
                 payment = paymentType,
                 billTo = billingAddress
             };
@@ -133,19 +135,6 @@ namespace Ecommerce_App.Models.Services
                     break;
             }
             return card;
-        }
-
-        private decimal GetAmount(string userId)
-        {
-            decimal total = 0;
-            Cart cart = _storeContext.Carts.FirstOrDefault(c => c.UserId == userId);
-            List<CartItem> cartItems = _storeContext.CartItems.Where(ci => ci.CartId == cart.Id).ToList();
-            foreach (var item in cartItems)
-            {
-                Product product = _storeContext.Products.Find(item.ProductId);
-                total += item.Quantity * product.Price;
-            }
-            return total;
         }
     }
 }
