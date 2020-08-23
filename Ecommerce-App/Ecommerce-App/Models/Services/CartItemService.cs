@@ -25,7 +25,7 @@ namespace Ecommerce_App.Models.Services
             {
                 ProductId = productId,
                 CartId = cartId,
-                Quantity = quantity
+                Quantity = (quantity > 0) ? quantity : 1
             };
 
             _storeContext.Entry(cartItem).State = EntityState.Added;
