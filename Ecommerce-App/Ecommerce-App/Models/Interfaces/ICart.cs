@@ -11,16 +11,13 @@ namespace Ecommerce_App.Models.Interfaces
         Task<Cart> Create(string userId);
 
         // Get All
-        Task<List<Cart>> GetCarts();
+        decimal GetCartTotal(string userId);
 
         // Get Single Cart
-        Task<Cart> GetSingleCartForUser(string userId);
-
-        // Get Cart by user ID
-        List<Cart> GetCartsForUser(string userId);
+        Task<Cart> GetActiveCartForUser(string userId);
 
         //Update
-        Task<Cart> Update(Cart cart);
+        Task<Cart> CloseCart(string userId);
 
         // Delete
         Task Delete(int id);

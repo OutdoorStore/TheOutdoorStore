@@ -23,13 +23,16 @@
     color: rgba(0,0,0,.5);
     padding: 0 0 0 0;
 }
+#all #cartIcon {
+    max-height: 40px;
+    padding: 0px 8px;
+}
 
 /*Index Page*/
 #all #heroImageContainer {
     max-width: 100%;
     position: relative;
 }
-
 #all #heroImageContainer img {
     max-width: 100%;
 }

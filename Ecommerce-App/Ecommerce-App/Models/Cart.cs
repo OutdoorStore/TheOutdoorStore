@@ -10,6 +10,7 @@ namespace Ecommerce_App.Models
         public int Id { get; set; }
 
         public string UserId { get; set; }
+        public bool Active { get; set; } = true;
 
         // Nav Prop
 
