@@ -42,7 +42,7 @@ namespace Ecommerce_App.Controllers
         }
 
 
-        public async Task<ActionResult<Product>> GetSingleProduct(int id)
+        public async Task<ActionResult> GetSingleProduct(int id)
         {
             Product product = await _productsService.GetSingleProduct(id);
 

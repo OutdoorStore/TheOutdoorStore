@@ -12,19 +12,17 @@
     ViewData["Title"] = Model.Name;
 }
 
-    <head>
+    @*<head> // re-examine for error that it causes //
         <meta name="viewport" content="width=device-width" />
         <link href="/css/reset.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
         <link href="/css/style.css" rel="stylesheet" />
-        <!-- Custom styles for this page -->
         <link href="album.css" rel="stylesheet">
-
         <script src="~/js/index.js"></script>
         <title>@ViewBag.Title</title>
-    </head>
+    </head>*@
 
 <div id="productDetails">
     <div id="imageContainer"><img src="@Model.Image" /></div>

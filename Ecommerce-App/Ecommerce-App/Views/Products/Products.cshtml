@@ -10,7 +10,7 @@
     <div class="col-4">
         <a onclick="document.getElementById('@product.Id').submit()">
         <form asp-controller="Products" asp-action="GetSingleProduct" asp-route-id="@product.Id" method="post" id="@product.Id">
-            <input type="hidden" name="id" value="@product.Id" />
+            @*<input type="hidden" name="id" value="@product.Id" />*@
             <div class="card" style="width: 18rem;" id="productCard">
                 <img class="card-img-top" src="@product.Image" alt="Card image cap">
                 <div class="card-body">

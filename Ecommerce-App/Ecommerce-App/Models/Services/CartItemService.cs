@@ -26,8 +26,9 @@ namespace Ecommerce_App.Models.Services
         /// </summary>
         /// <param name="productId">The product the user selected</param>
         /// <param name="cartId">The user's active cart Id</param>
+        /// <param name="quantity">The new quantity amount that will be set.</param>
         /// <returns>The newly created CartItem object</returns>
-        public async Task<CartItem> Create(int productId, int cartId) 
+        public async Task<CartItem> Create(int productId, int cartId, int quantity) 
         {
             CartItem cartItem = new CartItem()
             {
@@ -49,7 +50,7 @@ namespace Ecommerce_App.Models.Services
         /// <param name="productId">The unique product the user is updating</param>
         /// <param name="quantity">The selected product quantity</param>
         /// <returns>The updated cartItem object</returns>
-        public async Task<CartItem> UpdateCartItemQuantity(int cartId, int productId, int quantity)
+        public async Task<CartItem> Update(int cartId, int productId, int quantity)
         {
             CartItem cartItem = _storeContext.CartItems.Find(cartId, productId);
             cartItem.Quantity = quantity;
