@@ -98,7 +98,6 @@ namespace Ecommerce_App.Models.Services
             }
         }
 
-
         /// <summary>
         /// Returns a list of all the products in the 
         /// database.
@@ -114,6 +113,37 @@ namespace Ecommerce_App.Models.Services
                 allProducts.Add(item);
             };
             return allProducts;
+        }
+
+        /// <summary>
+        /// Returns a list of all products ordered by the specific property.
+        /// </summary>
+        /// <param name="orderProp">Which property is being used for ordering.</param>
+        /// <param name="ascending">Whether the ordering will be acsending or descending.</param>
+        /// <returns>Correctly ordered list of all products.</returns>
+        public async Task<List<Product>> GetOrderedProducts(string orderProp, bool ascending)
+        {
+            (string, bool) order = (orderProp, ascending);
+            List<Product> products = new List<Product>();
+            switch (order)
+            {
+                case ("Name", true):
+                    products = await _storeDbContext.Products.OrderBy(p => p.Name).ToListAsync();
+                    break;
+                case ("Name", false):
+                    products = await _storeDbContext.Products.OrderByDescending(p => p.Name).ToListAsync();
+                    break;
+                case ("Price", true):
+                    products = await _storeDbContext.Products.OrderBy(p => p.Price).ToListAsync();
+                    break;
+                case ("Price", false):
+                    products = await _storeDbContext.Products.OrderByDescending(p => p.Price).ToListAsync();
+                    break;
+                case ("Id", false):
+                    products = await _storeDbContext.Products.OrderByDescending(p => p.Id).ToListAsync();
+                    break;
+            }
+            return products;
         }
     }
 }

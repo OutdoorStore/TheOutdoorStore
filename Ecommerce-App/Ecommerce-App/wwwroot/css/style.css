@@ -35,6 +35,13 @@
     max-height: 40px;
     padding: 0px 8px;
 }
+#all #productSorter {
+    margin: 10px 0px;
+}
+#all #productSorter form {
+    display: inline-block;
+    margin-left: 10px;
+}
 
 /*Index Page*/
 #all #heroImageContainer {

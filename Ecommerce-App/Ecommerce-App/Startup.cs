@@ -59,7 +59,7 @@ namespace Ecommerce_App
             services.AddAuthorization(options => options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin)));
 
             // MAPPING - register the Dependency Injection Services:
-            services.AddTransient<IProductsService, InventoryManagement>();
+            services.AddTransient<IProductsService, ProductsService>();
             services.AddScoped<IImage, Blob>();
             services.AddTransient<IEmailSender, EmailSenderService>();
             services.AddScoped<ICart, CartService>();

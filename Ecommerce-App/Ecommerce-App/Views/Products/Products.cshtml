@@ -1,25 +1,56 @@
-﻿@{
+﻿@model List<Ecommerce_App.Models.Product>
+@{
     Layout = "_Layout";
     ViewData["Title"] = "Products";
 }
-@model List<Ecommerce_App.Models.Product>
-@*TODO add search and filter functionality*@
-<div class="row">
-@foreach (var product in Model)
-{
-    <div class="col-4">
-        <a onclick="document.getElementById('@product.Id').submit()">
-        <form asp-controller="Products" asp-action="GetSingleProduct" asp-route-id="@product.Id" method="post" id="@product.Id">
-            @*<input type="hidden" name="id" value="@product.Id" />*@
-            <div class="card" style="width: 18rem;" id="productCard">
-                <img class="card-img-top" src="@product.Image" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">@product.Name</h5>
-                </div>
-            </div>
-        </form>
-        </a>
-    </div>
-}
+<div id="productSorter">
+    <form asp-controller="Products" asp-action="GetAllProducts" method="post">
+        <button type="submit" class="btn btn-light">All</button>
+    </form>
+    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
+        <input type="hidden" name="orderProp" value="Id" />
+        <input type="hidden" name="ascending" value="false" />
+        <button type="submit" class="btn btn-light">Recent</button>
+    </form>
+    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
+        <input type="hidden" name="orderProp" value="Name" />
+        <input type="hidden" name="ascending" value="true" />
+        <button type="submit" class="btn btn-light">Sort A-Z</button>
+    </form>
+    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
+        <input type="hidden" name="orderProp" value="Name" />
+        <input type="hidden" name="ascending" value="false" />
+        <button type="submit" class="btn btn-light">Sort Z-A</button>
+    </form>
+    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
+        <input type="hidden" name="orderProp" value="Price" />
+        <input type="hidden" name="ascending" value="true" />
+        <button type="submit" class="btn btn-light">Sort Lowest Price</button>
+    </form>
+    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
+        <input type="hidden" name="orderProp" value="Price" />
+        <input type="hidden" name="ascending" value="false" />
+        <button type="submit" class="btn btn-light">Sort Highest Price</button>
+    </form>
 </div>
 
+@*TODO add search and filter functionality*@
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-4">
+            <a onclick="document.getElementById('@product.Id').submit()">
+                <form asp-controller="Products" asp-action="GetSingleProduct" asp-route-id="@product.Id" method="post" id="@product.Id">
+                    @*<input type="hidden" name="id" value="@product.Id" />*@
+                    <div class="card" style="width: 18rem;" id="productCard">
+                        <img class="card-img-top" src="@product.Image" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p>$@product.Price</p>
+                        </div>
+                    </div>
+                </form>
+            </a>
+        </div>
+    }
+</div>
