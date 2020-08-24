@@ -1,0 +1,54 @@
+﻿@page
+@model Ecommerce_App.Pages.Shop.ReceiptModel
+@{
+    ViewData["Title"] = "Receipt";
+    Layout = "_Layout";
+}
+
+<h1>Your Receipt</h1>
+
+@*Billing Info from Order*@
+
+<div id="BillingDetails">
+    <ul>
+        <li>First Name: @Model.Order.FirstName</li>
+        <li>Last Name: @Model.Order.LastName</li>
+        <li>Shipping Address: @Model.Order.BillingAddress</li>
+        <li>City: @Model.Order.BillingCity</li>
+        <li>State: @Model.Order.BillingState</li>
+        <li>Zip Code: @Model.Order.BillingZip</li>
+        <li>Payment: @Model.Order.PaymentMethod</li>
+    </ul>
+</div>
+
+
+
+@*Cart Items in table*@
+
+<table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cartItem in Model.Order.CartItems)
+            {
+                <tr>
+                    <td>@cartItem.Product.Name</td>
+                    <td>@cartItem.Quantity</td>
+                    <td>$@(cartItem.Product.Price * cartItem.Quantity)</td>
+                </tr>
+            }
+        </tbody>
+</table>
+
+
+@*Total of totals*@
+
+<div id=total>
+    <p>Total: $@Model.Total</p>
+</div>
+
