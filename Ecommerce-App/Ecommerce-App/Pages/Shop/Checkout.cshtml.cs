@@ -8,7 +8,11 @@ using Ecommerce_App.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Text;
 
 namespace Ecommerce_App.Pages.Shop
 {
@@ -19,16 +23,22 @@ namespace Ecommerce_App.Pages.Shop
         private IPayment _payment;
         private IOrder _order;
         private ICart _cart;
+        private IEmailSender _emailSenderService;
+
         [BindProperty]
         public Order Input { get; set; }
+        public Order Order { get; set; }
 
-        public CheckoutModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IPayment payment, IOrder order, ICart cart)
+        public decimal Total { get; set; }
+
+        public CheckoutModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IPayment payment, IOrder order, ICart cart, IEmailSender emailSenderService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _payment = payment;
             _order = order;
             _cart = cart;
+            _emailSenderService = emailSenderService;
         }
         public void OnGet()
         {
@@ -57,7 +67,32 @@ namespace Ecommerce_App.Pages.Shop
                 await _cart.CloseCart(user.Id);
 
                 // EMAIL receipt to user
-                // go to receipt page
+
+                StringBuilder SB = new StringBuilder();
+
+                SB.AppendLine($"<h1>Thank you {user.FirstName} for your purchase at The Outdoor Store!</h1>");
+                SB.AppendLine($"<p>Here are your order details:");
+                SB.AppendLine($"<table><thead><tr><th>Product Name</th><th>Quantity</th><th>Total</th></tr></thead><tbody>");
+
+                Order = await _order.GetMostRecentOrder(user.Id);
+                Total = await _order.GetSpecificOrderTotal(Order.Id);
+
+                List<CartItem> cartItems = Order.CartItems.ToList();
+                foreach (var item in cartItems)
+                {
+                    SB.Append($"<tr><td>{item.Product.Name}</td>");
+                    SB.Append($"<td>{item.Quantity}</td>");
+                    SB.Append($"<td>{item.Product.Price * item.Quantity}</td></tr>");
+                }
+
+                SB.AppendLine($"</tbody><tfoot><tr><td></td><td>Total:</td><td>${Total}</td></tr></tfoot></table></p>");
+
+                SB.AppendLine("<p>Enjoy and hope to see you again soon!</p>");
+
+                string subject = "Your TheOutdoorStore Order Receipt";
+                string htmlMessage = SB.ToString();
+
+                await _emailSenderService.SendEmailAsync(user.Email, subject, htmlMessage);
             }
             else
             {

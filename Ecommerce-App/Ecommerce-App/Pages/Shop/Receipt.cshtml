@@ -10,15 +10,44 @@
 @*Billing Info from Order*@
 
 <div id="BillingDetails">
-    <ul>
-        <li>First Name: @Model.Order.FirstName</li>
-        <li>Last Name: @Model.Order.LastName</li>
-        <li>Shipping Address: @Model.Order.BillingAddress</li>
-        <li>City: @Model.Order.BillingCity</li>
-        <li>State: @Model.Order.BillingState</li>
-        <li>Zip Code: @Model.Order.BillingZip</li>
-        <li>Payment: @Model.Order.PaymentMethod</li>
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>First Name:</td>
+                <td>@Model.Order.FirstName</td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>@Model.Order.LastName</td>
+            </tr>
+            <tr>
+                <td>Shipping Address:</td>
+                <td>@Model.Order.BillingAddress</td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>@Model.Order.BillingCity</td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td>@Model.Order.BillingState</td>
+            </tr>
+            <tr>
+                <td>Zip Code:</td>
+                <td>@Model.Order.BillingZip</td>
+            </tr>
+            <tr>
+                <td>Payment:</td>
+                <td>@Model.Order.PaymentMethod</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 
@@ -26,29 +55,34 @@
 @*Cart Items in table*@
 
 <table>
-        <thead>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cartItem in Model.Order.CartItems)
+        {
             <tr>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Total</th>
+                <td>@cartItem.Product.Name</td>
+                <td>@cartItem.Quantity</td>
+                <td>$@(cartItem.Product.Price * cartItem.Quantity)</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var cartItem in Model.Order.CartItems)
-            {
-                <tr>
-                    <td>@cartItem.Product.Name</td>
-                    <td>@cartItem.Quantity</td>
-                    <td>$@(cartItem.Product.Price * cartItem.Quantity)</td>
-                </tr>
-            }
-        </tbody>
+        }
+        @*Total of totals:*@
+    </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td>Total:</td>
+                <td>$ @Model.Total</td>
+            </tr>
+        </tfoot>
 </table>
 
 
-@*Total of totals*@
 
-<div id=total>
-    <p>Total: $@Model.Total</p>
-</div>
+
 
