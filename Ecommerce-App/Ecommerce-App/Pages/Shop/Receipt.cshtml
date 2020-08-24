@@ -9,6 +9,17 @@
 
 @*Billing Info from Order*@
 
+<div id="BillingDetails">
+    <ul>
+        <li>First Name: @Model.Order.FirstName</li>
+        <li>Last Name: @Model.Order.LastName</li>
+        <li>Shipping Address: @Model.Order.BillingAddress</li>
+        <li>City: @Model.Order.BillingCity</li>
+        <li>State: @Model.Order.BillingState</li>
+        <li>Zip Code: @Model.Order.BillingZip</li>
+        <li>Payment: @Model.Order.PaymentMethod</li>
+    </ul>
+</div>
 
 
 
@@ -28,7 +39,7 @@
                 <tr>
                     <td>@cartItem.Product.Name</td>
                     <td>@cartItem.Quantity</td>
-                    <td>@(cartItem.Product.Price * cartItem.Quantity)</td>
+                    <td>$@(cartItem.Product.Price * cartItem.Quantity)</td>
                 </tr>
             }
         </tbody>
@@ -36,3 +47,8 @@
 
 
 @*Total of totals*@
+
+<div id=total>
+    <p>Total: $@Model.Total</p>
+</div>
+

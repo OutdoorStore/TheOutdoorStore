@@ -56,7 +56,7 @@ namespace Ecommerce_App.Pages.Shop
                 // close cart
                 await _cart.CloseCart(user.Id);
 
-                // email receipt to user
+                // EMAIL receipt to user
                 // go to receipt page
             }
             else

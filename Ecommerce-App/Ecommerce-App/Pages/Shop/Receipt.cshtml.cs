@@ -13,7 +13,7 @@ namespace Ecommerce_App.Pages.Shop
         public Cart Cart { get; set; }
         public decimal Total { get; set; }
 
-        private Microsoft.AspNetCore.Identity.SignInManager<Customer> _signInManager;
+        private SignInManager<Customer> _signInManager;
         private UserManager<Customer> _userManager;
         private ICart _cart;
         private IOrder _order;
@@ -32,6 +32,8 @@ namespace Ecommerce_App.Pages.Shop
                 Customer user = await _userManager.GetUserAsync(User);
 
                 Order = await _order.GetMostRecentOrder(user.Id);
+
+                Total = await _order.GetSpecificOrderTotal(Order.Id);
 
                 return Page();
             }

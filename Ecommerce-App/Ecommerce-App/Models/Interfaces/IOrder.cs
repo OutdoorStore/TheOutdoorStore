@@ -22,5 +22,12 @@ namespace Ecommerce_App.Models.Interfaces
         /// <param name="userId">The signed in user</param>
         /// <returns>The most recent order and all of its related cartItems and products</returns>
         Task<Order> GetMostRecentOrder(string userId);
+
+        /// <summary>
+        /// Gets the total price of all cart items in a specific order by order ID
+        /// </summary>
+        /// <param name="orderId">The specific order that is being searched</param>
+        /// <returns>The total price of all items in the order</returns>
+        Task<decimal> GetSpecificOrderTotal(int orderId);
     }
 }
