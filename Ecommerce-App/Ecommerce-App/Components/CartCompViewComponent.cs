@@ -29,7 +29,7 @@ namespace Ecommerce_App.Components
 
             CartCompVM VM = new CartCompVM();
 
-            if (customerCart != null)
+            if (customerCart != null || customerCart.CartItems.Count > 0)
             {
                 VM = new CartCompVM
                 {

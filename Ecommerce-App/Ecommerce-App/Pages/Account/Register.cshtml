@@ -4,48 +4,58 @@
     ViewData["Title"] = "Register";
     Layout = "_Layout";
 }
+<!Doctype html>
+<html>
+<head>
+    <style>
+        .register {
+            margin: 0px auto;
+        }
+    </style>
+</head>
 
-<h2>Register</h2>
-<form method="post">
-    <div class="form-group row">
-        <label asp-for="@Model.Input.FirstName" for="firstName" class="col-3 col-form-label">First Name</label>
-        <div class="col-9">
-            <input asp-for="@Model.Input.FirstName" type="text" class="form-control" id="firstName" required/>
+<body>
+    <main>
+        <div class="row">
+            <div class="col-md-4 d-flex justify-content-center register" style="margin-top:30px;">
+                <form method="post">
+                    <div class="form-group">
+                        <h2>Register</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Input.FirstName" for="firstName">First Name</label>
+                        <input asp-for="@Model.Input.FirstName" type="text" class="form-control" id="firstName" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Input.LastName" for="lastName">Last Name</label>
+                        <input asp-for="@Model.Input.LastName" type="text" class="form-control" id="lastName" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Input.Email" for="email">Email Address</label>
+                        <input asp-for="@Model.Input.Email" type="text" class="form-control" id="email" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Input.Password" for="password">Password</label>
+                        <input asp-for="@Model.Input.Password" type="password" class="form-control" id="password" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Input.ConfirmPassword" for="confirmPassword">Confirm Password</label>
+                        <input asp-for="@Model.Input.ConfirmPassword" type="password" class="form-control" id="confirmPassword" required />
+                    </div>
+
+                    <div class="row">
+                        <div class="register">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group row">
-        <label asp-for="@Model.Input.LastName" for="lastName" class="col-3 col-form-label">Last Name</label>
-        <div class="col-9">
-            <input asp-for="@Model.Input.LastName" type="text" class="form-control" id="lastName" required/>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label asp-for="@Model.Input.Email" for="email" class="col-3 col-form-label">Email Address</label>
-        <div class="col-9">
-            <input asp-for="@Model.Input.Email" type="text" class="form-control" id="email" required/>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label asp-for="@Model.Input.Password" for="password" class="col-3 col-form-label">Password</label>
-        <div class="col-9">
-            <input asp-for="@Model.Input.Password" type="password" class="form-control" id="password" required/>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label asp-for="@Model.Input.ConfirmPassword" for="confirmPassword" class="col-3 col-form-label">Confirm Password</label>
-        <div class="col-9">
-            <input asp-for="@Model.Input.ConfirmPassword" type="password" class="form-control" id="confirmPassword" required/>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-3 offset-3">
-            <button type="submit" class="btn btn-primary">Register</button>
-        </div>
-    </div>
-</form>
-
+    </main>
+</body>
+</html>
