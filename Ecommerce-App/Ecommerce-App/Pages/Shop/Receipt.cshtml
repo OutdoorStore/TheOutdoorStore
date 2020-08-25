@@ -1,0 +1,88 @@
+﻿@page
+@model Ecommerce_App.Pages.Shop.ReceiptModel
+@{
+    ViewData["Title"] = "Receipt";
+    Layout = "_Layout";
+}
+
+<h1>Your Receipt</h1>
+
+@*Billing Info from Order*@
+
+<div id="BillingDetails">
+    <table class="table">
+        @*<thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>*@
+        <tbody>
+            <tr>
+                <td>First Name:</td>
+                <td>@Model.Order.FirstName</td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>@Model.Order.LastName</td>
+            </tr>
+            <tr>
+                <td>Shipping Address:</td>
+                <td>@Model.Order.BillingAddress</td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>@Model.Order.BillingCity</td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td>@Model.Order.BillingState</td>
+            </tr>
+            <tr>
+                <td>Zip Code:</td>
+                <td>@Model.Order.BillingZip</td>
+            </tr>
+            <tr>
+                <td>Payment:</td>
+                <td>@Model.Order.PaymentMethod</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+@*Cart Items in table*@
+
+<table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cartItem in Model.Order.CartItems)
+        {
+            <tr>
+                <td>@cartItem.Product.Name</td>
+                <td>@cartItem.Quantity</td>
+                <td>$@(cartItem.Product.Price * cartItem.Quantity)</td>
+            </tr>
+        }
+        @*Total of totals:*@
+    </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td>Total:</td>
+                <td>$ @Model.Total</td>
+            </tr>
+        </tfoot>
+</table>
+
+
+
+
+

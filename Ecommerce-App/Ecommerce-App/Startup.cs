@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 
 namespace Ecommerce_App
 {
@@ -57,8 +59,13 @@ namespace Ecommerce_App
             services.AddAuthorization(options => options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin)));
 
             // MAPPING - register the Dependency Injection Services:
-            services.AddTransient<IProductsService, InventoryManagement>();
+            services.AddTransient<IProductsService, ProductsService>();
             services.AddScoped<IImage, Blob>();
+            services.AddTransient<IEmailSender, EmailSenderService>();
+            services.AddScoped<ICart, CartService>();
+            services.AddScoped<ICartItem, CartItemService>();
+            services.AddTransient<IPayment, PaymentService>();
+            services.AddScoped<IOrder, OrderService>();
 
         }
 

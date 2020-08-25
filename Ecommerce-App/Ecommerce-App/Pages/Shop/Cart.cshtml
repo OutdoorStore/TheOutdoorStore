@@ -1,0 +1,30 @@
+﻿@page
+@model Ecommerce_App.Pages.Shop.CartModel
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "_Layout";
+}
+
+<h1>Your Cart</h1>
+@foreach (var item in Model.Cart.CartItems)
+{
+    <img src="@item.Product.Image" alt="Image displaying @item.Product.Name" />
+    <h2>@item.Product.Name</h2>
+    <p>Price: $@item.Product.Price</p>
+    <p>Cost: $@(item.Quantity*item.Product.Price)</p>
+    <form asp-controller="Products" asp-action="UpdateItemInCart" method="post">
+        <label for="quantity">Quantity</label>
+        <input type="hidden" name="productId" value="@item.Product.Id" />
+        <input type="hidden" name="cartId" value="@Model.Cart.Id" />
+        <input id="quantity" name="quantity" value="@item.Quantity" type="number" step="1" pattern="\d+" min="1"/>
+        <button type="submit" class="btn btn-warning">Change</button>
+    </form>
+    <form asp-controller="Products" asp-action="RemoveItemFromCart" method="post">
+        <input type="hidden" name="productId" value="@item.Product.Id" />
+        <input type="hidden" name="cartId" value="@Model.Cart.Id" />
+        <button type="submit" class="btn btn-danger">Remove</button>
+    </form>
+
+}
+<h2>Total Cost: $@Model.Total</h2>
+<a asp-page="/Shop/Checkout" class="btn btn-primary">Proceed to Checkout</a>

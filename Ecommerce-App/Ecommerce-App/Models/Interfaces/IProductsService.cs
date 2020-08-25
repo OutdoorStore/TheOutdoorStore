@@ -10,10 +10,10 @@ namespace Ecommerce_App.Models.Interfaces
     {
 
         /// <summary>
-        /// Returns a collection of all the products in the 
+        /// Returns a list of all the products in the 
         /// database.
         /// </summary>
-        /// <returns>A collection of all products</returns>
+        /// <returns>A list of all products</returns>
         Task<List<Product>> GetAllProducts();
 
         /// <summary>
@@ -50,5 +50,12 @@ namespace Ecommerce_App.Models.Interfaces
         /// <returns>An empty task object</returns>
         Task DeleteProduct(int id);
 
+        /// <summary>
+        /// Returns a list of all products ordered by the specific property.
+        /// </summary>
+        /// <param name="orderProp">Which property is being used for ordering.</param>
+        /// <param name="ascending">Whether the ordering will be acsending or descending.</param>
+        /// <returns>Correctly ordered list of all products.</returns>
+        Task<List<Product>> GetOrderedProducts(string orderProp, bool ascending);
     }
 }

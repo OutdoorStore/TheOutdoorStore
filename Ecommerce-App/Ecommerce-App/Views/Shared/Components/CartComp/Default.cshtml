@@ -1,0 +1,28 @@
+﻿@model Ecommerce_App.Components.CartCompViewComponent.CartCompVM;
+
+@using Microsoft.AspNetCore.Identity;
+@using Ecommerce_App.Models;
+
+@inject SignInManager<Customer> SignInManager;
+@inject UserManager<Customer> UserManager;
+@inject Ecommerce_App.Data.StoreDbContext _storeDbContext;
+
+
+
+@if (Model.Cart != null)
+{
+    <h1>Your Cart</h1>
+
+    @foreach (var item in Model.Cart.CartItems)
+    {
+        <h2>@item.Product.Name</h2>
+        <p>Quantity: @item.Quantity</p>
+        <p>Price: @item.Product.Price</p>
+
+        <p>Total: @(item.Quantity*item.Product.Price)</p>
+    }
+
+    <h3>Total: $@Model.Total</h3>
+}
+
+

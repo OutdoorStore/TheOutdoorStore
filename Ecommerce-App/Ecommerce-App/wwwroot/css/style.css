@@ -1,3 +1,16 @@
+/*html*/
+
+#all html {
+    position: relative;
+    min-height: 100%;
+}
+
+/*Body*/
+#all main {
+    padding-top: 66px;
+    margin-bottom: 60px;
+}
+
 /*Nav Bar*/
 #all nav {
     background-color: #F0E9EF;
@@ -18,13 +31,23 @@
     color: rgba(0,0,0,.5);
     padding: 0 0 0 0;
 }
+#all #cartIcon {
+    max-height: 40px;
+    padding: 0px 8px;
+}
+#all #productSorter {
+    margin: 10px 0px;
+}
+#all #productSorter form {
+    display: inline-block;
+    margin-left: 10px;
+}
 
 /*Index Page*/
 #all #heroImageContainer {
     max-width: 100%;
     position: relative;
 }
-
 #all #heroImageContainer img {
     max-width: 100%;
 }
@@ -32,4 +55,40 @@
     position: absolute;
     font-size: large;
     margin: 5rem 0 0 10rem;
+}
+
+/*Products Page*/
+#all #productCard:hover {
+    cursor: pointer;
+}
+#all #productCard img {
+    display: inline-block;
+    max-height: 225px;
+}
+
+/*Individual Product Page*/
+#all #imageContainer {
+    display: inline-block;
+}
+#all #textContainer {
+    display: inline-block;
+}
+#all #cardImage {
+    max-height: 225px;
+}
+
+/*Footer*/
+#all #footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+}
+
+#all #footerContainer {
+    padding-right: 15px;
+    padding-left: 15px;
 }
