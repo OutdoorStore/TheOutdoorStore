@@ -4,6 +4,9 @@
 
 ----
 
+## The Outdoor Store
+Link: https://theoutdoorstore.azurewebsites.net/
+
 ## Description
 This program is an ECommerce mock website built out over several weeks, adding new features each day. The process of making it will serve as a learning opportunity to understand the ins and outs of an online product retail service.
 
@@ -49,5 +52,6 @@ Users are authenticated by the submission of their email and password located in
 ---
 
 ### Change Log
+1.2: *Sprint 2* - 24 August 2020
 1.1: *Sprint 1* - 16 August 2020
 1.0: *Initial Release, Lab 26* - 8 August 2020

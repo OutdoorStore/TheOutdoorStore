@@ -13,7 +13,7 @@ namespace EcommerceApplicationTesting
 
         private IProductsService BuildRepository()
         {
-            return new InventoryManagement(_db);
+            return new ProductsService(_db);
         }
 
         [Fact]
