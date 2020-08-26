@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ecommerce_App.Pages.Account
 {
+    [Authorize(Policy = "User")]
     public class DetailsModel : PageModel
     {
         [BindProperty]
@@ -24,17 +26,18 @@ namespace Ecommerce_App.Pages.Account
             _signInManger = signInManager;
             _account = account;
         }
-
+        
         public async Task OnGet()
         {
             Customer = await _userManager.GetUserAsync(User);
         }
 
-        public async Task OnPostName()
+        public async Task<IActionResult> OnPostName()
         {
             var userId = _userManager.GetUserId(User);
             await _account.UpdateName(userId, Customer.FirstName, Customer.LastName);
             Customer = await _userManager.GetUserAsync(User);
+            return RedirectToPage("/Account/Details");
         }
         public async Task OnPostBilling()
         {
