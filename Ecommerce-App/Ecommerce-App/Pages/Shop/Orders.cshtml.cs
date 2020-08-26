@@ -1,36 +1,43 @@
 ﻿using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Ecommerce_App.Pages.Shop
 {
-    public class ReceiptModel : PageModel
+    public class OrdersModel : PageModel
     {
-        public Order Order { get; set; }
+        public List<Order> Orders { get; set; }
         public Cart Cart { get; set; }
 
         private SignInManager<Customer> _signInManager;
         private UserManager<Customer> _userManager;
-        private ICart _cart;
         private IOrder _order;
 
-        public ReceiptModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, ICart cart, IOrder order)
+        public OrdersModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IOrder order)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _cart = cart;
             _order = order;
         }
+
+        /// <summary>
+        /// OnGet checks if the user is signed in, and if so, 
+        /// gets all of the user's orders from the database
+        /// and returns the Orders Razor page
+        /// </summary>
+        /// <returns>The Orders Razor page</returns>
         public async Task<IActionResult> OnGet()
         {
             if (_signInManager.IsSignedIn(User))
             {
                 Customer user = await _userManager.GetUserAsync(User);
 
-                Order = await _order.GetMostRecentOrder(user.Id);
+                Orders = await _order.GetAllOrdersForUser(user.Id);
 
                 return Page();
             }

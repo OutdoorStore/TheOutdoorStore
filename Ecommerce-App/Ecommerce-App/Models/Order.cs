@@ -18,6 +18,7 @@ namespace Ecommerce_App.Models
         public string BillingZip { get; set; }
         public string PaymentMethod { get; set; }
         public DateTime Date { get; set; }
+        public decimal Total { get; set; }
 
         // TODO: add shipping address
         //public string ShippingAddress { get; set; }
