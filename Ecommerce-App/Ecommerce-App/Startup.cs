@@ -66,7 +66,7 @@ namespace Ecommerce_App
             services.AddScoped<ICartItem, CartItemService>();
             services.AddTransient<IPayment, PaymentService>();
             services.AddScoped<IOrder, OrderService>();
-
+            services.AddScoped<IAccount, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
