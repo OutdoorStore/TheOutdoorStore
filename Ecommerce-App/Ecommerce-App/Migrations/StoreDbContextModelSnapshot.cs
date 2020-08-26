@@ -97,6 +97,9 @@ namespace Ecommerce_App.Migrations
                     b.Property<string>("PaymentMethod")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 

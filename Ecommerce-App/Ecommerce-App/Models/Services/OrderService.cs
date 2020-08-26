@@ -51,6 +51,24 @@ namespace Ecommerce_App.Models.Services
         }
 
         /// <summary>
+        /// Gets all of the orders for a specific user by the user's Id,
+        /// includes all of the cart items and product details. 
+        /// Orders are in descending order. 
+        /// </summary>
+        /// <param name="userId">The signed in user</param>
+        /// <returns>A list of the users orders ordered by date</returns>
+        public async Task<List<Order>> GetAllOrdersForUser(string userId)
+        {
+            List<Order> orders = await _storeContext.Orders.Where(u => u.UserId == userId)
+                                                          .OrderByDescending(o => o.Date)
+                                                          .Include(o => o.CartItems)
+                                                          .ThenInclude(ci => ci.Product)
+                                                          .ToListAsync();
+
+            return orders;
+        }
+
+        /// <summary>
         /// Gets the total price of all cart items in a specific order by order ID
         /// </summary>
         /// <param name="orderId">The specific order that is being searched</param>

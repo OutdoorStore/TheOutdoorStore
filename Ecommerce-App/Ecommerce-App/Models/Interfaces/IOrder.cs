@@ -29,5 +29,15 @@ namespace Ecommerce_App.Models.Interfaces
         /// <param name="orderId">The specific order that is being searched</param>
         /// <returns>The total price of all items in the order</returns>
         Task<decimal> GetSpecificOrderTotal(int orderId);
+
+
+        /// <summary>
+        /// Gets all of the orders for a specific user by the user's Id,
+        /// includes all of the cart items and product details. 
+        /// Orders are in descending order. 
+        /// </summary>
+        /// <param name="userId">The signed in user</param>
+        /// <returns>A list of the users orders ordered by date</returns>
+        Task<List<Order>> GetAllOrdersForUser(string userId);
     }
 }

@@ -29,8 +29,6 @@ namespace Ecommerce_App.Pages.Shop
         public Order Input { get; set; }
         public Order Order { get; set; }
 
-        public decimal Total { get; set; }
-
         public CheckoutModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IPayment payment, IOrder order, ICart cart, IEmailSender emailSenderService)
         {
             _signInManager = signInManager;
@@ -61,6 +59,7 @@ namespace Ecommerce_App.Pages.Shop
                 Input.UserId = user.Id;
                 Input.CartId = cart.Id;
                 Input.CartItems = cart.CartItems;
+                Input.Total = _cart.GetCartTotal(user.Id);
                 await _order.FinalizeOrder(Input);
 
                 // close cart
@@ -75,7 +74,6 @@ namespace Ecommerce_App.Pages.Shop
                 SB.AppendLine($"<table><thead><tr><th>Product Name</th><th>Quantity</th><th>Total</th></tr></thead><tbody>");
 
                 Order = await _order.GetMostRecentOrder(user.Id);
-                Total = await _order.GetSpecificOrderTotal(Order.Id);
 
                 List<CartItem> cartItems = Order.CartItems.ToList();
                 foreach (var item in cartItems)
@@ -85,7 +83,7 @@ namespace Ecommerce_App.Pages.Shop
                     SB.Append($"<td>{item.Product.Price * item.Quantity}</td></tr>");
                 }
 
-                SB.AppendLine($"</tbody><tfoot><tr><td></td><td>Total:</td><td>${Total}</td></tr></tfoot></table></p>");
+                SB.AppendLine($"</tbody><tfoot><tr><td></td><td>Total:</td><td>${Order.Total}</td></tr></tfoot></table></p>");
 
                 SB.AppendLine("<p>Enjoy and hope to see you again soon!</p>");
 
@@ -94,10 +92,10 @@ namespace Ecommerce_App.Pages.Shop
 
                 await _emailSenderService.SendEmailAsync(user.Email, subject, htmlMessage);
             }
-            else
-            {
-                // reload page with error message
-            }
+            //else
+            //{
+            //    // reload page with error message
+            //}
 
             return RedirectToPage("/Shop/Receipt");
         }
