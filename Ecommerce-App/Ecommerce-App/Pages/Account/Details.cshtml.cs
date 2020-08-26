@@ -13,7 +13,7 @@ namespace Ecommerce_App.Pages.Account
     public class DetailsModel : PageModel
     {
         // [BindProperty]
-        Customer Customer { get; set; }
+        public Customer Customer { get; set; }
         private UserManager<Customer> _userManager;
         private SignInManager<Customer> _signInManger;
         private IAccount _account;

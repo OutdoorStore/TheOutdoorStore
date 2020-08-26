@@ -1,4 +1,94 @@
 ﻿@page
 @model Ecommerce_App.Pages.Account.DetailsModel
 @{
+    ViewData["Title"] = "Details";
+    Layout = "_Layout";
 }
+
+<!Doctype html>
+<html>
+<head>
+    <style>
+        .login {
+            margin: 0px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <div class="row">
+            <div class="col-md-4 d-flex justify-content-center login" style="margin-top:30px;">
+
+                <h1>Account Info</h1>
+
+                <form asp-page-handler="Name" method="post">
+
+                    <div class="form-group">
+                        <h2>Name</h2>
+                    </div>
+
+                    <div asp-validation-summary="All"></div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Customer.FirstName">First Name</label>
+                        <input asp-for="@Model.Customer.LastName" class="form-control" value="@Model.Customer.FirstName" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Customer.LastName">Last Name</label>
+                        <input asp-for="@Model.Customer.LastName" class="form-control" value="@Model.Customer.LastName" required />
+                    </div>
+
+                    <div class="row">
+                        <div class="login">
+                            <button type="submit" class="btn btn-primary">Update Name</button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <form asp-page-handler="Billing" method="post">
+
+                    <div class="form-group">
+                        <h2>Billing Info</h2>
+                    </div>
+
+                    <div asp-validation-summary="All"></div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Customer.BillingAddress">Address</label>
+                        <input asp-for="@Model.Customer.BillingAddress" class="form-control" value="@Model.Customer.BillingAddress" placeholder="Add billing address" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Customer.BillingCity">City</label>
+                        <input asp-for="@Model.Customer.BillingCity" class="form-control" value="@Model.Customer.BillingCity" placeholder="Add billing city" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Customer.BillingState">State</label>
+                        <input asp-for="@Model.Customer.BillingState" class="form-control" value="@Model.Customer.BillingState" placeholder="Add billing state" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.Customer.BillingZip">Zip Code</label>
+                        <input asp-for="@Model.Customer.BillingZip" class="form-control" value="@Model.Customer.BillingZip" placeholder="Add billing zip code" required />
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <button type="submit" class="btn btn-primary">Update Billing</button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <form asp-page-handler="RemoveBilling" method="post">
+                    <button type="submit" class="btn btn-warning">Update Name</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
