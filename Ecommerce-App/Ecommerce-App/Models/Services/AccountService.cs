@@ -32,7 +32,8 @@ namespace Ecommerce_App.Models.Services
 
         public async Task<Customer> UpdateBilling(string userId, string billingAddress, string billingCity, string billingState, string billingZip)
         {
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = _userDbContext.Users.Where(c => c.Id == userId).FirstOrDefault();
+            //var user = await _userManager.FindByIdAsync(userId);
             user.BillingAddress = billingAddress;
             user.BillingCity = billingCity;
             user.BillingState = billingState;

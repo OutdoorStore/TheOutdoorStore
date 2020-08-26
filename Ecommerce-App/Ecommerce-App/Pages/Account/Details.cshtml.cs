@@ -12,7 +12,7 @@ namespace Ecommerce_App.Pages.Account
 {
     public class DetailsModel : PageModel
     {
-        // [BindProperty]
+        [BindProperty]
         public Customer Customer { get; set; }
         private UserManager<Customer> _userManager;
         private SignInManager<Customer> _signInManger;
@@ -25,26 +25,29 @@ namespace Ecommerce_App.Pages.Account
             _account = account;
         }
 
-        public async void OnGet()
+        public async Task OnGet()
         {
             Customer = await _userManager.GetUserAsync(User);
         }
 
-        public async void OnPostName()
+        public async Task OnPostName()
         {
+            var userId = _userManager.GetUserId(User);
+            await _account.UpdateName(userId, Customer.FirstName, Customer.LastName);
             Customer = await _userManager.GetUserAsync(User);
-            await _account.UpdateName(Customer.Id, Customer.FirstName, Customer.LastName);
         }
-        public async void OnPostBilling()
+        public async Task OnPostBilling()
         {
+            var userId = _userManager.GetUserId(User);
+            await _account.UpdateBilling(userId, Customer.BillingAddress, Customer.BillingCity, Customer.BillingState, Customer.BillingZip);
             Customer = await _userManager.GetUserAsync(User);
-            await _account.UpdateBilling(Customer.Id, Customer.BillingAddress, Customer.BillingCity, Customer.BillingState, Customer.BillingZip);
         }
 
-        public async void OnPostRemoveBilling()
+        public async Task OnPostRemoveBilling()
         {
+            var userId = _userManager.GetUserId(User);
+            await _account.RemoveBilling(userId);
             Customer = await _userManager.GetUserAsync(User);
-            await _account.RemoveBilling(Customer.Id);
         }
     }
 }

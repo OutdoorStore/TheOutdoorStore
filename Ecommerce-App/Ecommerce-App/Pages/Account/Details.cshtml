@@ -33,7 +33,7 @@
 
                     <div class="form-group">
                         <label asp-for="@Model.Customer.FirstName">First Name</label>
-                        <input asp-for="@Model.Customer.LastName" class="form-control" value="@Model.Customer.FirstName" required />
+                        <input asp-for="@Model.Customer.FirstName" class="form-control" value="@Model.Customer.FirstName" required />
                     </div>
 
                     <div class="form-group">
@@ -86,7 +86,7 @@
                 </form>
 
                 <form asp-page-handler="RemoveBilling" method="post">
-                    <button type="submit" class="btn btn-warning">Update Name</button>
+                    <button type="submit" class="btn btn-danger">Remove Billing Infro</button>
                 </form>
             </div>
         </div>
