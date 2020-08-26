@@ -33,6 +33,22 @@ namespace Ecommerce_App.Models.Services
         }
 
         /// <summary>
+        /// Gets a single order from the database, by order Id,
+        /// and includes all of the cart items and products in the order.
+        /// </summary>
+        /// <param name="orderId">The id of the specific order to get</param>
+        /// <returns>The specific order, including all of the cart items and products</returns>
+        public async Task<Order> GetSingleOrderById(int orderId)
+        {
+            Order order = await _storeContext.Orders.Where(o => o.Id == orderId)
+                                                    .Include(o => o.CartItems)
+                                                    .ThenInclude(ci => ci.Product)
+                                                    .FirstOrDefaultAsync();
+
+            return order;
+        }
+
+        /// <summary>
         /// Gets the user's most recent order, by filtering the orders table
         /// by userId and then selecting the most recent order
         /// </summary>

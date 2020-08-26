@@ -16,6 +16,14 @@ namespace Ecommerce_App.Models.Interfaces
         Task<Order> FinalizeOrder(Order order);
 
         /// <summary>
+        /// Gets a single order from the database, by order Id,
+        /// and includes all of the cart items and products in the order.
+        /// </summary>
+        /// <param name="orderId">The id of the specific order to get</param>
+        /// <returns>The specific order, including all of the cart items and products</returns>
+        Task<Order> GetSingleOrderById(int orderId);
+
+        /// <summary>
         /// Gets the user's most recent order, by filtering the orders table
         /// by userId and then selecting the most recent order
         /// </summary>

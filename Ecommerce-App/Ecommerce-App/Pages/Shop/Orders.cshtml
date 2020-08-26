@@ -24,8 +24,7 @@
             <td>@order.Date.ToString("D")</td>
             <td>$@order.Total</td>
             <td>
-
-                <a href="/Pages/Shop/Order/{@order.Id}">View Details</a>
+                <a asp-page="/Shop/Order" asp-route-Id="@order.Id">View Details</a>
             </td>
         </tr>
         }

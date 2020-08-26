@@ -16,16 +16,21 @@ namespace Ecommerce_App.Pages.Shop
 
         private SignInManager<Customer> _signInManager;
         private UserManager<Customer> _userManager;
-        private ICart _cart;
         private IOrder _order;
 
-        public OrdersModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, ICart cart, IOrder order)
+        public OrdersModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IOrder order)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _cart = cart;
             _order = order;
         }
+
+        /// <summary>
+        /// OnGet checks if the user is signed in, and if so, 
+        /// gets all of the user's orders from the database
+        /// and returns the Orders Razor page
+        /// </summary>
+        /// <returns>The Orders Razor page</returns>
         public async Task<IActionResult> OnGet()
         {
             if (_signInManager.IsSignedIn(User))
@@ -34,18 +39,11 @@ namespace Ecommerce_App.Pages.Shop
 
                 Orders = await _order.GetAllOrdersForUser(user.Id);
 
-                foreach (var order in Orders)
-                {
-                    order.Total = await _order.GetSpecificOrderTotal(order.Id);
-                }
-
                 return Page();
             }
             else
             {
                 return RedirectToAction("GetAllProducts", "Products");
-
-
             }
         }
     }
