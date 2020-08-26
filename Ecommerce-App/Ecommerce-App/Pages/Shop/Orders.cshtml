@@ -23,7 +23,10 @@
         <tr>
             <td>@order.Date.ToString("D")</td>
             <td>$@order.Total</td>
-            <td>View Details</td>
+            <td>
+
+                <a href="/Pages/Shop/Order/{@order.Id}">View Details</a>
+            </td>
         </tr>
         }
     </tbody>

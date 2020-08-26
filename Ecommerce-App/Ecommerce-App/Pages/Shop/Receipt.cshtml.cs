@@ -11,7 +11,6 @@ namespace Ecommerce_App.Pages.Shop
     {
         public Order Order { get; set; }
         public Cart Cart { get; set; }
-        public decimal Total { get; set; }
 
         private SignInManager<Customer> _signInManager;
         private UserManager<Customer> _userManager;
@@ -32,8 +31,6 @@ namespace Ecommerce_App.Pages.Shop
                 Customer user = await _userManager.GetUserAsync(User);
 
                 Order = await _order.GetMostRecentOrder(user.Id);
-
-                Total = await _order.GetSpecificOrderTotal(Order.Id);
 
                 return Page();
             }
