@@ -35,6 +35,37 @@ Then select and open ```Ecommerce-App.sln```
 
 ### Technical Details
 
+#### Store DB Schema
+
+![StoreDbERD](/Assets/ERD)
+
+1 **Carts**
+	* A simple model. 
+	* It has a UserId FK and an Active status that can be either true or false. 
+	* The Navigation Properties are CartItems. 
+	* It has a one to many relationship with the CartItems table. 
+
+2 **CartItems**
+	* A join table with payload. 
+	* It has two FK that act as CK: CartId and ProductId. 
+	* The Navigation Properties are Cart and Product. 
+	* It has a many to one relationship with the Cart table.
+	* It has a many to one relationship with the Products table. 
+	* It has a many to one relationship with the Orders table. 
+
+3 **Products**
+	* A simple model. 
+	* It holds all basic product information. 
+	* The Navigation Properties are CartItems. 
+	* It has a one to many relationship with the CartItems table. 
+
+4 **Orders**
+	* A simple model. 
+	* It has two FK: UserId and CartId, but does not access them directly. 
+	* It holds all Order information. 
+	* The Navigation Properties are CartItems. 
+	* It has a one to many relationship with the CartItems table. 
+
 #### Athentication
 Users are authenticated by the submission of their email and password located in a form on the Login page.
 
