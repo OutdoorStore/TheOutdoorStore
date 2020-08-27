@@ -16,6 +16,14 @@ namespace Ecommerce_App.Models.Interfaces
         Task<Order> FinalizeOrder(Order order);
 
         /// <summary>
+        /// OnGet checks if the user is signed in, and if so, 
+        /// gets all of the user's orders from the database
+        /// and returns the Orders Razor page
+        /// </summary>
+        /// <returns>The Orders Razor page</returns>
+        Task<List<Order>> GetAllOrdersForAdmin();
+
+        /// <summary>
         /// Gets a single order from the database, by order Id,
         /// and includes all of the cart items and products in the order.
         /// </summary>
@@ -37,7 +45,6 @@ namespace Ecommerce_App.Models.Interfaces
         /// <param name="orderId">The specific order that is being searched</param>
         /// <returns>The total price of all items in the order</returns>
         Task<decimal> GetSpecificOrderTotal(int orderId);
-
 
         /// <summary>
         /// Gets all of the orders for a specific user by the user's Id,
