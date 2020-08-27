@@ -46,7 +46,7 @@ namespace Ecommerce_App.Pages.Account
             Customer = await _userManager.GetUserAsync(User);
         }
 
-        public async Task OnPostRemoveBilling()
+        public async Task OnGetRemoveBilling()
         {
             var userId = _userManager.GetUserId(User);
             await _account.RemoveBilling(userId);
