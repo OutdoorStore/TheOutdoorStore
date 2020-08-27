@@ -14,22 +14,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.AspNetCore.Identity;
 
 namespace Ecommerce_App.Pages.Dashboard
 {
     [Authorize(Policy = "AdminOnly")]
     public class PictureModel : PageModel
     {
+        public List<Order> Orders { get; set; }
+        public Cart Cart { get; set; }
+
+        private SignInManager<Customer> _signInManager;
+        private UserManager<Customer> _userManager;
+        private IOrder _order;
         private IImage _image;
         private readonly IConfiguration _configuration;
         private readonly IProductsService _productService;
 
-        public PictureModel(IImage image, IConfiguration configuration, IProductsService productService)
+        public PictureModel(IImage image, IConfiguration configuration, IProductsService productService, SignInManager<Customer> signInManager, UserManager<Customer> userManager, IOrder order)
         {
             _image = image;
             _configuration = configuration;
             _productService = productService;
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _order = order;
         }
 
         [BindProperty]
@@ -43,7 +52,9 @@ namespace Ecommerce_App.Pages.Dashboard
             // use _product service to get the product by id.
             // set the product property to our service result:
             Product = await _productService.GetSingleProduct(id);
-            
+
+            Orders = await _order.GetAllOrdersForAdmin();
+
             return Page();
         }
 

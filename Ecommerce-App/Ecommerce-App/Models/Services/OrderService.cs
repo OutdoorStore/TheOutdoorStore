@@ -49,6 +49,22 @@ namespace Ecommerce_App.Models.Services
         }
 
         /// <summary>
+        /// Gets all of the orders from the database, 
+        /// ordered by descending date and including all
+        /// of the cart items and products in each order. 
+        /// </summary>
+        /// <returns>All of the existing orders</returns>
+        public async Task<List<Order>> GetAllOrdersForAdmin()
+        {
+            List<Order> orders = await _storeContext.Orders.OrderByDescending(o => o.Date)
+                                                           .Include(o => o.CartItems)
+                                                           .ThenInclude(ci => ci.Product)
+                                                           .ToListAsync();
+
+            return orders;
+        }
+
+        /// <summary>
         /// Gets the user's most recent order, by filtering the orders table
         /// by userId and then selecting the most recent order
         /// </summary>

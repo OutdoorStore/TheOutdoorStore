@@ -5,11 +5,15 @@
     Layout = "_Layout";
 }
 
-<h1>Inventory Management</h1>
+<h1>Admin Dashboard</h1>
 
-@*<h2>Create a New Product</h2>
-<h2>Update a Product</h2>
-<h2>Delete a Product</h2>*@
+<h2>Manage Products</h2>
+
+@*Create a New Product*@
+
+@*Update a Product*@
+
+@*Delete a Product</h2>*@
 
 <form method="post" enctype="multipart/form-data">
 
@@ -23,3 +27,31 @@
 
 </form>
 
+
+<h2>Manage Orders</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Order Number</th>
+            <th>Date</th>
+            <th>Customer Name</th>
+            <th>Total Cost</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+        <tr>
+            <td>@order.Id</td>
+            <td>@order.Date.ToString("d")</td>
+            <td>@order.FirstName @order.LastName</td>
+            <td>$@order.Total</td>
+            <td>
+                <a asp-page="/Shop/Order" asp-route-Id="@order.Id">Order Details</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
