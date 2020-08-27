@@ -27,6 +27,18 @@ namespace Ecommerce_App.Migrations.UserDb
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("BillingAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BillingCity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BillingState")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BillingZip")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
