@@ -10,22 +10,48 @@
 <h2>Manage Products</h2>
 
 @*Create a New Product*@
+<div>
+    <h1>Create Product</h1>
+    <form asp-page-handler="Create" method="post" enctype="multipart/form-data">
+        <label>SKU</label>
+        <input type="text" asp-for="@Model.Product.Sku" value="" />
+        <label>Name</label>
+        <input type="text" asp-for="@Model.Product.Name" value="" />
+        <label>Price</label>
+        <input type="number" asp-for="@Model.Product.Price" value="" />
+        <label>Description</label>
+        <input type="text" asp-for="@Model.Product.Description" value="" />
+        <label>Image</label>
+        <input asp-for="@Model.Input.File" />
+        <button type="submit">Create</button>
+    </form>
+</div>
 
 @*Update a Product*@
+<div>
+    <h1>Delete Product</h1>
+    <form asp-page-handler="Delete" method="post">
+        <label>Product ID</label>
+        <input type="number" asp-for="@Model.Product.Id" value="" />
+        <button type="submit">Delete</button>
+    </form>
+</div>
 
 @*Delete a Product</h2>*@
+<div>
+    <h1>Update Product</h1>
+    <form asp-page-handler="Update" method="post" enctype="multipart/form-data">
 
-<form method="post" enctype="multipart/form-data">
+        <label asp-for="@Model.Product.Name"></label>
 
-    <label asp-for="@Model.Product.Name"></label>
+        <label asp-for="@Model.Product.Id"></label>
+        <input asp-for="@Model.Product.Id"/>
 
-    <label asp-for="@Model.Product.Id"></label>
-    <input asp-for="@Model.Product.Id"></input>
+        <input asp-for="@Model.Input.File" />
+        <button type="submit">Update</button>
 
-    <input asp-for="@Model.Input.File" />
-    <button type="submit">Submit</button>
-
-</form>
+    </form>
+</div>
 
 
 <h2>Manage Orders</h2>
