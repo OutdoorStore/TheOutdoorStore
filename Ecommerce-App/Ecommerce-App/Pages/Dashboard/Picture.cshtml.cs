@@ -21,9 +21,6 @@ namespace Ecommerce_App.Pages.Dashboard
     [Authorize(Policy = "AdminOnly")]
     public class PictureModel : PageModel
     {
-        public List<Order> Orders { get; set; }
-        public Cart Cart { get; set; }
-
         private SignInManager<Customer> _signInManager;
         private UserManager<Customer> _userManager;
         private IOrder _order;
@@ -41,29 +38,28 @@ namespace Ecommerce_App.Pages.Dashboard
             _order = order;
         }
 
+        public List<Order> Orders { get; set; }
+        public List<Product> Products { get; set; }
+
         [BindProperty]
         public ImageViewModel Input { get; set; }
-      
+
         [BindProperty]
         public Product Product { get; set; }
 
-        public async Task<IActionResult> OnGet(int id)
+        public async Task<IActionResult> OnGet()
         {
             // use _product service to get the product by id.
             // set the product property to our service result:
-            Product = await _productService.GetSingleProduct(id);
+            Products = await _productService.GetAllProducts();
 
             Orders = await _order.GetAllOrdersForAdmin();
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostCreate()
         {
-            // Create a local file in the ./data/ directory for uploading and downloading
-            // Set the local path to a temp location (folder)
-            //string localPath = Path.GetTempFileName();
-
             string ext = Path.GetExtension(Input.File.FileName);
             string fileName = Input.File.FileName;
             string contentType = Input.File.ContentType;
@@ -85,16 +81,58 @@ namespace Ecommerce_App.Pages.Dashboard
             var resultBlob = await blob.GetBlob(Input.File.FileName, "images");
 
             string imageUri = resultBlob.Uri.ToString();
+            Product.Image = imageUri;
+            Product.Id = 0;
+            await _productService.CreateProduct(Product);
+            return RedirectToPage("/Dashboard/Picture");
+        }
+
+        public async Task<IActionResult> OnPostUpdate()
+        {
+            // Create a local file in the ./data/ directory for uploading and downloading
+            // Set the local path to a temp location (folder)
+            //string localPath = Path.GetTempFileName();
+            if (Input.File != null)
+            {
+                string ext = Path.GetExtension(Input.File.FileName);
+                string fileName = Input.File.FileName;
+                string contentType = Input.File.ContentType;
+
+                if (Input.File != null)
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        // copies the file as a stream to the file location:
+                        await Input.File.CopyToAsync(stream);
+                        var bytes = stream.ToArray();
+                        await _image.UploadImage("images", fileName, bytes, contentType);
+                    }
+
+                }
+
+                Blob blob = new Blob(_configuration);
+
+                var resultBlob = await blob.GetBlob(Input.File.FileName, "images");
+
+                string imageUri = resultBlob.Uri.ToString();
+                Product.Image = imageUri;
+            }
 
             // save to DB: set product.Image to image Uri
             // and update the product in the DB
-            Product = await _productService.GetSingleProduct(Product.Id);
-            Product.Image = imageUri;
+            //Product = await _productService.GetSingleProduct(Product.Id);
             await _productService.UpdateProduct(Product.Id, Product);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToPage("/Dashboard/Picture");
         }
 
+        public async Task<IActionResult> OnPostDelete()
+        {
+            await _productService.DeleteProduct(Product.Id);
+            return RedirectToPage("/Dashboard/Picture");
+        }
+
+        // refactor, view model not needed on a razor page.
         public class ImageViewModel
         {
             public IFormFile File { get; set; }

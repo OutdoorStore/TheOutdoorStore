@@ -7,26 +7,46 @@
 
 <h1>Admin Dashboard</h1>
 
-<h2>Manage Products</h2>
-
 @*Create a New Product*@
+<div>
+    <h2>Create Product</h2>
+    <form asp-page-handler="Create" method="post" enctype="multipart/form-data">
+        <label>SKU</label>
+        <input type="text" asp-for="@Model.Product.Sku" value="" />
+        <label>Name</label>
+        <input type="text" asp-for="@Model.Product.Name" value="" />
+        <label>Price</label>
+        <input type="number" asp-for="@Model.Product.Price" value="" />
+        <label>Description</label>
+        <input type="text" asp-for="@Model.Product.Description" value="" />
+        <label>Image</label>
+        <input asp-for="@Model.Input.File" />
+        <button type="submit">Create</button>
+    </form>
+</div>
+<h2>All Products</h2>
 
-@*Update a Product*@
-
-@*Delete a Product</h2>*@
-
-<form method="post" enctype="multipart/form-data">
-
-    <label asp-for="@Model.Product.Name"></label>
-
-    <label asp-for="@Model.Product.Id"></label>
-    <input asp-for="@Model.Product.Id"></input>
-
-    <input asp-for="@Model.Input.File" />
-    <button type="submit">Submit</button>
-
-</form>
-
+@foreach (var product in Model.Products)
+{
+    <div>
+        <form asp-page-handler="Update" method="post" enctype="multipart/form-data">
+            <h3>@product.Id</h3>
+            <img src="@product.Image" />
+            <input asp-for="@product.Id" value="@product.Id" required hidden />
+            <input asp-for="@product.Image" value="@product.Image" required />
+            <input asp-for="@product.Name" value="@product.Name" required />
+            <input asp-for="@product.Sku" value="@product.Sku" required />
+            <input asp-for="@product.Price" value="@product.Price" type="number" required />
+            <input asp-for="@product.Description" value="@product.Description" required />
+            <input asp-for="@Model.Input.File" />
+            <button type="submit">Update</button>
+        </form>
+        <form asp-page-handler="Delete" method="post">
+            <input type="number" asp-for="@product.Id" value="@product.Id" hidden required />
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+}
 
 <h2>Manage Orders</h2>
 
@@ -43,15 +63,15 @@
     <tbody>
         @foreach (var order in Model.Orders)
         {
-        <tr>
-            <td>@order.Id</td>
-            <td>@order.Date.ToString("d")</td>
-            <td>@order.FirstName @order.LastName</td>
-            <td>$@order.Total</td>
-            <td>
-                <a asp-page="/Shop/Order" asp-route-Id="@order.Id">Order Details</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.Date.ToString("d")</td>
+                <td>@order.FirstName @order.LastName</td>
+                <td>$@order.Total</td>
+                <td>
+                    <a asp-page="/Shop/Order" asp-route-Id="@order.Id">Order Details</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
