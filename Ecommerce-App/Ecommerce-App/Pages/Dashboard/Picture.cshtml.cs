@@ -43,7 +43,7 @@ namespace Ecommerce_App.Pages.Dashboard
 
         [BindProperty]
         public ImageViewModel Input { get; set; }
-      
+
         [BindProperty]
         public Product Product { get; set; }
 
@@ -92,36 +92,38 @@ namespace Ecommerce_App.Pages.Dashboard
             // Create a local file in the ./data/ directory for uploading and downloading
             // Set the local path to a temp location (folder)
             //string localPath = Path.GetTempFileName();
-
-            string ext = Path.GetExtension(Input.File.FileName);
-            string fileName = Input.File.FileName;
-            string contentType = Input.File.ContentType;
-
             if (Input.File != null)
             {
-                using (var stream = new MemoryStream())
+                string ext = Path.GetExtension(Input.File.FileName);
+                string fileName = Input.File.FileName;
+                string contentType = Input.File.ContentType;
+
+                if (Input.File != null)
                 {
-                    // copies the file as a stream to the file location:
-                    await Input.File.CopyToAsync(stream);
-                    var bytes = stream.ToArray();
-                    await _image.UploadImage("images", fileName, bytes, contentType);
+                    using (var stream = new MemoryStream())
+                    {
+                        // copies the file as a stream to the file location:
+                        await Input.File.CopyToAsync(stream);
+                        var bytes = stream.ToArray();
+                        await _image.UploadImage("images", fileName, bytes, contentType);
+                    }
+
                 }
 
+                Blob blob = new Blob(_configuration);
+
+                var resultBlob = await blob.GetBlob(Input.File.FileName, "images");
+
+                string imageUri = resultBlob.Uri.ToString();
+                Product.Image = imageUri;
             }
-
-            Blob blob = new Blob(_configuration);
-
-            var resultBlob = await blob.GetBlob(Input.File.FileName, "images");
-
-            string imageUri = resultBlob.Uri.ToString();
 
             // save to DB: set product.Image to image Uri
             // and update the product in the DB
-            Product = await _productService.GetSingleProduct(Product.Id);
-            Product.Image = imageUri;
+            //Product = await _productService.GetSingleProduct(Product.Id);
             await _productService.UpdateProduct(Product.Id, Product);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToPage("/Dashboard/Picture");
         }
 
         public async Task<IActionResult> OnPostDelete()
