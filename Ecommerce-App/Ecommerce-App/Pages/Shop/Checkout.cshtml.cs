@@ -20,6 +20,7 @@ namespace Ecommerce_App.Pages.Shop
     {
         private SignInManager<Customer> _signInManager;
         private UserManager<Customer> _userManager;
+        private UserDbContext _userDbContext;
         private IPayment _payment;
         private IOrder _order;
         private ICart _cart;
@@ -29,18 +30,22 @@ namespace Ecommerce_App.Pages.Shop
         public Order Input { get; set; }
         public Order Order { get; set; }
 
-        public CheckoutModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IPayment payment, IOrder order, ICart cart, IEmailSender emailSenderService)
+        public Customer Customer { get; set; }
+        public string ErrorMessage { get; set; }
+
+        public CheckoutModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, UserDbContext userDbContext, IPayment payment, IOrder order, ICart cart, IEmailSender emailSenderService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _userDbContext = userDbContext;
             _payment = payment;
             _order = order;
             _cart = cart;
             _emailSenderService = emailSenderService;
         }
-        public void OnGet()
+        public async Task OnGet()
         {
-
+            Customer = await _userManager.GetUserAsync(User);
         }
 
         public async Task<IActionResult> OnPost()
@@ -92,10 +97,14 @@ namespace Ecommerce_App.Pages.Shop
 
                 await _emailSenderService.SendEmailAsync(user.Email, subject, htmlMessage);
             }
-            //else
-            //{
-            //    // reload page with error message
-            //}
+            else
+            {
+                ErrorMessage = "There was a problem with your payment information. Please try again.";
+                Customer = await _userManager.GetUserAsync(User);
+
+                //return RedirectToPage("/Shop/Checkout");
+                return Page();
+            }
 
             return RedirectToPage("/Shop/Receipt");
         }
