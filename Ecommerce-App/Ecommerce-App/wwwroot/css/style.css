@@ -95,17 +95,17 @@
     margin-left: 25%;
 }
 
-#all #accountDetails h1 {
-    margin-bottom: 30px;
-}
+    #all #accountDetails h1 {
+        margin-bottom: 30px;
+    }
 
-#all #accountDetails h2,button,a {
-    display: inline-block;
-}
+    #all #accountDetails h2, button, a {
+        display: inline-block;
+    }
 
-#all #accountDetails .inputGroup {
-    margin-bottom: 5px;
-}
+    #all #accountDetails .inputGroup {
+        margin-bottom: 5px;
+    }
 
 #all #updateName {
     margin-bottom: 30px;
@@ -128,4 +128,30 @@
 #all #footerContainer {
     padding-right: 15px;
     padding-left: 15px;
+}
+
+/*Product Details*/
+
+#all #breadbrumb-nav {
+    background-color: #f8f9fa;
+}
+
+#all #add-cart {
+    margin-left: 2%;
+}
+
+#all #vc-header {
+    padding-left: 12px;
+}
+
+#all #product-name {
+    font-family: 'Comfortaa', cursive;
+}
+
+#all .product-info {
+    font-family: 'Quicksand', sans-serif;
+}
+
+#all #price {
+    font-size: 20px;
 }

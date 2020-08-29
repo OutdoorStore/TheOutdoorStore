@@ -11,18 +11,39 @@
 
 @if (Model.Cart != null)
 {
-    <h1>Your Cart</h1>
+    <div class="container">
+        <div class="row" id="vc-header">
+            <div col="col-md-6 mb-4">
+                <h2>Your Cart</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div col="col-md-6 mb-4">
+                <table class="table table-borderless">
+                    <tbody>
+                        @foreach (var item in Model.Cart.CartItems)
+                        {
+                            <tr>
+                                <td>@item.Product.Name</td>
+                                <td>Quantity: @item.Quantity</td>
+                                <td>Price: @item.Product.Price</td>
 
-    @foreach (var item in Model.Cart.CartItems)
-    {
-        <h2>@item.Product.Name</h2>
-        <p>Quantity: @item.Quantity</p>
-        <p>Price: @item.Product.Price</p>
-
-        <p>Total: @(item.Quantity*item.Product.Price)</p>
-    }
-
-    <h3>Total: $@Model.Total</h3>
+                                <td>Total: $@(item.Quantity*item.Product.Price)</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total: $@Model.Total</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
 }
-
-

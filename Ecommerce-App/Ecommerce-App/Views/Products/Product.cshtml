@@ -12,39 +12,84 @@
     ViewData["Title"] = Model.Name;
 }
 
-    @*<head> // re-examine for error that it causes //
-        <meta name="viewport" content="width=device-width" />
-        <link href="/css/reset.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
-        <link href="/css/style.css" rel="stylesheet" />
-        <link href="album.css" rel="stylesheet">
-        <script src="~/js/index.js"></script>
-        <title>@ViewBag.Title</title>
-    </head>*@
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="/css/reset.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
 
-<div id="productDetails">
-    <div id="imageContainer"><img src="@Model.Image" /></div>
-    <div id="textContainer">
-        <div id="name">@Model.Name</div>
-        <div id="price">@Model.Price</div>
-        <div id="desc">@Model.Description</div>
-    </div>
-</div>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet" />
+    <script src="~/js/index.js"></script>
+    <title>@ViewBag.Title</title>
+    <style></style>
+</head>
 
 
-@*ADD to cart*@
-<form asp-controller="Products" asp-action="AddProductToCart" method="post">
-    <div class="row">
-        <div class="col-3 offset-3">
-            <label for="quantity">Quantity</label>
-            <input type="hidden" name="productId" value="@Model.Id" />
-            <input id="quantity" name="quantity" value="1" type="number" step="1" pattern="\d+" min="1"/>
-            <button type="submit" class="btn btn-primary">Add to Cart</button>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb" id="breadbrumb-nav">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/Products/GetAllProducts">Products</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Climbing</li>
+    </ol>
+</nav>
+
+@*<h2 class="breadmome-name breadcrumbs-title">Climbing Packs</h2>*@
+
+<!--Main layout-->
+<main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+
+                <img src="@Model.Image" class="img-fluid" alt="">
+
+            </div>
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+
+                <!--Content-->
+                <div class="p-4">
+
+                    <p class="lead font-weight-bold" id="product-name">@Model.Name</p>
+
+                    <p class="product-info" id="price">
+                        <span>$@Model.Price</span>
+                    </p>
+
+                    <p class="product-info">@Model.Description</p>
+
+                    <form class="d-flex justify-content-left" asp-controller="Products" asp-action="AddProductToCart" method="post">
+                        <input type="hidden" name="productId" value="@Model.Id" aria-label="Search" class="form-control" style="width: 100px">
+                        <input id="quantity" name="quantity" value="1" type="number" step="1" pattern="\d+" min="1" />
+                        <button class="btn btn-primary btn-md my-0 p" id="add-cart" type="submit">
+                            Add to cart
+                            @*<i class="fas fa-shopping-cart ml-1"></i>*@
+                        </button>
+
+                    </form>
+
+                </div>
+                <!--Content-->
+
+            </div>
+            <!--Grid column-->
+
         </div>
+        <!--Grid row-->
+
+        <hr>
     </div>
-</form>
+</main>
+
 
 @*View Component*@
 
@@ -53,12 +98,14 @@
     var customer = await UserManager.GetUserAsync(User);
     var userId = customer.Id;
 
-    <div>
-        @await Component.InvokeAsync("CartComp", userId);
-    </div>
+@*<div class="container">
+    <div class="row">*@
+        @*<div col="col-md-6 mb-4">*@
+        <div>
+            @await Component.InvokeAsync("CartComp", userId)
+        </div>
+    @*</div>
+</div>*@
 }
-
-
-
 
 
