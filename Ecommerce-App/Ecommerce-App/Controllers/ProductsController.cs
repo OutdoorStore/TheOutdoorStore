@@ -6,12 +6,14 @@ using Ecommerce_App.Data;
 using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Ecommerce_App.Models.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ecommerce_App.Controllers
 {
+    [Authorize(Policy = "User")]
     public class ProductsController : Controller
     {
         private readonly IProductsService _productsService;
@@ -35,19 +37,23 @@ namespace Ecommerce_App.Controllers
         //{
         //    return View();
         //}
-
-        [HttpGet("/Shop/Products/All")]
-        public async Task<ActionResult> Index()
+        [AllowAnonymous]
+        [HttpGet("/Shop/Products/All/{sort?}")]
+        public async Task<ActionResult> Index(string sort)
         {
-            return View("Shop/Products", await _productsService.GetAllProducts());
+            List<Product> products = new List<Product>();
+            if (sort != null)
+            {
+                products = await _productsService.GetOrderedProducts(sort);
+            }
+            else
+            {
+                products = await _productsService.GetAllProducts();
+            }
+            return View("Shop/Products", products);
         }
 
-
-        public async Task<ActionResult> GetOrderedProducts(string orderProp, bool ascending)
-        {
-            return View("Products", await _productsService.GetOrderedProducts(orderProp, ascending));
-        }
-
+        [AllowAnonymous]
         [HttpGet("/Shop/Products/{id}")]
         public async Task<ActionResult> GetSingleProduct(int id)
         {

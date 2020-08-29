@@ -4,34 +4,12 @@
     ViewData["Title"] = "Products";
 }
 <div id="productSorter">
-    <form asp-controller="Products" asp-action="GetAllProducts" method="post">
-        <button type="submit" class="btn btn-light">All</button>
-    </form>
-    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
-        <input type="hidden" name="orderProp" value="Id" />
-        <input type="hidden" name="ascending" value="false" />
-        <button type="submit" class="btn btn-light">Recent</button>
-    </form>
-    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
-        <input type="hidden" name="orderProp" value="Name" />
-        <input type="hidden" name="ascending" value="true" />
-        <button type="submit" class="btn btn-light">Sort A-Z</button>
-    </form>
-    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
-        <input type="hidden" name="orderProp" value="Name" />
-        <input type="hidden" name="ascending" value="false" />
-        <button type="submit" class="btn btn-light">Sort Z-A</button>
-    </form>
-    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
-        <input type="hidden" name="orderProp" value="Price" />
-        <input type="hidden" name="ascending" value="true" />
-        <button type="submit" class="btn btn-light">Sort Lowest Price</button>
-    </form>
-    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
-        <input type="hidden" name="orderProp" value="Price" />
-        <input type="hidden" name="ascending" value="false" />
-        <button type="submit" class="btn btn-light">Sort Highest Price</button>
-    </form>
+    <a href="/Shop/Products/All" class="btn btn-light">All</a>
+    <a href="/Shop/Products/All/Recent" class="btn btn-light">Recent</a>
+    <a href="/Shop/Products/All/A-Z" class="btn btn-light">Sort A-Z</a>
+    <a href="/Shop/Products/All/Z-A" class="btn btn-light">Sort Z-A</a>
+    <a href="/Shop/Products/All/Lowest" class="btn btn-light">Sort Lowest Price</a>
+    <a href="/Shop/Products/All/Highest" class="btn btn-light">Sort Highest Price</a>
 </div>
 
 <div class="container">

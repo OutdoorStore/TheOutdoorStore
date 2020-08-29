@@ -45,10 +45,10 @@
     margin: 10px 0px;
 }
 
-    #all #productSorter form {
-        display: inline-block;
-        margin-left: 10px;
-    }
+#all #productSorter a {
+    display: inline-block;
+    margin-left: 10px;
+}
 
 /*Index Page*/
 #all #heroImageContainer {
