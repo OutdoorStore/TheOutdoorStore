@@ -4,9 +4,11 @@ using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce_App.Pages.Shop
 {
+    [Authorize(Policy = "User")]
     public class OrderModel : PageModel
     {
         public Order Order { get; set; }

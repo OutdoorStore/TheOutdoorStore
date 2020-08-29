@@ -6,12 +6,14 @@ using Ecommerce_App.Data;
 using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Ecommerce_App.Models.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ecommerce_App.Controllers
 {
+    [Authorize(Policy = "User")]
     public class ProductsController : Controller
     {
         private readonly IProductsService _productsService;
@@ -30,27 +32,36 @@ namespace Ecommerce_App.Controllers
             _cartItem = cartItem;
             _storeDbContext = storeDbContext;
         }
-        public IActionResult Index()
+
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+        [AllowAnonymous]
+        [HttpGet("/Shop/Products/All/{sort?}")]
+        public async Task<ActionResult> Index(string sort)
         {
-            return View();
+            List<Product> products = new List<Product>();
+            if (sort != null)
+            {
+                products = await _productsService.GetOrderedProducts(sort);
+            }
+            else
+            {
+                products = await _productsService.GetAllProducts();
+            }
+            return View("Shop/Products", products);
         }
 
-        public async Task<ActionResult> GetAllProducts()
-        {
-            return View("Products", await _productsService.GetAllProducts());
-        }
-
-        public async Task<ActionResult> GetOrderedProducts(string orderProp, bool ascending)
-        {
-            return View("Products", await _productsService.GetOrderedProducts(orderProp, ascending));
-        }
-
+        [AllowAnonymous]
+        [HttpGet("/Shop/Products/{id}")]
         public async Task<ActionResult> GetSingleProduct(int id)
         {
             Product product = await _productsService.GetSingleProduct(id);
 
-            return View("Product", product);
+            return View("Shop/Product", product);
         }
+
 
         public async Task<ActionResult> AddProductToCart(int productId, int quantity)
         {
@@ -74,7 +85,7 @@ namespace Ecommerce_App.Controllers
                     await _cartItem.Create(productId, cart.Id, quantity);
                 }
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Products");
 
             }
             else
@@ -83,11 +94,13 @@ namespace Ecommerce_App.Controllers
             }
         }
 
+
         public async Task<ActionResult> RemoveItemFromCart(int cartId, int productId)
         {
             await _cartItem.Delete(cartId, productId);
             return RedirectToPage("/Shop/Cart");
         }
+
 
         public async Task<ActionResult> UpdateItemInCart(int cartId, int productId, int quantity)
         {

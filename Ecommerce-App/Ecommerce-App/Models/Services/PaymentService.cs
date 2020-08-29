@@ -95,6 +95,10 @@ namespace Ecommerce_App.Models.Services
             controller.Execute();
 
             var response = controller.GetApiResponse();
+            if (response == null)
+            {
+                return "error";
+            }
             return response.messages.message[0].text;
         }
 

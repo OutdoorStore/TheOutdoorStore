@@ -10,15 +10,8 @@ namespace Ecommerce_App.Controllers
 {
     public class HomeController : Controller
     {
-        private IPayment _payment;
-
-        public HomeController(IPayment payment)
-        {
-            _payment = payment;
-        }
         public IActionResult Index()
         {
-            //_payment.Run();
             return View();
         }
     }
