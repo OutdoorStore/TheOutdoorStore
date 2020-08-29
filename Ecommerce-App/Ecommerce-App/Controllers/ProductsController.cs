@@ -85,7 +85,7 @@ namespace Ecommerce_App.Controllers
                     await _cartItem.Create(productId, cart.Id, quantity);
                 }
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Products");
 
             }
             else
