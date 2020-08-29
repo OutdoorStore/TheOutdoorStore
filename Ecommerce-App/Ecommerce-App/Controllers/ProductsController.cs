@@ -42,17 +42,20 @@ namespace Ecommerce_App.Controllers
             return View("Shop/Products", await _productsService.GetAllProducts());
         }
 
+
         public async Task<ActionResult> GetOrderedProducts(string orderProp, bool ascending)
         {
             return View("Products", await _productsService.GetOrderedProducts(orderProp, ascending));
         }
 
+        [HttpGet("/Shop/Products/{id}")]
         public async Task<ActionResult> GetSingleProduct(int id)
         {
             Product product = await _productsService.GetSingleProduct(id);
 
-            return View("Product", product);
+            return View("Shop/Product", product);
         }
+
 
         public async Task<ActionResult> AddProductToCart(int productId, int quantity)
         {
@@ -85,11 +88,13 @@ namespace Ecommerce_App.Controllers
             }
         }
 
+
         public async Task<ActionResult> RemoveItemFromCart(int cartId, int productId)
         {
             await _cartItem.Delete(cartId, productId);
             return RedirectToPage("/Shop/Cart");
         }
+
 
         public async Task<ActionResult> UpdateItemInCart(int cartId, int productId, int quantity)
         {

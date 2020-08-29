@@ -39,20 +39,13 @@
         @foreach (var product in Model)
         {
             <div class="col-4 card justify-content-center" id="productCard">
-                @*<div class="product-grid2">*@
-                    <a onclick="document.getElementById('@product.Id').submit()">
-                        <form asp-controller="Products" asp-action="GetSingleProduct" asp-route-id="@product.Id" method="post" id="@product.Id">
-                            @*<div class="car-img-top justify-content-center">*@
-                                <img id="cardImage" src="@product.Image" style="max-height: 250px; margin: 10px auto; display: flex">
-                            @*</div>*@
-                            <div class="card-body">
-                                <h5 class="card-title">@product.Name</h5>
-                                <span>$@product.Price</span>
-                            </div>
-                        </form>
-                    </a>
-                @*</div>*@
+                <a href="/Shop/Products/@product.Id">
+                        <img id="cardImage" src="@product.Image" style="max-height: 250px; margin: 10px auto; display: flex">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <span>$@product.Price</span>
+                        </div>
+                </a>
             </div>
         }
-    </div>
 </div>
