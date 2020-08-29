@@ -1,0 +1,58 @@
+﻿@model List<Ecommerce_App.Models.Product>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Products";
+}
+<div id="productSorter">
+    <form asp-controller="Products" asp-action="GetAllProducts" method="post">
+        <button type="submit" class="btn btn-light">All</button>
+    </form>
+    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
+        <input type="hidden" name="orderProp" value="Id" />
+        <input type="hidden" name="ascending" value="false" />
+        <button type="submit" class="btn btn-light">Recent</button>
+    </form>
+    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
+        <input type="hidden" name="orderProp" value="Name" />
+        <input type="hidden" name="ascending" value="true" />
+        <button type="submit" class="btn btn-light">Sort A-Z</button>
+    </form>
+    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
+        <input type="hidden" name="orderProp" value="Name" />
+        <input type="hidden" name="ascending" value="false" />
+        <button type="submit" class="btn btn-light">Sort Z-A</button>
+    </form>
+    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
+        <input type="hidden" name="orderProp" value="Price" />
+        <input type="hidden" name="ascending" value="true" />
+        <button type="submit" class="btn btn-light">Sort Lowest Price</button>
+    </form>
+    <form asp-controller="Products" asp-action="GetOrderedProducts" method="post">
+        <input type="hidden" name="orderProp" value="Price" />
+        <input type="hidden" name="ascending" value="false" />
+        <button type="submit" class="btn btn-light">Sort Highest Price</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-4 card justify-content-center" id="productCard">
+                @*<div class="product-grid2">*@
+                    <a onclick="document.getElementById('@product.Id').submit()">
+                        <form asp-controller="Products" asp-action="GetSingleProduct" asp-route-id="@product.Id" method="post" id="@product.Id">
+                            @*<div class="car-img-top justify-content-center">*@
+                                <img id="cardImage" src="@product.Image" style="max-height: 250px; margin: 10px auto; display: flex">
+                            @*</div>*@
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Name</h5>
+                                <span>$@product.Price</span>
+                            </div>
+                        </form>
+                    </a>
+                @*</div>*@
+            </div>
+        }
+    </div>
+</div>

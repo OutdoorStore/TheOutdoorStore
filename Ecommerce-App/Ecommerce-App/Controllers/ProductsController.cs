@@ -30,14 +30,16 @@ namespace Ecommerce_App.Controllers
             _cartItem = cartItem;
             _storeDbContext = storeDbContext;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
-        public async Task<ActionResult> GetAllProducts()
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        [HttpGet("/Shop/Products/All")]
+        public async Task<ActionResult> Index()
         {
-            return View("Products", await _productsService.GetAllProducts());
+            return View("Shop/Products", await _productsService.GetAllProducts());
         }
 
         public async Task<ActionResult> GetOrderedProducts(string orderProp, bool ascending)
