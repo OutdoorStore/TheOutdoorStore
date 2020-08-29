@@ -30,7 +30,7 @@ namespace Ecommerce_App.Pages.Shop
                 Cart = await _cart.GetActiveCartForUser(user.Id);
                 if (Cart == null || Cart.CartItems.Count == 0) // order of OR statement matters here
                 {
-                    return RedirectToAction("GetAllProducts", "Products");
+                    return RedirectToAction("Index", "Products");
                 }
 
                 Total = _cart.GetCartTotal(user.Id);
