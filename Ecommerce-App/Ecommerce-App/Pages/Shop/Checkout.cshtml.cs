@@ -43,11 +43,23 @@ namespace Ecommerce_App.Pages.Shop
             _cart = cart;
             _emailSenderService = emailSenderService;
         }
+        
+        /// <summary>
+        /// Gets the signed in user information
+        /// </summary>
+        /// <returns>A customer object of the signed in user</returns>
         public async Task OnGet()
         {
             Customer = await _userManager.GetUserAsync(User);
         }
 
+        /// <summary>
+        /// Gets the users payment details, executes the transaction,
+        /// if successful, saves the order in the db,
+        /// closes the user's active cart, 
+        /// sends the user a purchase receipt email
+        /// </summary>
+        /// <returns>A complete task or error message</returns>
         public async Task<IActionResult> OnPost()
         {
             // (Other checks may be needed here?)

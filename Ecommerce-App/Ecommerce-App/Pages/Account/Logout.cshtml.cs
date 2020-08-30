@@ -22,6 +22,10 @@ namespace Ecommerce_App.Pages.Account
 
         }
 
+        /// <summary>
+        /// Logs the user out of their account
+        /// </summary>
+        /// <returns>A complete task</returns>
         public async Task<IActionResult> OnPost()
         {
             await _signInManager.SignOutAsync();
