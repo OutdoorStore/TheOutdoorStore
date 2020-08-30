@@ -56,6 +56,8 @@ namespace Ecommerce_App.Models.Interfaces
         /// <param name="orderProp">Which property is being used for ordering.</param>
         /// <param name="ascending">Whether the ordering will be acsending or descending.</param>
         /// <returns>Correctly ordered list of all products.</returns>
-        Task<List<Product>> GetOrderedProducts(string orderProp, bool ascending);
+        Task<List<Product>> GetOrderedProducts(string sort);
+
+
     }
 }

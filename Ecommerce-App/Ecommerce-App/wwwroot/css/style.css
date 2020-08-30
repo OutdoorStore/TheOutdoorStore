@@ -15,30 +15,37 @@
 #all nav {
     background-color: #F0E9EF;
 }
+
 #all #companyName {
     font-family: 'Comfortaa', cursive;
     margin-left: .7rem;
 }
+
 #all .navbar-nav {
     font-family: 'Quicksand', sans-serif;
 }
+
 #all #logo {
     max-height: 50px;
 }
+
 #all nav button {
     border: none;
     background: none;
     color: rgba(0,0,0,.5);
     padding: 0 0 0 0;
 }
+
 #all #cartIcon {
     max-height: 40px;
     padding: 0px 8px;
 }
+
 #all #productSorter {
     margin: 10px 0px;
 }
-#all #productSorter form {
+
+#all #productSorter a {
     display: inline-block;
     margin-left: 10px;
 }
@@ -48,9 +55,11 @@
     max-width: 100%;
     position: relative;
 }
-#all #heroImageContainer img {
-    max-width: 100%;
-}
+
+    #all #heroImageContainer img {
+        max-width: 100%;
+    }
+
 #all #quote {
     position: absolute;
     font-size: large;
@@ -61,6 +70,7 @@
 #all #productCard:hover {
     cursor: pointer;
 }
+
 #all #productCard img {
     display: inline-block;
     max-height: 225px;
@@ -70,11 +80,38 @@
 #all #imageContainer {
     display: inline-block;
 }
+
 #all #textContainer {
     display: inline-block;
 }
+
 #all #cardImage {
     max-height: 225px;
+}
+
+/*Account Details*/
+#all #accountDetails {
+    width: 50%;
+    margin-left: 25%;
+}
+
+    #all #accountDetails h1 {
+        margin-bottom: 30px;
+    }
+
+    #all #accountDetails h2, button, a {
+        display: inline-block;
+    }
+
+    #all #accountDetails .inputGroup {
+        margin-bottom: 5px;
+    }
+
+#all #updateName {
+    margin-bottom: 30px;
+}
+
+#all #updateBilling {
 }
 
 /*Footer*/
@@ -91,4 +128,30 @@
 #all #footerContainer {
     padding-right: 15px;
     padding-left: 15px;
+}
+
+/*Product Details*/
+
+#all #breadbrumb-nav {
+    background-color: #f8f9fa;
+}
+
+#all #add-cart {
+    margin-left: 2%;
+}
+
+#all #vc-header {
+    padding-left: 12px;
+}
+
+#all #product-name {
+    font-family: 'Comfortaa', cursive;
+}
+
+#all .product-info {
+    font-family: 'Quicksand', sans-serif;
+}
+
+#all #price {
+    font-size: 20px;
 }

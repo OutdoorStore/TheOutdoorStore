@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce-App", "Ecommerce-App\Ecommerce-App.csproj", "{3A64A807-8D7D-453F-AD7A-F9F7869E67D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceApplicationTesting", "EcommerceApplicationTesting\EcommerceApplicationTesting.csproj", "{6392A400-1BEE-487E-A79B-0CF3F209DFF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceApplicationTesting", "EcommerceApplicationTesting\EcommerceApplicationTesting.csproj", "{6392A400-1BEE-487E-A79B-0CF3F209DFF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

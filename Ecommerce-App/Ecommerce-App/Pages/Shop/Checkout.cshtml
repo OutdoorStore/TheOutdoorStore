@@ -6,6 +6,10 @@
 }
 
 <h1>Order Details</h1>
+@if (Model.ErrorMessage != "" || Model.ErrorMessage != null)
+{
+    <p>@Model.ErrorMessage</p>
+}
 
 <form method="post">
     <div asp-validation-summary="All"></div>
@@ -13,42 +17,42 @@
     <div class="form-group row">
         <label asp-for="@Model.Input.FirstName" class="col-3 col-form-label">First Name</label>
         <div class="col-9">
-            <input asp-for="@Model.Input.FirstName" class="form-control" required />
+            <input asp-for="@Model.Input.FirstName" class="form-control" value="@Model.Customer.FirstName" required />
         </div>
     </div>
 
     <div class="form-group row">
         <label asp-for="@Model.Input.LastName" class="col-3 col-form-label">Last Name</label>
         <div class="col-9">
-            <input asp-for="@Model.Input.LastName" class="form-control" required />
+            <input asp-for="@Model.Input.LastName" class="form-control" value="@Model.Customer.LastName" required />
         </div>
     </div>
 
     <div class="form-group row">
         <label asp-for="@Model.Input.BillingAddress" class="col-3 col-form-label">Address</label>
         <div class="col-9">
-            <input asp-for="@Model.Input.BillingAddress" class="form-control" required />
+            <input asp-for="@Model.Input.BillingAddress" class="form-control" value="@Model.Customer.BillingAddress" required />
         </div>
     </div>
 
     <div class="form-group row">
         <label asp-for="@Model.Input.BillingCity" class="col-3 col-form-label">City</label>
         <div class="col-9">
-            <input asp-for="@Model.Input.BillingCity" class="form-control" required />
+            <input asp-for="@Model.Input.BillingCity" class="form-control" value="@Model.Customer.BillingCity" required />
         </div>
     </div>
 
     <div class="form-group row">
         <label asp-for="@Model.Input.BillingState" class="col-3 col-form-label">State</label>
         <div class="col-9">
-            <input asp-for="@Model.Input.BillingState" class="form-control" required />
+            <input asp-for="@Model.Input.BillingState" class="form-control" value="@Model.Customer.BillingState" required />
         </div>
     </div>
 
     <div class="form-group row">
         <label asp-for="@Model.Input.BillingZip" class="col-3 col-form-label">Zip Code</label>
         <div class="col-9">
-            <input asp-for="@Model.Input.BillingZip" class="form-control" required />
+            <input asp-for="@Model.Input.BillingZip" class="form-control" value="@Model.Customer.BillingZip" required />
         </div>
     </div>
 

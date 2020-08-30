@@ -1,51 +1,51 @@
 ﻿using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Ecommerce_App.Models;
 using Ecommerce_App.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce_App.Pages.Shop
 {
-    public class CartModel : PageModel
+    [Authorize(Policy = "User")]
+    public class OrdersModel : PageModel
     {
+        public List<Order> Orders { get; set; }
         public Cart Cart { get; set; }
-        public decimal Total { get; set; }
 
         private SignInManager<Customer> _signInManager;
         private UserManager<Customer> _userManager;
-        private ICart _cart;
+        private IOrder _order;
 
-        public CartModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, ICart cart)
+        public OrdersModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IOrder order)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _cart = cart;
+            _order = order;
         }
 
         /// <summary>
-        /// Gets the signed in user's active cart details,
-        /// and calculates the total price of all the cart items
+        /// OnGet checks if the user is signed in, and if so, 
+        /// gets all of the user's orders from the database
+        /// and returns the Orders Razor page
         /// </summary>
-        /// <returns>A complete task</returns>
+        /// <returns>The Orders Razor page</returns>
         public async Task<IActionResult> OnGet()
         {
             if (_signInManager.IsSignedIn(User))
             {
                 Customer user = await _userManager.GetUserAsync(User);
-                Cart = await _cart.GetActiveCartForUser(user.Id);
-                if (Cart == null || Cart.CartItems.Count == 0) // order of OR statement matters here
-                {
-                    return RedirectToAction("Index", "Products");
-                }
 
-                Total = _cart.GetCartTotal(user.Id);
+                Orders = await _order.GetAllOrdersForUser(user.Id);
 
                 return Page();
             }
             else
             {
-                return RedirectToPage("/Account/Login");
+                return RedirectToAction("GetAllProducts", "Products");
             }
         }
     }

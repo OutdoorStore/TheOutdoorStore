@@ -33,6 +33,38 @@ namespace Ecommerce_App.Models.Services
         }
 
         /// <summary>
+        /// Gets a single order from the database, by order Id,
+        /// and includes all of the cart items and products in the order.
+        /// </summary>
+        /// <param name="orderId">The id of the specific order to get</param>
+        /// <returns>The specific order, including all of the cart items and products</returns>
+        public async Task<Order> GetSingleOrderById(int orderId)
+        {
+            Order order = await _storeContext.Orders.Where(o => o.Id == orderId)
+                                                    .Include(o => o.CartItems)
+                                                    .ThenInclude(ci => ci.Product)
+                                                    .FirstOrDefaultAsync();
+
+            return order;
+        }
+
+        /// <summary>
+        /// Gets all of the orders from the database, 
+        /// ordered by descending date and including all
+        /// of the cart items and products in each order. 
+        /// </summary>
+        /// <returns>All of the existing orders</returns>
+        public async Task<List<Order>> GetAllOrdersForAdmin()
+        {
+            List<Order> orders = await _storeContext.Orders.OrderByDescending(o => o.Date)
+                                                           .Include(o => o.CartItems)
+                                                           .ThenInclude(ci => ci.Product)
+                                                           .ToListAsync();
+
+            return orders;
+        }
+
+        /// <summary>
         /// Gets the user's most recent order, by filtering the orders table
         /// by userId and then selecting the most recent order
         /// </summary>
@@ -48,6 +80,24 @@ namespace Ecommerce_App.Models.Services
                                                .FirstOrDefaultAsync();
 
             return order;
+        }
+
+        /// <summary>
+        /// Gets all of the orders for a specific user by the user's Id,
+        /// includes all of the cart items and product details. 
+        /// Orders are in descending order. 
+        /// </summary>
+        /// <param name="userId">The signed in user</param>
+        /// <returns>A list of the users orders ordered by date</returns>
+        public async Task<List<Order>> GetAllOrdersForUser(string userId)
+        {
+            List<Order> orders = await _storeContext.Orders.Where(u => u.UserId == userId)
+                                                          .OrderByDescending(o => o.Date)
+                                                          .Include(o => o.CartItems)
+                                                          .ThenInclude(ci => ci.Product)
+                                                          .ToListAsync();
+
+            return orders;
         }
 
         /// <summary>

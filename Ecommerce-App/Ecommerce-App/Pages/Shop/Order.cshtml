@@ -1,11 +1,12 @@
 ﻿@page
-@model Ecommerce_App.Pages.Shop.ReceiptModel
+@model Ecommerce_App.Pages.Shop.OrderModel
 @{
-    ViewData["Title"] = "Receipt";
+    ViewData["Title"] = "Order";
     Layout = "_Layout";
 }
 
-<h1>Your Receipt</h1>
+<h1>Order @Model.Order.Id</h1>
+<h2>@Model.Order.Date</h2>
 
 @*Billing Info from Order*@
 
@@ -67,16 +68,15 @@
         }
         @*Total of totals:*@
     </tbody>
-        <tfoot>
-            <tr>
-                <td></td>
-                <td>Total:</td>
-                <td>$ @Model.Order.Total</td>
-            </tr>
-        </tfoot>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td>Total:</td>
+            <td>$ @Model.Order.Total</td>
+        </tr>
+    </tfoot>
 </table>
 
-
-
+@*Back to my Orders button*@
 
 

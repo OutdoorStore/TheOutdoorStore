@@ -1,0 +1,52 @@
+﻿@page
+@model Ecommerce_App.Pages.Account.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_Layout";
+}
+
+    <div id="accountDetails">
+        <h1>Account Info</h1>
+        <a type="button" class="btn btn-outline-primary" asp-page="/Shop/Orders">View My Orders</a>
+        
+        <form id="updateName" asp-page-handler="Name" method="post">
+            <div>
+                <h2>Name</h2>
+                <button type="submit" class="btn btn-primary">Update Name</button>
+            </div>
+            <div class="inputGroup">
+                <label asp-for="@Model.Customer.FirstName">First Name</label>
+                <input asp-for="@Model.Customer.FirstName" class="form-control" value="@Model.Customer.FirstName" required />
+            </div>
+            <div class="inputGroup">
+                <label asp-for="@Model.Customer.LastName">Last Name</label>
+                <input asp-for="@Model.Customer.LastName" class="form-control" value="@Model.Customer.LastName" required />
+            </div>
+        </form>
+        <form id="updateBilling" asp-page-handler="Billing" method="post">
+            <div>
+                <h2>Billing Info</h2>
+                <button type="submit" class="btn btn-primary">Update Billing</button>
+                <a asp-page-handler="RemoveBilling" class="btn btn-danger">Remove Info</a>
+            </div>
+            <div class="inputGroup">
+                <label asp-for="@Model.Customer.BillingAddress">Address</label>
+                <input asp-for="@Model.Customer.BillingAddress" class="form-control" value="@Model.Customer.BillingAddress" placeholder="Add billing address" required />
+            </div>
+            <div class="inputGroup">
+                <label asp-for="@Model.Customer.BillingCity">City</label>
+                <input asp-for="@Model.Customer.BillingCity" class="form-control" value="@Model.Customer.BillingCity" placeholder="Add billing city" required />
+            </div>
+            <div class="inputGroup">
+                <label asp-for="@Model.Customer.BillingState">State</label>
+                <input asp-for="@Model.Customer.BillingState" class="form-control" value="@Model.Customer.BillingState" placeholder="Add billing state" required />
+            </div>
+            <div class="inputGroup">
+                <label asp-for="@Model.Customer.BillingZip">Zip Code</label>
+                <input asp-for="@Model.Customer.BillingZip" class="form-control" value="@Model.Customer.BillingZip" placeholder="Add billing zip code" required />
+            </div>
+        </form>
+    </div>
+
+
+

@@ -29,11 +29,20 @@ namespace Ecommerce_App.Pages.Account
         [BindProperty]
         public RegisterViewModel Input { get; set; }
 
+        /// <summary>
+        /// Gets the signed in user information
+        /// </summary>
         public void OnGet()
         {
             var user = _userManager.GetUserAsync(User);
         }
         
+        /// <summary>
+        /// Collects the user's registration details and, 
+        /// creates a new user in the db, signs in the user, 
+        /// and sends the new user a welcome email
+        /// </summary>
+        /// <returns>A complete task</returns>
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)

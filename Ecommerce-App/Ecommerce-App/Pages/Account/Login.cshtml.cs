@@ -28,6 +28,11 @@ namespace Ecommerce_App.Pages.Account
 
         }
 
+        /// <summary>
+        /// Checks that the users entered login credentials are valid,
+        /// if so, logs in the user and directs them to the home page
+        /// </summary>
+        /// <returns>A complete task</returns>
         public async Task<IActionResult> OnPost()
         {
             // authenticate

@@ -15,7 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
-
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace Ecommerce_App
 {
@@ -56,7 +57,12 @@ namespace Ecommerce_App
                     .AddDefaultTokenProviders();
 
             // Policies for Authorizaton
-            services.AddAuthorization(options => options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin)));
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole(ApplicationRoles.Admin));
+                // unknown origin of url redirect to /Account/Login
+                options.AddPolicy("User", policy => policy.RequireClaim("FirstName"));
+            }); 
 
             // MAPPING - register the Dependency Injection Services:
             services.AddTransient<IProductsService, ProductsService>();
@@ -66,7 +72,7 @@ namespace Ecommerce_App
             services.AddScoped<ICartItem, CartItemService>();
             services.AddTransient<IPayment, PaymentService>();
             services.AddScoped<IOrder, OrderService>();
-
+            services.AddScoped<IAccount, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

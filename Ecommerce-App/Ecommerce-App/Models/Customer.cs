@@ -10,6 +10,10 @@ namespace Ecommerce_App.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string BillingAddress { get; set; }
+        public string BillingCity { get; set; }
+        public string BillingState { get; set; }
+        public string BillingZip { get; set; }
 
     }
 }

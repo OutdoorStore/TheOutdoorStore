@@ -1,0 +1,29 @@
+﻿@model List<Ecommerce_App.Models.Product>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Products";
+}
+<div id="productSorter">
+    <a href="/Shop/Products/All" class="btn btn-light">All</a>
+    <a href="/Shop/Products/All/Recent" class="btn btn-light">Recent</a>
+    <a href="/Shop/Products/All/A-Z" class="btn btn-light">Sort A-Z</a>
+    <a href="/Shop/Products/All/Z-A" class="btn btn-light">Sort Z-A</a>
+    <a href="/Shop/Products/All/Lowest" class="btn btn-light">Sort Lowest Price</a>
+    <a href="/Shop/Products/All/Highest" class="btn btn-light">Sort Highest Price</a>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-4 card justify-content-center" id="productCard">
+                <a href="/Shop/Products/@product.Id">
+                        <img id="cardImage" src="@product.Image" style="max-height: 250px; margin: 10px auto; display: flex">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <span>$@product.Price</span>
+                        </div>
+                </a>
+            </div>
+        }
+</div>

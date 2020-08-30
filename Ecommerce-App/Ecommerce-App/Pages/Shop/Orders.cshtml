@@ -1,0 +1,32 @@
+﻿@page
+@model Ecommerce_App.Pages.Shop.OrdersModel
+@{
+    ViewData["Title"] = "Orders";
+    Layout = "_Layout";
+}
+
+<h1>My Orders</h1>
+
+@*All the user's orders*@
+
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+        <tr>
+            <td>@order.Date.ToString("D")</td>
+            <td>$@order.Total</td>
+            <td>
+                <a asp-page="/Shop/Order" asp-route-Id="@order.Id">View Details</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

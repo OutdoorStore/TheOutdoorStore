@@ -20,6 +20,7 @@ namespace Ecommerce_App.Pages.Shop
     {
         private SignInManager<Customer> _signInManager;
         private UserManager<Customer> _userManager;
+        private UserDbContext _userDbContext;
         private IPayment _payment;
         private IOrder _order;
         private ICart _cart;
@@ -29,22 +30,36 @@ namespace Ecommerce_App.Pages.Shop
         public Order Input { get; set; }
         public Order Order { get; set; }
 
-        public decimal Total { get; set; }
+        public Customer Customer { get; set; }
+        public string ErrorMessage { get; set; }
 
-        public CheckoutModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, IPayment payment, IOrder order, ICart cart, IEmailSender emailSenderService)
+        public CheckoutModel(SignInManager<Customer> signInManager, UserManager<Customer> userManager, UserDbContext userDbContext, IPayment payment, IOrder order, ICart cart, IEmailSender emailSenderService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _userDbContext = userDbContext;
             _payment = payment;
             _order = order;
             _cart = cart;
             _emailSenderService = emailSenderService;
         }
-        public void OnGet()
+        
+        /// <summary>
+        /// Gets the signed in user information
+        /// </summary>
+        /// <returns>A customer object of the signed in user</returns>
+        public async Task OnGet()
         {
-
+            Customer = await _userManager.GetUserAsync(User);
         }
 
+        /// <summary>
+        /// Gets the users payment details, executes the transaction,
+        /// if successful, saves the order in the db,
+        /// closes the user's active cart, 
+        /// sends the user a purchase receipt email
+        /// </summary>
+        /// <returns>A complete task or error message</returns>
         public async Task<IActionResult> OnPost()
         {
             // (Other checks may be needed here?)
@@ -61,6 +76,7 @@ namespace Ecommerce_App.Pages.Shop
                 Input.UserId = user.Id;
                 Input.CartId = cart.Id;
                 Input.CartItems = cart.CartItems;
+                Input.Total = _cart.GetCartTotal(user.Id);
                 await _order.FinalizeOrder(Input);
 
                 // close cart
@@ -75,7 +91,6 @@ namespace Ecommerce_App.Pages.Shop
                 SB.AppendLine($"<table><thead><tr><th>Product Name</th><th>Quantity</th><th>Total</th></tr></thead><tbody>");
 
                 Order = await _order.GetMostRecentOrder(user.Id);
-                Total = await _order.GetSpecificOrderTotal(Order.Id);
 
                 List<CartItem> cartItems = Order.CartItems.ToList();
                 foreach (var item in cartItems)
@@ -85,7 +100,7 @@ namespace Ecommerce_App.Pages.Shop
                     SB.Append($"<td>{item.Product.Price * item.Quantity}</td></tr>");
                 }
 
-                SB.AppendLine($"</tbody><tfoot><tr><td></td><td>Total:</td><td>${Total}</td></tr></tfoot></table></p>");
+                SB.AppendLine($"</tbody><tfoot><tr><td></td><td>Total:</td><td>${Order.Total}</td></tr></tfoot></table></p>");
 
                 SB.AppendLine("<p>Enjoy and hope to see you again soon!</p>");
 
@@ -96,7 +111,11 @@ namespace Ecommerce_App.Pages.Shop
             }
             else
             {
-                // reload page with error message
+                ErrorMessage = "There was a problem with your payment information. Please try again.";
+                Customer = await _userManager.GetUserAsync(User);
+
+                //return RedirectToPage("/Shop/Checkout");
+                return Page();
             }
 
             return RedirectToPage("/Shop/Receipt");
