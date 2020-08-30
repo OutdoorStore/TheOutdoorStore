@@ -22,6 +22,12 @@ namespace Ecommerce_App.Pages.Shop
             _userManager = userManager;
             _cart = cart;
         }
+
+        /// <summary>
+        /// Gets the signed in user's active cart details,
+        /// and calculates the total price of all the cart items
+        /// </summary>
+        /// <returns>A complete task</returns>
         public async Task<IActionResult> OnGet()
         {
             if (_signInManager.IsSignedIn(User))

@@ -27,11 +27,20 @@ namespace Ecommerce_App.Pages.Account
             _account = account;
         }
         
+        /// <summary>
+        /// Gets the signed in user information
+        /// </summary>
+        /// <returns>A complete task</returns>
         public async Task OnGet()
         {
             Customer = await _userManager.GetUserAsync(User);
         }
 
+        /// <summary>
+        /// Updates the user's first and last name in the db, 
+        /// based on their input
+        /// </summary>
+        /// <returns>A complete task</returns>
         public async Task<IActionResult> OnPostName()
         {
             var userId = _userManager.GetUserId(User);
@@ -39,6 +48,12 @@ namespace Ecommerce_App.Pages.Account
             Customer = await _userManager.GetUserAsync(User);
             return RedirectToPage("/Account/Details");
         }
+
+        /// <summary>
+        /// Updates the user's billing information in the db, 
+        /// based on their input
+        /// </summary>
+        /// <returns>A complete task</returns>
         public async Task OnPostBilling()
         {
             var userId = _userManager.GetUserId(User);
@@ -46,6 +61,11 @@ namespace Ecommerce_App.Pages.Account
             Customer = await _userManager.GetUserAsync(User);
         }
 
+        /// <summary>
+        /// Removes the users existing billing information 
+        /// from the db
+        /// </summary>
+        /// <returns>A complete task</returns>
         public async Task OnGetRemoveBilling()
         {
             var userId = _userManager.GetUserId(User);

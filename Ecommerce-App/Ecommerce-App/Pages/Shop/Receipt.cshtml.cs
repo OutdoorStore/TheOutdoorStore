@@ -24,6 +24,11 @@ namespace Ecommerce_App.Pages.Shop
             _cart = cart;
             _order = order;
         }
+
+        /// <summary>
+        /// Gets the most recent order info for the signed in user. 
+        /// </summary>
+        /// <returns>The signed in user's most recent order details</returns>
         public async Task<IActionResult> OnGet()
         {
             if (_signInManager.IsSignedIn(User))
