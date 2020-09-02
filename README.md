@@ -66,8 +66,8 @@ Then select and open ```Ecommerce-App.sln```
 	* The Navigation Properties are CartItems. 
 	* It has a one to many relationship with the CartItems table. 
 
-#### Athentication
-Users are authenticated by the submission of their email and password located in a form on the Login page.
+#### Authentication
+Users are authenticated by the submission of their email and password located in a form on the Login page. Once logged in their claims can be accessed in their stored cookies for their first and last names. If you are logged as the admin, then there is an additional claim that represents their role as an admin. This is what is used for the authorization.
 
 #### Authorization
 - Anonymous Users: All anonymous users can view the Home, Products, About Us, Login, and Register pages.
@@ -83,6 +83,7 @@ Users are authenticated by the submission of their email and password located in
 ---
 
 ### Change Log
+1.3: *Sprint 3* - 2 September 2020
 1.2: *Sprint 2* - 24 August 2020
 1.1: *Sprint 1* - 16 August 2020
 1.0: *Initial Release, Lab 26* - 8 August 2020
