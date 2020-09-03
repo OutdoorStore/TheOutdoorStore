@@ -37,7 +37,7 @@ Then select and open ```Ecommerce-App.sln```
 
 #### Store DB Schema
 
-![StoreDbERD](/Assets/ERD)
+![StoreDbERD](/Assets/ERD.png)
 
 1 **Carts**
 	* A simple model. 
