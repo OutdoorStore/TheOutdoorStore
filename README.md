@@ -79,6 +79,16 @@ Users are authenticated by the submission of their email and password located in
 		- The admin-only "Dashboard" tab should now be visible in the left section of the Nav bar. 
 
 
+---
+#### Credit
+
+* Homepage Image: 
+	* https://pixabay.com
+
+* Bootstrap snippets: 
+	*  https://mdbootstrap.com
+	*  https://www.bootdey.com
+
 
 ---
 
