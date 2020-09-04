@@ -5,73 +5,129 @@
     Layout = "_Layout";
 }
 
-<h1>Admin Dashboard</h1>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 
-@*Create a New Product*@
-<div>
-    <h2>Create Product</h2>
-    <form asp-page-handler="Create" method="post" enctype="multipart/form-data">
-        <label>SKU</label>
-        <input type="text" asp-for="@Model.Product.Sku" value="" />
-        <label>Name</label>
-        <input type="text" asp-for="@Model.Product.Name" value="" />
-        <label>Price</label>
-        <input type="number" asp-for="@Model.Product.Price" value="" />
-        <label>Description</label>
-        <input type="text" asp-for="@Model.Product.Description" value="" />
-        <label>Image</label>
-        <input asp-for="@Model.Input.File" />
-        <button type="submit">Create</button>
-    </form>
-</div>
-<h2>All Products</h2>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb" id="breadbrumb-nav">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+    </ol>
+</nav>
 
-@foreach (var product in Model.Products)
-{
-    <div>
-        <form asp-page-handler="Update" method="post" enctype="multipart/form-data">
-            <h3>@product.Id</h3>
-            <img src="@product.Image" />
-            <input asp-for="@product.Id" value="@product.Id" required hidden />
-            <input asp-for="@product.Image" value="@product.Image" required />
-            <input asp-for="@product.Name" value="@product.Name" required />
-            <input asp-for="@product.Sku" value="@product.Sku" required />
-            <input asp-for="@product.Price" value="@product.Price" type="number" required />
-            <input asp-for="@product.Description" value="@product.Description" required />
-            <input asp-for="@Model.Input.File" />
-            <button type="submit">Update</button>
-        </form>
-        <form asp-page-handler="Delete" method="post">
-            <input type="number" asp-for="@product.Id" value="@product.Id" hidden required />
-            <button type="submit">Delete</button>
-        </form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Admin Dashboard @*<small>Products & Orders</small>*@</h1>
+        </div>
     </div>
-}
+</div>
 
-<h2>Manage Orders</h2>
+<div class="container my-5">
 
-<table>
-    <thead>
-        <tr>
-            <th>Order Number</th>
-            <th>Date</th>
-            <th>Customer Name</th>
-            <th>Total Cost</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var order in Model.Orders)
-        {
-            <tr>
-                <td>@order.Id</td>
-                <td>@order.Date.ToString("d")</td>
-                <td>@order.FirstName @order.LastName</td>
-                <td>$@order.Total</td>
-                <td>
-                    <a asp-page="/Shop/Order" asp-route-Id="@order.Id">Order Details</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <!-- Section: Block Content -->
+    <section>
+
+        <div class="card">
+            <div class="card-body">
+
+                <h5 class="font-weight-bold mb-4" id="dashboard-table-header">Add A New Product</h5>
+
+                <hr>
+                <div class="row">
+                    <div class="col-12 mb-3 mx-auto">
+                        <form asp-page-handler="Create" method="post" enctype="multipart/form-data">
+                            <label>SKU</label>
+                            <input type="text" asp-for="@Model.Product.Sku" value="" />
+                            <label>Name</label>
+                            <input type="text" asp-for="@Model.Product.Name" value="" />
+                            <label>Price</label>
+                            <input type="number" asp-for="@Model.Product.Price" value="" />
+                            <label>Description</label>
+                            <input type="text" asp-for="@Model.Product.Description" value="" />
+                            <label>Image</label>
+                            <input asp-for="@Model.Input.File" />
+                            <button type="submit">Create</button>
+                        </form>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h5 class="font-weight-bold mb-4" id="dashboard-table-header">Recently Added Products</h5>
+
+                <hr>
+
+                <!--Grid row-->
+                <div class="row">
+
+                    <!--Grid column-->
+
+                    <div class="col-12 mb-3 mx-auto">
+
+                        @foreach (var product in Model.Products)
+                        {
+                            <div class="media">
+                                <form asp-page-handler="Update" method="post" enctype="multipart/form-data">
+
+                                    <div class="form-group">
+                                        <img class="d-flex mr-3" id="product-image-admin" src="@product.Image" alt="product image">
+                                        <input asp-for="@product.Id" value="@product.Id" required hidden />
+                                        <input asp-for="@product.Image" value="@product.Image" required />
+                                        <input asp-for="@product.Name" value="@product.Name" required />
+                                        <input asp-for="@product.Sku" value="@product.Sku" required />
+                                        <input asp-for="@product.Price" value="@product.Price" type="number" required />
+                                        <input asp-for="@product.Description" value="@product.Description" required />
+                                        <input asp-for="@Model.Input.File" />
+                                        <button type="submit">Update</button>
+                                        <form asp-page-handler="Delete" method="post">
+                                            <input type="number" asp-for="@product.Id" value="@product.Id" hidden required />
+                                            <button type="submit">Delete</button>
+                                        </form>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr>
+                        }
+
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+                <h5 class="font-weight-bold mb-4" id="dashboard-table-header">Manage Orders</h5>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="line">
+                            <th class="text-center"><strong>Order Number</strong></th>
+                            <th class="text-center"><strong>Date</strong></th>
+                            <th class="text-center"><strong>Customer Name</strong></th>
+                            <th class="text-center"><strong>Total Cost</strong></thclass="text-center">
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.Orders)
+                        {
+                            <tr>
+                                <td class="text-center">@order.Id</td>
+                                <td class="text-center">@order.Date.ToString("d")</td>
+                                <td class="text-center">@order.FirstName @order.LastName</td>
+                                <td class="text-center">$@order.Total</td>
+                                <td class="text-center">
+                                    <a asp-page="/Shop/Order" asp-route-Id="@order.Id">Order Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </section>
+    <!-- Section: Block Content -->
+
+</div>

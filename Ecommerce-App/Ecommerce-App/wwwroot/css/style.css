@@ -157,7 +157,7 @@
 }
 
 
-/*Invoice*/
+/*Invoice & Order Pages*/
 
 #all body {
     margin-top: 20px;
@@ -212,4 +212,50 @@
 
 #all #back-button {
     margin-right: 5px;
+}
+
+/*Admin Dashboard Pages*/
+
+
+#all .panel-blue {
+    background: #5bc0de;
+}
+
+#all .panel-tw {
+    background: #5bc0de;
+}
+
+#all .panel-fb {
+    background: #3b5998
+}
+
+#all .panel-in {
+    background: #5cb85c;
+}
+
+#all .panel-content .fa {
+    color: #ffffff;
+}
+
+#all .panel-dl {
+    background: #428bca;
+}
+
+#all .panel-content p {
+    font-weight: bold !important;
+    color: #FFFFFF;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#all body {
+    padding-top: 30px;
+    background: #eee;
+}
+
+#all #product-image-admin {
+    width: 100px;
+}
+
+#all #dashboard-table-header {
+    font-family: 'Quicksand', sans-serif;
 }
