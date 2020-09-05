@@ -15,46 +15,59 @@
 </nav>
 
 
-<div class="container">
+@*<div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h1>Admin Dashboard @*<small>Products & Orders</small>*@</h1>
+            <h1>Admin Dashboard</h1>
         </div>
     </div>
-</div>
+</div>*@
 
 <div class="container my-5">
+
 
     <!-- Section: Block Content -->
     <section>
 
         <div class="card">
             <div class="card-body">
+                @*<div class="invoice-title" id="admin-title">
+                    <br>*@
+                    <div class="row" id="admin-title">
+                        <div class="col-xs-12">
+                            <h2>
+                                Admin Dashboard<br>
+                            </h2>
+                        </div>
+                    </div>
+                @*</div>*@
 
-                <h5 class="font-weight-bold mb-4" id="dashboard-table-header">Add A New Product</h5>
+                <h5 class="dashboard-table-header">Add A New Product</h5>
 
                 <hr>
-                <div class="row">
+                <div class="form-row">
                     <div class="col-12 mb-3 mx-auto">
                         <form asp-page-handler="Create" method="post" enctype="multipart/form-data">
-                            <label>SKU</label>
-                            <input type="text" asp-for="@Model.Product.Sku" value="" />
                             <label>Name</label>
-                            <input type="text" asp-for="@Model.Product.Name" value="" />
+                            <input type="text" class="form-control" asp-for="@Model.Product.Name" value="" />
+                            <label>SKU</label>
+                            <input type="text" class="form-control" asp-for="@Model.Product.Sku" value="" />
                             <label>Price</label>
-                            <input type="number" asp-for="@Model.Product.Price" value="" />
+                            <input type="number" class="form-control" asp-for="@Model.Product.Price" value="" />
                             <label>Description</label>
-                            <input type="text" asp-for="@Model.Product.Description" value="" />
-                            <label>Image</label>
-                            <input asp-for="@Model.Input.File" />
-                            <button type="submit">Create</button>
+                            <input type="text" class="form-control" asp-for="@Model.Product.Description" value="" />
+                            <label>Upload Image</label>
+                            <input class="form-control-file" asp-for="@Model.Input.File" />
+
+                            <div class="row justify-content-end" id="back-button">
+                                <button type="submit" class="btn btn-outline-primary">Create</button>
+                            </div>
+
                         </form>
                     </div>
                 </div>
 
-                <hr>
-
-                <h5 class="font-weight-bold mb-4" id="dashboard-table-header">Recently Added Products</h5>
+                <h5 class="dashboard-table-header">Edit Products</h5>
 
                 <hr>
 
@@ -67,26 +80,41 @@
 
                         @foreach (var product in Model.Products)
                         {
-                            <div class="media">
-                                <form asp-page-handler="Update" method="post" enctype="multipart/form-data">
-
-                                    <div class="form-group">
-                                        <img class="d-flex mr-3" id="product-image-admin" src="@product.Image" alt="product image">
-                                        <input asp-for="@product.Id" value="@product.Id" required hidden />
-                                        <input asp-for="@product.Image" value="@product.Image" required />
-                                        <input asp-for="@product.Name" value="@product.Name" required />
-                                        <input asp-for="@product.Sku" value="@product.Sku" required />
-                                        <input asp-for="@product.Price" value="@product.Price" type="number" required />
-                                        <input asp-for="@product.Description" value="@product.Description" required />
-                                        <input asp-for="@Model.Input.File" />
-                                        <button type="submit">Update</button>
-                                        <form asp-page-handler="Delete" method="post">
-                                            <input type="number" asp-for="@product.Id" value="@product.Id" hidden required />
-                                            <button type="submit">Delete</button>
-                                        </form>
-                                    </div>
-                                </form>
+                        <div class="row mr-3">
+                            <div class="col d-flex justify-content-center">
+                                <img class="mr-3" id="product-image-admin" src="@product.Image" alt="product image">
                             </div>
+                            <div class="col-6">
+                                <div class="media">
+                                    <form asp-page-handler="Update" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <input class="form-control" asp-for="@product.Id" value="@product.Id" required hidden />
+                                            <label class="mt-2">Name</label>
+                                            <input class="form-control" asp-for="@product.Name" value="@product.Name" required />
+                                            <label class="mt-2">SKU</label>
+                                            <input class="form-control" asp-for="@product.Sku" value="@product.Sku" required />
+                                            <label class="mt-2">Price</label>
+                                            <input class="form-control" asp-for="@product.Price" value="@product.Price" type="number" required />
+                                            <label class="mt-2">Description</label>
+                                            <input class="form-control" asp-for="@product.Description" value="@product.Description" required />
+                                            <label class="mt-2">Image URL</label>
+                                            <input class="form-control" asp-for="@product.Image" value="@product.Image" required />
+                                            <label class="mt-2">Upload Image</label>
+                                            <input class="form-control-file mt-2" asp-for="@Model.Input.File" />
+                                            <div class="row justify-content-end " id="update-buttons">
+                                                <button type="submit" class="btn btn-outline-primary mr-3">Update</button>
+                                                <form asp-page-handler="Delete" method="post">
+                                                    <input type="number" asp-for="@product.Id" value="@product.Id" hidden required />
+                                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                            
                             <hr>
                         }
 
@@ -96,7 +124,7 @@
                 </div>
                 <!--Grid row-->
 
-                <h5 class="font-weight-bold mb-4" id="dashboard-table-header">Manage Orders</h5>
+                <h5 class="dashboard-table-header mr-3">Manage Orders</h5>
 
                 <table class="table table-striped">
                     <thead>
@@ -104,7 +132,7 @@
                             <th class="text-center"><strong>Order Number</strong></th>
                             <th class="text-center"><strong>Date</strong></th>
                             <th class="text-center"><strong>Customer Name</strong></th>
-                            <th class="text-center"><strong>Total Cost</strong></thclass="text-center">
+                            <th class="text-center"><strong>Total Cost</strong></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -123,11 +151,8 @@
                         }
                     </tbody>
                 </table>
-
             </div>
         </div>
-
     </section>
     <!-- Section: Block Content -->
-
 </div>

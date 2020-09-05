@@ -242,9 +242,7 @@
 }
 
 #all .panel-content p {
-    font-weight: bold !important;
     color: #FFFFFF;
-    font-family: 'Quicksand', sans-serif;
 }
 
 #all body {
@@ -253,9 +251,17 @@
 }
 
 #all #product-image-admin {
-    width: 100px;
+    width: 300px;
 }
 
-#all #dashboard-table-header {
-    font-family: 'Quicksand', sans-serif;
+#all #admin-title {
+    padding: 16px;
+}
+
+#all #update-buttons {
+    margin-top: 10%;
+}
+
+#all .mt-2 {
+    margin-top: .5rem;
 }
