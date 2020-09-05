@@ -37,7 +37,7 @@ Then select and open ```Ecommerce-App.sln```
 
 #### Store DB Schema
 
-![StoreDbERD](/Assets/ERD)
+![StoreDbERD](/Assets/ERD.png)
 
 1 **Carts**
 	* A simple model. 
@@ -78,6 +78,16 @@ Users are authenticated by the submission of their email and password located in
 		- Enter the test Admin permission: email: admin@gmail.com, PW: @Admin123!
 		- The admin-only "Dashboard" tab should now be visible in the left section of the Nav bar. 
 
+
+---
+#### Credit
+
+* Homepage Image: 
+	* https://pixabay.com
+
+* Bootstrap snippets: 
+	*  https://mdbootstrap.com
+	*  https://www.bootdey.com
 
 
 ---
