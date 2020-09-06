@@ -5,26 +5,75 @@
     Layout = "_Layout";
 }
 
-<h1>Your Cart</h1>
-@foreach (var item in Model.Cart.CartItems)
-{
-    <img src="@item.Product.Image" alt="Image displaying @item.Product.Name" />
-    <h2>@item.Product.Name</h2>
-    <p>Price: $@item.Product.Price</p>
-    <p>Cost: $@(item.Quantity*item.Product.Price)</p>
-    <form asp-controller="Products" asp-action="UpdateItemInCart" method="post">
-        <label for="quantity">Quantity</label>
-        <input type="hidden" name="productId" value="@item.Product.Id" />
-        <input type="hidden" name="cartId" value="@Model.Cart.Id" />
-        <input id="quantity" name="quantity" value="@item.Quantity" type="number" step="1" pattern="\d+" min="1"/>
-        <button type="submit" class="btn btn-warning">Change</button>
-    </form>
-    <form asp-controller="Products" asp-action="RemoveItemFromCart" method="post">
-        <input type="hidden" name="productId" value="@item.Product.Id" />
-        <input type="hidden" name="cartId" value="@Model.Cart.Id" />
-        <button type="submit" class="btn btn-danger">Remove</button>
-    </form>
 
-}
-<h2>Total Cost: $@Model.Total</h2>
-<a asp-page="/Shop/Checkout" class="btn btn-primary">Proceed to Checkout</a>
+
+<div class="container my-5">
+    <section id="cart-page-section">
+        <div class="card">
+            <div class="card-body">
+                <div class="row" id="admin-title">
+                    <div class="col-xs-12">
+                        <h2>
+                            Your Cart<br>
+                        </h2>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 mb-3 mx-auto">
+                        @foreach (var item in Model.Cart.CartItems)
+                        {
+                            @*<img src="@item.Product.Image" alt="Image displaying @item.Product.Name" />*@
+                            @*<h2>@item.Product.Name</h2>*@
+                            @*<p>Price: $@item.Product.Price</p>*@
+                            @*<p>Cost: $@(item.Quantity*item.Product.Price)</p>*@
+                            @*<form asp-controller="Products" asp-action="UpdateItemInCart" method="post">*@
+                            @*<label for="quantity">Quantity</label>*@
+                            @*<input type="hidden" name="productId" value="@item.Product.Id" />*@
+                            @*<input type="hidden" name="cartId" value="@Model.Cart.Id" />*@
+                            @*<input id="quantity" name="quantity" value="@item.Quantity" type="number" step="1" pattern="\d+" min="1" />*@
+                            @*<button type="submit" class="btn btn-warning">Change</button>*@
+                            @*</form>*@
+                            @*<a class="btn btn-danger" asp-controller="Products" asp-action="RemoveItemFromCart" asp-route-productId="@item.Product.Id" asp-route-cartId="@Model.Cart.Id">Remove</a>*@
+
+
+                            <div class="row mr-3">
+                                <div class="col d-flex justify-content-center">
+                                    <img class="cart-image" src="@item.Product.Image" alt="Image displaying @item.Product.Name" />
+                                </div>
+                                <div class="col-6">
+                                    <div class="media">
+                                        <form asp-controller="Products" asp-action="UpdateItemInCart" method="post">
+                                            <h3 class="mt-2">@item.Product.Name</h3>
+                                            <p class="mt-2">Price: $@item.Product.Price</p>
+                                            <p class="mt-2">Cost: $@(item.Quantity*item.Product.Price)</p>
+                                            <div class="form-group">
+                                                <input name="productId" value="@item.Product.Id" hidden />
+                                                <input name="cartId" value="@Model.Cart.Id" hidden />
+                                                <label class="mt-2" for="quantity">Quantity</label>
+                                                <input id="quantity" name="quantity" value="@item.Quantity" type="number" step="1" pattern="\d+" min="1" />
+
+                                                <div class="row pl-3" id="update-buttons">
+                                                    <button type="submit" class="btn btn-outline-warning mr-3">Change</button>
+                                                    <a class="btn btn-outline-danger" asp-controller="Products" asp-action="RemoveItemFromCart" asp-route-productId="@item.Product.Id" asp-route-cartId="@Model.Cart.Id">Remove</a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        }
+                    <div>
+                        <h2 id="total-title">Total Cost: $@Model.Total</h2>
+                    </div>
+                    <div>
+                        <a id="total-button" asp-page="/Shop/Checkout" class="btn btn-outline-primary">Proceed to Checkout</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

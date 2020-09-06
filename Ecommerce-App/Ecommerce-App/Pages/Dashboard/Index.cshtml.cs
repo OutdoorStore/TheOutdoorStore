@@ -127,12 +127,11 @@ namespace Ecommerce_App.Pages.Dashboard
             return RedirectToPage("/Dashboard/Index");
         }
 
-        public async Task<IActionResult> OnPostDelete()
+        public async Task<IActionResult> OnGetDelete(int productId)
         {
-            await _productService.DeleteProduct(Product.Id);
+            await _productService.DeleteProduct(productId);
             return RedirectToPage("/Dashboard/Index");
         }
-
         // refactor, view model not needed on a razor page.
         public class ImageViewModel
         {
