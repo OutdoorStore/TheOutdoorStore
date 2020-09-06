@@ -5,78 +5,124 @@
     Layout = "_Layout";
 }
 
-<h1>Order @Model.Order.Id</h1>
-<h2>@Model.Order.Date</h2>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb" id="breadbrumb-nav">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/Account/Details">My Account</a></li>
+        <li class="breadcrumb-item"><a href="/Shop/Orders">My Orders</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Order Details</li>
+    </ol>
+</nav>
 
-@*Billing Info from Order*@
-
-<div id="BillingDetails">
-    <table class="table">
-        <tbody>
-            <tr>
-                <td>First Name:</td>
-                <td>@Model.Order.FirstName</td>
-            </tr>
-            <tr>
-                <td>Last Name:</td>
-                <td>@Model.Order.LastName</td>
-            </tr>
-            <tr>
-                <td>Shipping Address:</td>
-                <td>@Model.Order.BillingAddress</td>
-            </tr>
-            <tr>
-                <td>City:</td>
-                <td>@Model.Order.BillingCity</td>
-            </tr>
-            <tr>
-                <td>State:</td>
-                <td>@Model.Order.BillingState</td>
-            </tr>
-            <tr>
-                <td>Zip Code:</td>
-                <td>@Model.Order.BillingZip</td>
-            </tr>
-            <tr>
-                <td>Payment:</td>
-                <td>@Model.Order.PaymentMethod</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <div class="row">
+        <!-- BEGIN ORDER -->
+        <div class="col-xs-12">
+            <div class="grid invoice">
+                <div class="grid-body">
+                    <div class="invoice-title">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <img src="/images/companyLogo.png" alt="" height="35">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2>
+                                    Order Details<br>
+                                    <span class="small">order # @Model.Order.Id</span>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <address>
+                                <strong>Billed To:</strong><br>
+                                @Model.Order.FirstName @Model.Order.LastName<br>
+                                @Model.Order.BillingAddress<br>
+                                @Model.Order.BillingCity, @Model.Order.BillingState @Model.Order.BillingZip<br>
+                                @*<abbr title="Phone">P:</abbr> (123) 456-7890*@
+                            </address>
+                        </div>
+                        @*<div class="col-xs-6 text-right">
+                            <address>
+                                <strong>Shipped To:</strong><br>
+                                Elaine Hernandez<br>
+                                P. Sherman 42,<br>
+                                Wallaby Way, Sidney<br>
+                                <abbr title="Phone">P:</abbr> (123) 345-6789
+                            </address>
+                        </div>*@
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <address>
+                                <strong>Payment Method:</strong><br>
+                                @Model.Order.PaymentMethod<br>
+                                @*email@gmail.com<br>*@
+                            </address>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <address>
+                                <strong>Order Date:</strong><br>
+                                @Model.Order.Date.ToString("d")
+                            </address>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>ORDER SUMMARY</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="line">
+                                        <td><strong>#</strong></td>
+                                        <td class="text-center"><strong>PRODUCT</strong></td>
+                                        <td class="text-center"><strong>QUANTITY</strong></td>
+                                        <td class="text-center"><strong>PRICE</strong></td>
+                                        <td class="text-right"><strong>SUBTOTAL</strong></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var cartItem in Model.Order.CartItems)
+                                    {
+                                        <tr>
+                                            @*TODO: add the cart item number*@
+                                            <td>*</td>
+                                            <td><strong>@cartItem.Product.Name</strong><br>@cartItem.Product.Description</td>
+                                            <td class="text-center">@cartItem.Quantity</td>
+                                            <td class="text-center">$@cartItem.Product.Price</td>
+                                            <td class="text-right">$@(cartItem.Product.Price * cartItem.Quantity)</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="text-right"><strong>Taxes</strong></td>
+                                        <td class="text-right"><strong>N/A</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                        </td>
+                                        <td class="text-right"><strong>Total</strong></td>
+                                        <td class="text-right"><strong>$@Model.Order.Total</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end" id="back-button">
+                        <div class="col-xs-12">
+                            <a type="button" class="btn btn-outline-primary" asp-page="/Shop/Orders">Back to Orders</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END ORDER -->
+    </div>
 </div>
-
-
-
-@*Cart Items in table*@
-
-<table>
-    <thead>
-        <tr>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var cartItem in Model.Order.CartItems)
-        {
-            <tr>
-                <td>@cartItem.Product.Name</td>
-                <td>@cartItem.Quantity</td>
-                <td>$@(cartItem.Product.Price * cartItem.Quantity)</td>
-            </tr>
-        }
-        @*Total of totals:*@
-    </tbody>
-    <tfoot>
-        <tr>
-            <td></td>
-            <td>Total:</td>
-            <td>$ @Model.Order.Total</td>
-        </tr>
-    </tfoot>
-</table>
-
-@*Back to my Orders button*@
-
 

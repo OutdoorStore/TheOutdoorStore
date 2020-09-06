@@ -45,13 +45,22 @@
     margin: 10px 0px;
 }
 
-#all #productSorter a {
-    display: inline-block;
-    margin-left: 10px;
+    #all #productSorter a {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+
+/*Login Page*/
+
+#all #login-main {
+   height: 75vh;
 }
 
+
+
 /*Index Page*/
-#all #heroImageContainer {
+    #all #heroImageContainer {
     max-width: 100%;
     position: relative;
 }
@@ -154,4 +163,137 @@
 
 #all #price {
     font-size: 20px;
+}
+
+
+/*Invoice & Order Pages*/
+
+#all body {
+    margin-top: 20px;
+    background: #eee;
+}
+
+#all .invoice {
+    padding: 30px;
+}
+
+    #all .invoice h2 {
+        margin-top: 0px;
+        line-height: 0.8em;
+    }
+
+    #all .invoice .small {
+        font-weight: 300;
+    }
+
+    #all .invoice hr {
+        margin-top: 10px;
+        border-color: #ddd;
+    }
+
+    #all .invoice .table tr.line {
+        border-bottom: 1px solid #ccc;
+    }
+
+    #all .invoice .table td {
+        border: none;
+    }
+
+    #all .invoice .identity {
+        margin-top: 10px;
+        font-size: 1.1em;
+        font-weight: 300;
+    }
+
+        #all .invoice .identity strong {
+            font-weight: 600;
+        }
+
+#all .grid {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    color: #666666;
+    border-radius: 2px;
+    margin-bottom: 25px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+#all #back-button {
+    margin-right: 5px;
+}
+
+/*Admin Dashboard Pages*/
+
+
+#all .panel-blue {
+    background: #5bc0de;
+}
+
+#all .panel-tw {
+    background: #5bc0de;
+}
+
+#all .panel-fb {
+    background: #3b5998
+}
+
+#all .panel-in {
+    background: #5cb85c;
+}
+
+#all .panel-content .fa {
+    color: #ffffff;
+}
+
+#all .panel-dl {
+    background: #428bca;
+}
+
+#all .panel-content p {
+    color: #FFFFFF;
+}
+
+#all body {
+    padding-top: 30px;
+    background: #eee;
+}
+
+#all #product-image-admin {
+    width: 300px;
+}
+
+#all #admin-title {
+    padding: 16px;
+}
+
+#all #update-buttons {
+    margin-top: 10%;
+}
+
+#all .mt-2 {
+    margin-top: .5rem;
+}
+
+/*Cart Page*/
+
+#all #total-title {
+    text-align: center;
+}
+
+#all #total-button {
+    display: block;
+    text-align: center;
+}
+
+#all .cart-image {
+    max-width: 300px;
+}
+
+#all #cart-page-section h2, h3 {
+    font-family: 'Comfortaa', cursive;
+}
+
+#all #cart-page-section p, label {
+        font-family: 'Quicksand', sans-serif;
 }

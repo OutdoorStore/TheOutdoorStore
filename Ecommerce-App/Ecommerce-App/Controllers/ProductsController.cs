@@ -94,7 +94,6 @@ namespace Ecommerce_App.Controllers
             }
         }
 
-
         public async Task<ActionResult> RemoveItemFromCart(int cartId, int productId)
         {
             await _cartItem.Delete(cartId, productId);
