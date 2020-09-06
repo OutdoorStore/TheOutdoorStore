@@ -50,8 +50,17 @@
         margin-left: 10px;
     }
 
+
+/*Login Page*/
+
+#all #login-main {
+   height: 75vh;
+}
+
+
+
 /*Index Page*/
-#all #heroImageContainer {
+    #all #heroImageContainer {
     max-width: 100%;
     position: relative;
 }
