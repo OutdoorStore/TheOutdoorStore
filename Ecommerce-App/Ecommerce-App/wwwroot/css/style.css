@@ -45,10 +45,10 @@
     margin: 10px 0px;
 }
 
-#all #productSorter a {
-    display: inline-block;
-    margin-left: 10px;
-}
+    #all #productSorter a {
+        display: inline-block;
+        margin-left: 10px;
+    }
 
 /*Index Page*/
 #all #heroImageContainer {
@@ -168,37 +168,37 @@
     padding: 30px;
 }
 
-#all .invoice h2 {
-    margin-top: 0px;
-    line-height: 0.8em;
-}
+    #all .invoice h2 {
+        margin-top: 0px;
+        line-height: 0.8em;
+    }
 
-#all .invoice .small {
-    font-weight: 300;
-}
+    #all .invoice .small {
+        font-weight: 300;
+    }
 
-#all .invoice hr {
-    margin-top: 10px;
-    border-color: #ddd;
-}
+    #all .invoice hr {
+        margin-top: 10px;
+        border-color: #ddd;
+    }
 
-#all .invoice .table tr.line {
-    border-bottom: 1px solid #ccc;
-}
+    #all .invoice .table tr.line {
+        border-bottom: 1px solid #ccc;
+    }
 
-#all .invoice .table td {
-    border: none;
-}
+    #all .invoice .table td {
+        border: none;
+    }
 
-#all .invoice .identity {
-    margin-top: 10px;
-    font-size: 1.1em;
-    font-weight: 300;
-}
+    #all .invoice .identity {
+        margin-top: 10px;
+        font-size: 1.1em;
+        font-weight: 300;
+    }
 
-#all .invoice .identity strong {
-    font-weight: 600;
-}
+        #all .invoice .identity strong {
+            font-weight: 600;
+        }
 
 #all .grid {
     position: relative;
@@ -264,4 +264,27 @@
 
 #all .mt-2 {
     margin-top: .5rem;
+}
+
+/*Cart Page*/
+
+#all #total-title {
+    text-align: center;
+}
+
+#all #total-button {
+    display: block;
+    text-align: center;
+}
+
+#all .cart-image {
+    max-width: 300px;
+}
+
+#all #cart-page-section h2, h3 {
+    font-family: 'Comfortaa', cursive;
+}
+
+#all #cart-page-section p, label {
+        font-family: 'Quicksand', sans-serif;
 }

@@ -101,7 +101,7 @@
                                             <input class="form-control" asp-for="@product.Image" value="@product.Image" required />
                                             <label class="mt-2">Upload Image</label>
                                             <input class="form-control-file mt-2" asp-for="@Model.Input.File" />
-                                            <div class="row justify-content-end " id="update-buttons">
+                                            <div class="row pl-3" id="update-buttons">
                                                 <button type="submit" class="btn btn-outline-primary mr-3">Update</button>
                                                 <a class="btn btn-outline-danger" asp-page-handler="Delete" asp-route-productId="@product.Id">Delete</a>
                                             </div>
