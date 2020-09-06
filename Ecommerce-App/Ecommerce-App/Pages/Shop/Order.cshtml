@@ -1,18 +1,41 @@
 ﻿@page
 @model Ecommerce_App.Pages.Shop.OrderModel
+
+@using Microsoft.AspNetCore.Identity;
+@using Ecommerce_App.Models;
+@inject SignInManager<Customer> SignInManager;
+@inject UserManager<Customer> UserManager;
+
+
 @{
     ViewData["Title"] = "Order";
     Layout = "_Layout";
 }
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb" id="breadbrumb-nav">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="/Account/Details">My Account</a></li>
-        <li class="breadcrumb-item"><a href="/Shop/Orders">My Orders</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Order Details</li>
-    </ol>
-</nav>
+
+@if (User.IsInRole(ApplicationRoles.Admin))
+{
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" id="breadbrumb-nav">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Dashboard/Index">Admin Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Order Details</li>
+        </ol>
+    </nav>
+}
+else
+{
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" id="breadbrumb-nav">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/Account/Details">My Account</a></li>
+            <li class="breadcrumb-item"><a href="/Shop/Orders">My Orders</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Order Details</li>
+        </ol>
+    </nav>
+}
+
+
 
 <div class="container">
     <div class="row">
@@ -48,14 +71,14 @@
                             </address>
                         </div>
                         @*<div class="col-xs-6 text-right">
-                            <address>
-                                <strong>Shipped To:</strong><br>
-                                Elaine Hernandez<br>
-                                P. Sherman 42,<br>
-                                Wallaby Way, Sidney<br>
-                                <abbr title="Phone">P:</abbr> (123) 345-6789
-                            </address>
-                        </div>*@
+                                <address>
+                                    <strong>Shipped To:</strong><br>
+                                    Elaine Hernandez<br>
+                                    P. Sherman 42,<br>
+                                    Wallaby Way, Sidney<br>
+                                    <abbr title="Phone">P:</abbr> (123) 345-6789
+                                </address>
+                            </div>*@
                     </div>
                     <div class="row">
                         <div class="col-xs-6">
@@ -116,7 +139,14 @@
                     </div>
                     <div class="row justify-content-end" id="back-button">
                         <div class="col-xs-12">
-                            <a type="button" class="btn btn-outline-primary" asp-page="/Shop/Orders">Back to Orders</a>
+                            @if (User.IsInRole(ApplicationRoles.Admin))
+                            {
+                                <a type="button" class="btn btn-outline-primary" asp-page="/Dashboard/Index">Back to Dashboard</a>
+                            }
+                            else
+                            {
+                                <a type="button" class="btn btn-outline-primary" asp-page="/Shop/Orders">Back to Orders</a>
+                            }
                         </div>
                     </div>
                 </div>
