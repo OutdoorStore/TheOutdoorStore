@@ -58,9 +58,17 @@
 }
 
 
+/*Orders Page*/
+
+#all #orders-main-div {
+    min-height: 75vh;
+}
+
+
+
 
 /*Index Page*/
-    #all #heroImageContainer {
+#all #heroImageContainer {
     max-width: 100%;
     position: relative;
 }
