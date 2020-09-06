@@ -19,11 +19,7 @@
         <input id="quantity" name="quantity" value="@item.Quantity" type="number" step="1" pattern="\d+" min="1"/>
         <button type="submit" class="btn btn-warning">Change</button>
     </form>
-    <form asp-controller="Products" asp-action="RemoveItemFromCart" method="post">
-        <input type="hidden" name="productId" value="@item.Product.Id" />
-        <input type="hidden" name="cartId" value="@Model.Cart.Id" />
-        <button type="submit" class="btn btn-danger">Remove</button>
-    </form>
+    <a class="btn btn-danger" asp-controller="Products" asp-action="RemoveItemFromCart" asp-route-productId="@item.Product.Id" asp-route-cartId="@Model.Cart.Id">Remove</a>
 
 }
 <h2>Total Cost: $@Model.Total</h2>
