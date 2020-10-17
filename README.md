@@ -5,7 +5,6 @@
 ----
 
 ## The Outdoor Store
-Link: https://theoutdoorstore.azurewebsites.net/
 
 ## Description
 This program is an e-commerce mock website built out over several weeks, adding new features each day. The process of making it will serve as a learning opportunity to understand the ins and outs of an online product retail service.
